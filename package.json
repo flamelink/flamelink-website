@@ -1,0 +1,102 @@
+{
+  "name": "flamelink-website",
+  "description": "Official website for flamelink.io",
+  "version": "3.0.0",
+  "author": "JP Erasmus <jp@flamelink.io>",
+  "keywords": [
+    "flamelink",
+    "firebase",
+    "gatsby",
+    "emotion",
+    "tailwind",
+    "tailwindcss",
+    "purgecss"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "type-check": "tsc",
+    "lint": "eslint --ext tsx 'src/**/*.tsx' --ignore-path .eslintignore . --cache",
+    "start": "yarn develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
+    "deploy": "firebase deploy --only hosting"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@emotion/core": "10.0.22",
+    "@emotion/styled": "10.0.23",
+    "gatsby": "2.17.11",
+    "gatsby-plugin-emotion": "4.1.14",
+    "gatsby-plugin-manifest": "2.2.27",
+    "gatsby-plugin-offline": "3.0.19",
+    "gatsby-plugin-postcss": "2.1.14",
+    "gatsby-plugin-purgecss": "4.0.1",
+    "gatsby-plugin-react-helmet": "3.1.14",
+    "gatsby-plugin-robots-txt": "1.5.0",
+    "gatsby-plugin-sitemap": "2.2.20",
+    "gatsby-plugin-typescript": "2.1.16",
+    "gatsby-source-filesystem": "2.1.36",
+    "gatsby-source-flamelink": "2.0.0",
+    "graphql": "14.5.8",
+    "postcss-import": "12.0.1",
+    "prop-types": "15.7.2",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
+    "react-helmet": "5.2.1",
+    "reakit": "1.0.0-beta.11"
+  },
+  "devDependencies": {
+    "@babel/core": "7.7.2",
+    "@firebase/app-types": "0.4.7",
+    "@firebase/util": "0.2.32",
+    "@types/jest": "24.0.22",
+    "@types/node": "12.12.7",
+    "@types/react": "16.9.11",
+    "@types/react-dom": "16.9.4",
+    "@types/react-helmet": "5.0.14",
+    "@typescript-eslint/eslint-plugin": "2.7.0",
+    "@typescript-eslint/parser": "2.7.0",
+    "babel-eslint": "10.0.3",
+    "babel-preset-gatsby": "0.2.21",
+    "eslint": "6.6.0",
+    "eslint-config-react-app": "5.0.2",
+    "eslint-plugin-flowtype": "4.3.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.16.0",
+    "eslint-plugin-react-hooks": "2.2.0",
+    "firebase-tools": "7.7.0",
+    "husky": "3.0.9",
+    "lint-staged": "9.4.2",
+    "postcss-preset-env": "6.7.0",
+    "prettier": "1.19.1",
+    "tailwind.macro": "1.0.0-alpha.10",
+    "tailwindcss": "1.1.3",
+    "typescript": "3.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jperasmus/flamelink-website"
+  },
+  "bugs": {
+    "url": "https://github.com/jperasmus/flamelink-website/issues"
+  }
+}
