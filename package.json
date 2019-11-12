@@ -15,10 +15,10 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "dev": "gatsby develop",
     "type-check": "tsc",
     "lint": "eslint --ext tsx 'src/**/*.tsx' --ignore-path .eslintignore . --cache",
-    "start": "yarn develop",
+    "start": "yarn dev",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
     "deploy": "firebase deploy --only hosting"
@@ -43,6 +43,7 @@
   "dependencies": {
     "@emotion/core": "10.0.22",
     "@emotion/styled": "10.0.23",
+    "emotion-theming": "^10.0.19",
     "gatsby": "2.17.11",
     "gatsby-plugin-emotion": "4.1.14",
     "gatsby-plugin-manifest": "2.2.27",

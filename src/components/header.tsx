@@ -1,11 +1,23 @@
 import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
-// import styled from 'styled-components';
-// import tw from 'tailwind.macro';
+import { Button } from 'reakit/Button'
+import styled from '@emotion/styled'
+import tw from 'tailwind.macro'
 
-// const Wrapper = styled.div`
-//   ${tw`flex items-center justify-center flex-col h-screen`}
-// `;
+const MainHeader = tw.header`
+  bg-gray-900
+`
+
+const MenuButton = styled(Button)`
+  ${tw`block md:hidden border border-white flex items-center px-3 py-2 rounded text-white cursor-pointer`}
+`
+
+const HomeLink = styled(Link)`
+  ${tw`flex items-center no-underline text-white`}
+`
+const NavLink = styled(Link)`
+  ${tw`block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-white`}
+`
 
 function Header() {
   const [isExpanded, toggleExpansion] = React.useState(false)
@@ -21,9 +33,9 @@ function Header() {
   `)
 
   return (
-    <header className="bg-teal-700">
+    <MainHeader>
       <div className="flex flex-wrap items-center justify-between max-w-4xl mx-auto p-4 md:p-8">
-        <Link className="flex items-center no-underline text-white" to="/">
+        <HomeLink to="/">
           <svg
             className="fill-current h-8 mr-2 w-8"
             height="54"
@@ -36,12 +48,9 @@ function Header() {
           <span className="font-bold text-xl tracking-tight">
             {site.siteMetadata.title}
           </span>
-        </Link>
+        </HomeLink>
 
-        <button
-          className="block md:hidden border border-white flex items-center px-3 py-2 rounded text-white"
-          onClick={() => toggleExpansion(!isExpanded)}
-        >
+        <MenuButton onClick={() => toggleExpansion(!isExpanded)}>
           <svg
             className="fill-current h-3 w-3"
             viewBox="0 0 20 20"
@@ -50,7 +59,7 @@ function Header() {
             <title>Menu</title>
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
-        </button>
+        </MenuButton>
 
         <nav
           className={`${
@@ -71,17 +80,13 @@ function Header() {
               title: 'Contact'
             }
           ].map(link => (
-            <Link
-              className="block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-white"
-              key={link.title}
-              to={link.route}
-            >
+            <NavLink key={link.title} to={link.route}>
               {link.title}
-            </Link>
+            </NavLink>
           ))}
         </nav>
       </div>
-    </header>
+    </MainHeader>
   )
 }
 

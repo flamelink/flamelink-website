@@ -28,6 +28,7 @@ const SEO: React.FC<Props> = ({
         siteMetadata {
           title
           description
+          tagline
           socialLinks {
             facebook
             twitter
@@ -96,7 +97,7 @@ const SEO: React.FC<Props> = ({
         )
         .concat(meta)}
       title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      titleTemplate={`%s | ${site.siteMetadata.title} - ${site.siteMetadata.tagline}`}
     />
   )
 }

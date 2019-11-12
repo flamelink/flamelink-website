@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: 'Flamelink | A Firebase CMS',
+    title: 'Flamelink',
+    tagline: 'A Firebase CMS',
     description:
       'Flamelink.io is an easy to use, content centric CMS that integrates with Google\'s Firebase to build Mobile and Web Apps, Digital Campaigns, and Websites.',
     socialLinks: {
