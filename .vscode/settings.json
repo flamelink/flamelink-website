@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "antialiased",
     "backend",
     "cacheable",
     "creatable",
@@ -10,6 +11,7 @@
     "precaching",
     "pubsub",
     "reakit",
+    "roboto",
     "rtdb",
     "transpile",
     "transpiled",

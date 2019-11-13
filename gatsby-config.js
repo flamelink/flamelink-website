@@ -15,7 +15,8 @@ module.exports = {
       twitter: '@FlamelinkCMS',
       youtube: '',
       github: 'flamelink'
-    }
+    },
+    siteUrl: 'https://flamelink.io'
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -38,6 +39,14 @@ module.exports = {
     //     globals: true
     //   }
     // },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Roboto:300,500&display=swap']
+        }
+      }
+    },
     {
       resolve: 'gatsby-plugin-sitemap',
       options: {
