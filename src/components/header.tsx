@@ -3,9 +3,11 @@ import { graphql, useStaticQuery, Link } from 'gatsby'
 import { Button } from 'reakit/Button'
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
+import ExternalLink from './external-link'
+import { FLAMELINK_APP_URL } from '../constants'
 
 const MainHeader = tw.header`
-  bg-gray-900
+  bg-brand-primary sticky top-0 w-screen
 `
 
 const MenuButton = styled(Button)`
@@ -17,6 +19,10 @@ const HomeLink = styled(Link)`
 `
 const NavLink = styled(Link)`
   ${tw`block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-white`}
+`
+
+const GetStarted = styled(ExternalLink)`
+  ${tw`text-brand-primary bg-white py-3 px-4 mt-4 md:mt-0 md:ml-6 text-base font-medium uppercase`}
 `
 
 function Header() {
@@ -34,7 +40,7 @@ function Header() {
 
   return (
     <MainHeader>
-      <div className="flex flex-wrap items-center justify-between max-w-4xl mx-auto p-4 md:p-8">
+      <div className="flex flex-wrap items-center justify-between max-w-6xl mx-auto p-4 md:p-8">
         <HomeLink to="/">
           <svg
             className="fill-current h-8 mr-2 w-8"
@@ -68,22 +74,23 @@ function Header() {
         >
           {[
             {
-              route: '/',
-              title: 'Home'
+              route: '/features',
+              title: 'Features'
             },
             {
-              route: '/about',
-              title: 'About'
+              route: '/pricing',
+              title: 'Pricing'
             },
             {
-              route: '/contact',
-              title: 'Contact'
+              route: '/case-studies',
+              title: 'Case Studies'
             }
           ].map(link => (
             <NavLink key={link.title} to={link.route}>
               {link.title}
             </NavLink>
           ))}
+          <GetStarted href={FLAMELINK_APP_URL}>Get Started</GetStarted>
         </nav>
       </div>
     </MainHeader>

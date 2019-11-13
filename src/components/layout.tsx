@@ -15,13 +15,9 @@ const Layout: React.FC = ({ children }) => {
   return (
     <ThemeProvider theme={twConfig.theme}>
       <Provider>
-        <div className="flex flex-col font-sans min-h-screen text-gray-900">
+        <div className="flex flex-col antialiased font-sans text-base text-primary font-light min-h-screen">
           <Header />
-
-          <main className="flex flex-col flex-1 md:justify-center max-w-4xl mx-auto px-4 py-8 md:p-8 w-full">
-            {children}
-          </main>
-
+          {children}
           <Footer />
         </div>
       </Provider>
