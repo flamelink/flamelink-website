@@ -7,7 +7,7 @@ import ExternalLink from './external-link'
 import { FLAMELINK_APP_URL } from '../constants'
 
 const MainHeader = tw.header`
-  bg-brand-primary sticky top-0 w-screen
+  bg-brand-primary relative top-0 w-screen
 `
 
 const MenuButton = styled(Button)`
@@ -84,6 +84,10 @@ function Header() {
             {
               route: '/case-studies',
               title: 'Case Studies'
+            },
+            {
+              route: '/documentation',
+              title: 'Documentation'
             }
           ].map(link => (
             <NavLink key={link.title} to={link.route}>

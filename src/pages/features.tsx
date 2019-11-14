@@ -1,36 +1,29 @@
 import React from 'react'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import PageContainer from '../components/page-container'
 import PageHeader from '../components/page-header'
-import dogIllustration from '../images/dog-illustration.svg'
+import { Section, SectionContainer, SectionTitle } from '../components/section'
 
 function FeaturesPage() {
   return (
     <Layout>
       <SEO keywords={['flamelink', 'features']} title="Features" />
       <PageHeader title="Features" />
-      <PageContainer>
-        <section className="flex flex-col md:flex-row items-center">
-          <div className="md:w-2/3 md:mr-8">
-            <blockquote className="border-l-4 border-gray-900 font-serif leading-loose pl-4 text-justify">
-              The point is... to live one's life in the full complexity of what
-              one is, which is something much darker, more contradictory, more
-              of a maelstrom of impulses and passions, of cruelty, ecstacy, and
-              madness, than is apparent to the civilized being who glides on the
-              surface and fits smoothly into the world.
-            </blockquote>
-
-            <cite className="font-bold mt-4 text-right text-xs uppercase block">
-              – Thomas Nagel
-            </cite>
-          </div>
-
-          <figure className="w-2/3 md:w-1/3">
-            <img alt="A dog relaxing" src={dogIllustration} />
-          </figure>
-        </section>
-      </PageContainer>
+      <Section className="bg-white">
+        <SectionContainer>
+          <SectionTitle>Harness the Power of Flamelink!</SectionTitle>
+        </SectionContainer>
+      </Section>
+      <Section className="bg-gray-100">
+        <SectionContainer>
+          <SectionTitle>More Features</SectionTitle>
+        </SectionContainer>
+      </Section>
+      <Section className="bg-white">
+        <SectionContainer>
+          <SectionTitle>Coming Up</SectionTitle>
+        </SectionContainer>
+      </Section>
     </Layout>
   )
 }
