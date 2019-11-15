@@ -1,13 +1,15 @@
 import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
+import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 import { Button } from 'reakit/Button'
 import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
 import ExternalLink from './external-link'
 import { FLAMELINK_APP_URL } from '../constants'
 
 const MainHeader = tw.header`
-  bg-brand-primary relative top-0 w-screen
+  bg-brand-primary top-0 w-screen
 `
 
 const MenuButton = styled(Button)`
@@ -27,6 +29,7 @@ const GetStarted = styled(ExternalLink)`
 
 function Header() {
   const [isExpanded, toggleExpansion] = React.useState(false)
+  const [showNav, setShowNav] = React.useState(true)
 
   const { site } = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -38,8 +41,25 @@ function Header() {
     }
   `)
 
+  useScrollPosition(
+    ({ prevPos, currPos }) => {
+      const isScrollingUp = currPos.y > prevPos.y
+      if (isScrollingUp !== showNav) {
+        setShowNav(isScrollingUp)
+      }
+    },
+    [showNav],
+    undefined,
+    false,
+    200
+  )
+
   return (
-    <MainHeader>
+    <MainHeader
+      css={css`
+        ${showNav ? tw`sticky` : tw`relative`}
+      `}
+    >
       <div className="flex flex-wrap items-center justify-between max-w-6xl mx-auto p-4 md:p-8">
         <HomeLink to="/">
           <svg
