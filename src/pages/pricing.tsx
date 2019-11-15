@@ -36,7 +36,7 @@ function PricingPage() {
           <SectionTitle>All Packages Include These Features</SectionTitle>
         </SectionContainer>
       </Section>
-      <Section className="bg-brand-primary text-white">
+      <Section className="bg-primary text-white">
         <SectionContainer>
           Please Note Storage, API Requests & SLA are determined by your
           Firebase plan. Remember, You need a Firebase* project to hook

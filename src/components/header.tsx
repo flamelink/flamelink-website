@@ -1,18 +1,19 @@
 import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
-import { Button } from 'reakit/Button'
+import { Button as ReakitButton } from 'reakit/Button'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
+import Button from './button'
 import ExternalLink from './external-link'
 import { FLAMELINK_APP_URL } from '../constants'
 
 const MainHeader = tw.header`
-  bg-brand-primary top-0 w-screen
+  bg-primary top-0 w-screen
 `
 
-const MenuButton = styled(Button)`
+const MenuButton = styled(ReakitButton)`
   ${tw`block md:hidden border border-white flex items-center px-3 py-2 rounded text-white cursor-pointer`}
 `
 
@@ -20,11 +21,7 @@ const HomeLink = styled(Link)`
   ${tw`flex items-center no-underline text-white`}
 `
 const NavLink = styled(Link)`
-  ${tw`block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-white`}
-`
-
-const GetStarted = styled(ExternalLink)`
-  ${tw`text-brand-primary bg-white py-3 px-4 mt-4 md:mt-0 md:ml-6 text-base font-medium uppercase`}
+  ${tw`block md:inline-block mt-4 md:mt-0 md:mr-6 no-underline text-white`}
 `
 
 function Header() {
@@ -114,7 +111,14 @@ function Header() {
               {link.title}
             </NavLink>
           ))}
-          <GetStarted href={FLAMELINK_APP_URL}>Get Started</GetStarted>
+          <Button
+            variant="contained"
+            color="secondary"
+            as={ExternalLink}
+            href={FLAMELINK_APP_URL}
+          >
+            Get Started
+          </Button>
         </nav>
       </div>
     </MainHeader>

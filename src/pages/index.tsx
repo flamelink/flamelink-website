@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button } from 'reakit/Button'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import PageHeader from '../components/page-header'
 import PageContainer from '../components/page-container'
 import { Section, SectionContainer, SectionTitle } from '../components/section'
+import Button from '../components/button'
 
 function HomePage() {
   return (
@@ -17,11 +17,20 @@ function HomePage() {
       <PageHeader>
         <PageContainer>
           <h1 className="text-white font-light text-5xl uppercase">
-            <span>A CMS for</span>
-            <span className="text-6xl">Firebase</span>
+            <span>What is</span>
+            <span className="text-6xl">Flamelink</span>
           </h1>
-          <Button className="border-white border-2 text-white py-6 px-8">
-            Learn More
+          <p className="text-white">
+            <em>Content is (still) King.</em> Flamelink is the only content
+            interface that seamlessly integrates with Google's Firebase to offer
+            you a fast, secure, scalable enterprise-ready solution for the
+            future of content at your fingertips.
+          </p>
+          <Button variant="contained" color="secondary">
+            Get Started
+          </Button>
+          <Button variant="outlined" color="secondary">
+            Demo Video
           </Button>
         </PageContainer>
       </PageHeader>
@@ -33,11 +42,18 @@ function HomePage() {
       <Section className="bg-gray-100">
         <SectionContainer>
           <SectionTitle>Where Can I Use Flamelink?</SectionTitle>
+          <p>
+            Refined content infrastructure for effortless content management in
+            your next Firebase project. Whatever that might be.
+          </p>
         </SectionContainer>
       </Section>
       <Section className="bg-white">
         <SectionContainer>
           <SectionTitle>Built With Flamelink?</SectionTitle>
+          <Button variant="contained" color="primary">
+            Get Started
+          </Button>
         </SectionContainer>
       </Section>
     </Layout>

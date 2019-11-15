@@ -9,7 +9,7 @@ const ExternalLink = styled(Link)`
 
 function Footer() {
   return (
-    <footer className="bg-brand-secondary">
+    <footer className="bg-gray-800">
       <nav className="flex justify-between max-w-6xl mx-auto p-4 md:p-8 text-sm">
         <p className="text-white">
           Created by{' '}
