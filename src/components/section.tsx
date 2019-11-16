@@ -6,7 +6,11 @@ export const Section = tw.section`
 `
 
 export const SectionContainer = tw.div`
-  max-w-6xl
+flex
+flex-col
+justify-start
+items-center
+max-w-6xl
 `
 
 export const SectionTitle = styled.h2`
