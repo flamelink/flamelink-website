@@ -26,7 +26,7 @@ const NavLink = styled(Link)`
 
 function Header() {
   const [isExpanded, toggleExpansion] = React.useState(false)
-  const [showNav, setShowNav] = React.useState(true)
+  const [stickyNav, setStickyNav] = React.useState(false)
 
   const { site } = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -40,12 +40,21 @@ function Header() {
 
   useScrollPosition(
     ({ prevPos, currPos }) => {
-      const isScrollingUp = currPos.y > prevPos.y
-      if (isScrollingUp !== showNav) {
-        setShowNav(isScrollingUp)
+      const isAtTop = currPos.y === 0
+
+      if (isAtTop) {
+        if (stickyNav) {
+          setStickyNav(false)
+        }
+      } else {
+        const isScrollingUp = currPos.y > prevPos.y
+
+        if (isScrollingUp !== stickyNav) {
+          setStickyNav(isScrollingUp)
+        }
       }
     },
-    [showNav],
+    [stickyNav],
     undefined,
     false,
     200
@@ -54,7 +63,7 @@ function Header() {
   return (
     <MainHeader
       css={css`
-        ${showNav ? tw`sticky` : tw`relative`}
+        ${stickyNav ? tw`sticky` : tw`relative`}
       `}
     >
       <div className="flex flex-wrap items-center justify-between max-w-6xl mx-auto p-4 md:p-8">

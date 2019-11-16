@@ -6,6 +6,8 @@ module.exports = {
     extend: {
       colors: {
         primary: '#ff5722',
+        'primary-light': '#f9c2b1',
+        'primary-dark': '#e25225',
         gray: {
           ...colors.gray,
           '100': '#f5f5f5',
@@ -32,7 +34,8 @@ module.exports = {
         '5xl': '2.5rem'
       },
       textColor: {
-        primary: '#646464'
+        primary: '#646464',
+        brand: '#ff5722'
       },
       padding: {
         '25': '6.25rem'
