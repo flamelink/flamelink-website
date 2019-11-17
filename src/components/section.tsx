@@ -11,6 +11,7 @@ flex-col
 justify-start
 items-center
 max-w-6xl
+mx-4
 `
 
 export const SectionTitle = styled.h2`
