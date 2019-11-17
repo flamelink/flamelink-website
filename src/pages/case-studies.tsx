@@ -4,7 +4,7 @@ import SEO from '../components/seo'
 import PageContainer from '../components/page-container'
 import PageHeader from '../components/page-header'
 
-function PricingPage() {
+function CaseStudiesPage() {
   return (
     <Layout>
       <SEO keywords={['flamelink', 'case studies']} title="Case Studies" />
@@ -18,4 +18,4 @@ function PricingPage() {
   )
 }
 
-export default PricingPage
+export default CaseStudiesPage

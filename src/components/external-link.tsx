@@ -1,4 +1,5 @@
 import React from 'react'
+import { OutboundLink } from 'gatsby-plugin-google-analytics'
 
 type Props = {
   href: string
@@ -9,7 +10,7 @@ type Props = {
 const ExternalLink = React.forwardRef<HTMLAnchorElement, Props>(
   ({ href, children, className }, ref) => {
     return (
-      <a
+      <OutboundLink
         ref={ref}
         rel="noopener noreferrer"
         target="_blank"
@@ -17,7 +18,7 @@ const ExternalLink = React.forwardRef<HTMLAnchorElement, Props>(
         className={className}
       >
         {children}
-      </a>
+      </OutboundLink>
     )
   }
 )

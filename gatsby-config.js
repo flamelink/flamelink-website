@@ -1,3 +1,18 @@
+const isDev = process.env.NODE_ENV !== 'production'
+
+if (isDev) {
+  require('dotenv').config()
+}
+
+const SITE_URL = process.env.SITE_URL || 'https://flamelink-staging.web.app'
+const FLAMELINK_ENVIRONMENT = process.env.FLAMELINK_ENV || 'staging'
+
+const parseNewLines = function(key) {
+  return typeof key === 'string' ? key.replace(/\\n/g, '\n') : key
+}
+
+const privateKey = parseNewLines(process.env.FIREBASE_CONFIG_PK)
+
 module.exports = {
   siteMetadata: {
     title: 'Flamelink',
@@ -16,29 +31,59 @@ module.exports = {
       youtube: '',
       github: 'flamelink'
     },
-    siteUrl: 'https://flamelink.io'
+    siteUrl: SITE_URL
   },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-typescript',
     'gatsby-plugin-emotion',
-    // TODO: Add Flamelink source plugin configuration
-    // {
-    //   resolve: 'gatsby-source-flamelink',
-    //   options: {
-    //     firebaseConfig: {
-    //       pathToServiceAccount: 'path/to/serviceAccountKey.json',
-    //       databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
-    //       storageBucket: '<PROJECT_ID>.appspot.com'
-    //     },
-    //     dbType: 'cf',
-    //     environment: 'production',
-    //     content: true,
-    //     populate: true,
-    //     navigation: true,
-    //     globals: true
-    //   }
-    // },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: 'UA-102176977-1',
+        head: true,
+        respectDNT: true,
+        pageTransitionDelay: 0,
+        sampleRate: 100,
+        siteSpeedSampleRate: 10,
+        forceSSL: true
+      }
+    },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        // CommonMark mode (default: true)
+        commonmark: true,
+        // Footnotes mode (default: true)
+        footnotes: true,
+        // Pedantic mode (default: true)
+        pedantic: true,
+        // GitHub Flavored Markdown mode (default: true)
+        gfm: true,
+        // Plugins configs
+        plugins: []
+      }
+    },
+    {
+      resolve: 'gatsby-source-flamelink',
+      options: {
+        firebaseConfig: {
+          projectId: 'flamelink-website',
+          privateKey,
+          clientEmail:
+            'firebase-adminsdk-w2zzo@flamelink-website.iam.gserviceaccount.com',
+          databaseURL: 'https://flamelink-website.firebaseio.com',
+          storageBucket: 'flamelink-website.appspot.com'
+        },
+        dbType: 'cf',
+        environment: FLAMELINK_ENVIRONMENT,
+        locales: ['en-US'],
+        content: true,
+        populate: true,
+        navigation: false,
+        globals: false
+      }
+    },
     {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
