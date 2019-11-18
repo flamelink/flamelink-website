@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { Provider } from 'reakit'
 import { ThemeProvider } from 'emotion-theming'
 import resolveConfig from 'tailwindcss/resolveConfig'
-import Header from './header'
-import Footer from './footer'
+import Header from './Header'
+import Footer from './Footer'
 
 // @ts-ignore
 import tailwindConfig from '../../tailwind.config'

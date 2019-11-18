@@ -80,8 +80,8 @@ module.exports = {
         locales: ['en-US'],
         content: true,
         populate: true,
-        navigation: false,
-        globals: false
+        navigation: [{ navigationKey: 'headerMenu', structure: 'nested' }],
+        globals: true
       }
     },
     {

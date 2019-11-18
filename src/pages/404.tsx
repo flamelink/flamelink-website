@@ -1,6 +1,6 @@
 import React from 'react'
-import Layout from '../components/layout'
-import SEO from '../components/seo'
+import Layout from '../components/Layout'
+import SEO from '../components/SEO'
 import abductionIllustration from '../images/abduction-illustration.svg'
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
@@ -13,14 +13,14 @@ function NotFoundPage() {
   return (
     <Layout>
       <SEO title="404: Not found" />
-      <div>
+      <main>
         <img
           alt="Ghost getting abducted by aliens"
           className="block mx-auto w-1/2"
           src={abductionIllustration}
         />
         <AlienTitle>What you're looking for is not there...</AlienTitle>
-      </div>
+      </main>
     </Layout>
   )
 }

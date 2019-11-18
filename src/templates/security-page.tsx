@@ -1,10 +1,10 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../components/layout'
-import SEO from '../components/seo'
-import PageHeader from '../components/page-header'
-import { PageContent } from '../components/page-content'
-import { Section, SectionContainer } from '../components/section'
+import Layout from '../components/Layout'
+import SEO from '../components/SEO'
+import PageHeader from '../components/PageHeader'
+import { PageContent } from '../components/PageContent'
+import { Section, SectionContainer } from '../components/Section'
 
 type Props = {
   data: any // FIXME: don't use any

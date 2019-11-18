@@ -15,6 +15,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       text-transform: uppercase;
       transition: all 250ms ease-in-out;
       padding: 0.8125rem 1.5rem;
+      line-height: 1;
     `
 
     let btnStyles
@@ -23,11 +24,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       case 'text': {
         if (color === 'primary') {
           btnStyles = p => css`
-            color: ${p.theme.colors.primary};
+            color: ${p.theme.colors.brand};
 
             :hover {
-              background-color: ${p.theme.colors['primary-light']};
-              color: ${p.theme.colors['primary-dark']};
+              background-color: ${p.theme.colors['brand-light']};
+              color: ${p.theme.colors['brand-dark']};
             }
           `
         }
@@ -36,8 +37,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             color: ${p.theme.colors.white};
 
             :hover {
-              background-color: ${p.theme.colors['primary-light']};
-              color: ${p.theme.colors['primary-dark']};
+              background-color: ${p.theme.colors['brand-light']};
+              color: ${p.theme.colors['brand-dark']};
             }
           `
         }
@@ -48,13 +49,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         if (color === 'primary') {
           btnStyles = p => css`
             border-width: 2px;
-            border-color: ${p.theme.colors.primary};
-            background-color: ${p.theme.colors.primary};
+            border-color: ${p.theme.colors.brand};
+            background-color: ${p.theme.colors.brand};
             color: ${p.theme.colors.white};
 
             :hover {
-              border-color: ${p.theme.colors['primary-dark']};
-              background-color: ${p.theme.colors['primary-dark']};
+              border-color: ${p.theme.colors['brand-dark']};
+              background-color: ${p.theme.colors['brand-dark']};
               color: ${p.theme.colors.white};
             }
           `
@@ -64,11 +65,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             border-width: 2px;
             border-color: ${p.theme.colors.white};
             background-color: ${p.theme.colors.white};
-            color: ${p.theme.colors.primary};
+            color: ${p.theme.colors.brand};
 
             :hover {
-              border-color: ${p.theme.colors['primary-dark']};
-              background-color: ${p.theme.colors['primary-dark']};
+              border-color: ${p.theme.colors['brand-dark']};
+              background-color: ${p.theme.colors['brand-dark']};
               color: ${p.theme.colors.white};
             }
           `
@@ -80,12 +81,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         if (color === 'primary') {
           btnStyles = p => css`
             border-width: 2px;
-            border-color: ${p.theme.colors.primary};
-            color: ${p.theme.colors.primary};
+            border-color: ${p.theme.colors.brand};
+            color: ${p.theme.colors.brand};
 
             :hover {
-              border-color: ${p.theme.colors['primary-dark']};
-              color: ${p.theme.colors['primary-dark']};
+              border-color: ${p.theme.colors['brand-dark']};
+              color: ${p.theme.colors['brand-dark']};
             }
           `
         }
@@ -96,8 +97,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             color: ${p.theme.colors.white};
 
             :hover {
-              border-color: ${p.theme.colors['primary-dark']};
-              background-color: ${p.theme.colors['primary-dark']};
+              border-color: ${p.theme.colors['brand-dark']};
+              background-color: ${p.theme.colors['brand-dark']};
               color: ${p.theme.colors.white};
             }
           `

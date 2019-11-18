@@ -5,9 +5,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#ff5722',
-        'primary-light': '#f9c2b1',
-        'primary-dark': '#e25225',
+        brand: '#ff5722',
+        'brand-light': '#f9c2b1',
+        'brand-dark': '#e25225',
         gray: {
           ...colors.gray,
           '100': '#f5f5f5',
@@ -35,7 +35,9 @@ module.exports = {
       },
       textColor: {
         primary: '#646464',
-        brand: '#ff5722'
+        brand: '#ff5722',
+        'brand-light': '#f9c2b1',
+        'brand-dark': '#e25225'
       },
       padding: {
         '25': '6.25rem'
