@@ -6,7 +6,7 @@ type Props = {
 
 const PageHeader: React.FC<Props> = ({ title, children }) => {
   return (
-    <header className="bg-primary w-screen py-20">
+    <section className="bg-brand w-screen py-20">
       {title ? (
         <h1 className="text-white font-light text-5xl uppercase text-center">
           {title}
@@ -14,7 +14,7 @@ const PageHeader: React.FC<Props> = ({ title, children }) => {
       ) : (
         children
       )}
-    </header>
+    </section>
   )
 }
 
