@@ -36,6 +36,10 @@ jobs:
 
       - name: Build static files
         run: yarn build
+        env:
+          FLAMELINK_ENV: staging
+          SITE_URL: https://flamelink-website-jan-2020.web.app
+          FIREBASE_CONFIG_PK: ${{ secrets.FIREBASE_CONFIG_PK }}
 
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
