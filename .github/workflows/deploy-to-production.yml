@@ -63,7 +63,7 @@ jobs:
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting:flamelink-website-jan-2020
+          args: deploy --only hosting:jan-2020
         env:
           PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
