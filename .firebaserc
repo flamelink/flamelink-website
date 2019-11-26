@@ -1,5 +1,20 @@
 {
   "projects": {
     "default": "flamelink-website"
+  },
+  "targets": {
+    "flamelink-website": {
+      "hosting": {
+        "staging": [
+          "flamelink-staging"
+        ],
+        "production": [
+          "flamelink-website"
+        ],
+        "jan-2020": [
+          "flamelink-website-jan-2020"
+        ]
+      }
+    }
   }
 }
