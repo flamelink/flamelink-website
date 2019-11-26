@@ -101,7 +101,17 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
-        policy: [{ userAgent: '*', allow: '/', disallow: '' }]
+        resolveEnv: () => FLAMELINK_ENVIRONMENT,
+        env: {
+          staging: {
+            policy: [{ userAgent: '*', disallow: ['/'] }],
+            sitemap: null,
+            host: null
+          },
+          production: {
+            policy: [{ userAgent: '*', allow: '/' }]
+          }
+        }
       }
     },
     {
