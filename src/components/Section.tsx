@@ -6,16 +6,16 @@ export const Section = tw.section`
 `
 
 export const SectionContainer = tw.div`
-flex
-flex-col
-justify-start
-items-center
-max-w-6xl
-mx-4
+  flex
+  flex-col
+  justify-start
+  items-center
+  max-w-6xl
+  mx-4
 `
 
 export const SectionTitle = styled.h2`
-  ${tw`text-center text-5xl`}
+  ${tw`text-center text-heading text-5xl`}
 
   margin-bottom: 3.125rem;
 `

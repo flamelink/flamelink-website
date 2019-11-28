@@ -1,8 +1,10 @@
 import React from 'react'
 import { Group } from 'reakit/Group'
+import { css } from '@emotion/core'
+import tw from 'tailwind.macro'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
-import PageHeader from '../components/PageHeader'
+import PageBanner from '../components/PageBanner'
 import PageContainer from '../components/PageContainer'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import Button from '../components/Button'
@@ -11,73 +13,95 @@ function HomePage() {
   return (
     <Layout>
       <SEO
-        keywords={['gatsby', 'tailwind', 'react', 'tailwindcss']}
+        keywords={[
+          'flamelink',
+          'cms',
+          'firebase',
+          'realtime',
+          'database',
+          'firestore',
+          'google cloud platform',
+          'content management',
+          'headless'
+        ]}
         title="Home"
       />
       <main>
-        <PageHeader>
+        <PageBanner>
           <PageContainer>
-            <h1 className="flex flex-col justify-start items-start text-white font-light leading-none text-5xl uppercase mb-8">
-              <span>What is</span>
-              <span className="text-6xl">Flamelink</span>
+            <h1 className="flex flex-col justify-start items-start text-white font-normal leading-none text-5xl mb-8">
+              <span>Your workflow</span>
+              <span className="text-6xl uppercase">made easy!</span>
             </h1>
             <p className="text-white mb-8 max-w-md">
-              <em className="font-medium italic">Content is (still) King.</em>{' '}
-              Flamelink is the only content interface that seamlessly integrates
-              with Google's Firebase to offer you a fast, secure, scalable
-              enterprise-ready solution for the future of content at your
-              fingertips.
+              Flamelink plugs straight into Firebase, putting you in charge of
+              your content and saving you time.
             </p>
             <Group>
-              <Button
-                variant="contained"
-                color="secondary"
-                className="mr-6 xs:mb-4 md:mb-0"
-              >
-                Get Started
-              </Button>
               <Button variant="outlined" color="secondary">
                 Demo Video
               </Button>
             </Group>
           </PageContainer>
-        </PageHeader>
+        </PageBanner>
         <Section className="bg-white">
           <SectionContainer>
-            <SectionTitle>How Does Flamelink Work?</SectionTitle>
+            <SectionTitle>
+              Built for Firebase and the Google Cloud Platform
+            </SectionTitle>
+            <p>
+              Firebase and the Google Cloud Platform are great for developers,
+              but don't offer a great experience for non-developers managing
+              content. With Flamelink, we've given the Firebase & GCP community
+              a tool that's easy to set up and integrate, giving content editors
+              and clients the ability to manage content from day one.
+            </p>
+            <p>
+              All the power of Firebase and GCP. None of the content headaches.
+            </p>
           </SectionContainer>
         </Section>
         <Section className="bg-gray-100">
           <SectionContainer>
-            <SectionTitle>Where Can I Use Flamelink?</SectionTitle>
-            <p>
-              Refined content infrastructure for effortless content management
-              in your next Firebase project. Whatever that might be.
-            </p>
-          </SectionContainer>
-        </Section>
-        <Section className="bg-white">
-          <SectionContainer>
-            <SectionTitle>Built With Flamelink</SectionTitle>
+            <SectionTitle>
+              The easy-to-use, Intuitive, Content Interface for Firebase.
+            </SectionTitle>
             <Button variant="contained" color="primary">
               Get Started
             </Button>
           </SectionContainer>
         </Section>
-        <Section className="bg-gray-100">
+        <Section className="bg-white">
           <SectionContainer>
-            <SectionTitle>Key Features</SectionTitle>
-            <Button variant="contained" color="primary">
-              More On Features
-            </Button>
+            <SectionTitle>How Does Flamelink Work?</SectionTitle>
           </SectionContainer>
         </Section>
         <Section className="bg-green-400">
           <SectionContainer>
-            <SectionTitle className="text-white">
+            <SectionTitle
+              css={css`
+                ${tw`text-white`}
+              `}
+            >
               Featured Case Studies
             </SectionTitle>
           </SectionContainer>
+        </Section>
+        <Section className="bg-white">
+          <SectionContainer>
+            <SectionTitle>Key Features</SectionTitle>
+            <Button variant="contained" color="primary">
+              Learn More
+            </Button>
+          </SectionContainer>
+        </Section>
+        <Section className="bg-gray-100">
+          <SectionContainer>
+            <SectionTitle>What our clients say</SectionTitle>
+          </SectionContainer>
+        </Section>
+        <Section className="bg-white">
+          <SectionContainer>...affiliates here...</SectionContainer>
         </Section>
         <Section className="bg-gray-100">
           <SectionContainer>

@@ -3,7 +3,7 @@ import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
-import PageHeader from '../components/PageHeader'
+import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import ExternalLink from '../components/ExternalLink'
 
@@ -12,7 +12,7 @@ function PricingPage() {
     <Layout>
       <SEO keywords={['flamelink', 'pricing']} title="Pricing" />
       <main>
-        <PageHeader title="Pricing" />
+        <PageBanner title="Pricing" />
         <Section className="bg-white">
           <SectionContainer
             as="aside"
@@ -39,7 +39,7 @@ function PricingPage() {
           </SectionContainer>
         </Section>
         <Section className="bg-brand text-white">
-          <SectionContainer className="text-base text-center font-light">
+          <SectionContainer className="text-base text-center font-normal">
             <span className="text-xl font-medium uppercase mb-5">
               Please Note
             </span>
