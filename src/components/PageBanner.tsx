@@ -9,7 +9,7 @@ const PageBanner: React.FC<Props> = ({ title, children }) => {
     <section
       id="pageBanner"
       className="bg-brand w-screen pt-48 pb-20"
-      style={{ marginTop: '-110px' }}
+      style={{ marginTop: '-7rem' }}
     >
       {title ? (
         <h1 className="text-white font-normal text-5xl uppercase text-center">
