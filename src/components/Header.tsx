@@ -12,8 +12,10 @@ import Logo from './Logo'
 import ExternalLink from './ExternalLink'
 import DropDownMenu from './DropDownMenu'
 
-const MainHeader = tw.header`
-  bg-brand top-0 w-screen
+const MainHeader = styled.header`
+  ${tw`top-0 w-screen z-20`}
+
+  transition: background 350ms linear;
 `
 
 const MenuButton = styled(ReakitButton)`
@@ -21,20 +23,20 @@ const MenuButton = styled(ReakitButton)`
 `
 
 const HomeLink = styled(Link)`
-  transition: all 300ms ease-out;
+  transition: all 290ms ease-out;
 
-  ${tw`no-underline text-white hover:text-brand-dark`}
+  ${tw`no-underline text-white`}
 `
 const NavLink = styled.button`
   transition: all 300ms ease-out;
 
-  ${tw`block md:inline-block mt-4 md:mt-0 md:mr-6 no-underline font-light text-white hover:text-brand-dark`}
+  ${tw`block md:inline-block mt-4 md:mt-0 md:mr-6 no-underline font-normal text-white text-lg`}
 `
 
 const NavMenuItem = styled.a`
   transition: all 300ms ease-out;
 
-  ${tw`block py-2 md:mr-6 no-underline font-light text-white hover:text-brand-dark`}
+  ${tw`block py-2 px-2 no-underline font-normal text-body text-base`}
 `
 
 type CmsNavItem = {
@@ -160,7 +162,7 @@ function Header() {
   return (
     <MainHeader
       css={css`
-        ${stickyNav ? tw`sticky` : tw`relative`}
+        ${stickyNav ? tw`sticky bg-brand` : tw`relative`}
       `}
     >
       <div className="flex flex-wrap items-center justify-between max-w-6xl mx-auto p-4 md:p-8">

@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
-import PageHeader from '../components/PageHeader'
+import PageBanner from '../components/PageBanner'
 import { PageContent } from '../components/PageContent'
 import { Section, SectionContainer } from '../components/Section'
 
@@ -16,7 +16,7 @@ const SecurityPage: React.FC<Props> = ({ data }) => {
   return (
     <Layout>
       <SEO keywords={['flamelink', page.title]} title={page.title} />
-      <PageHeader title={page.title} />
+      <PageBanner title={page.title} />
       <Section className="bg-white">
         <SectionContainer>
           <PageContent

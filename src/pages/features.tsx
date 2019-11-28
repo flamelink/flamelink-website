@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
-import PageHeader from '../components/PageHeader'
+import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 
 function FeaturesPage() {
@@ -9,7 +9,7 @@ function FeaturesPage() {
     <Layout>
       <SEO keywords={['flamelink', 'features']} title="Features" />
       <main>
-        <PageHeader title="Features" />
+        <PageBanner title="Features" />
         <Section className="bg-white">
           <SectionContainer>
             <SectionTitle>Harness the Power of Flamelink!</SectionTitle>

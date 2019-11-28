@@ -14,7 +14,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = () => css`
       text-transform: uppercase;
       transition: all 250ms ease-in-out;
-      padding: 0.8125rem 1.5rem;
+      padding: 0.875rem 1.5rem;
       line-height: 1;
     `
 
@@ -28,7 +28,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
             :hover {
               background-color: ${p.theme.colors['brand-light']};
-              color: ${p.theme.colors['brand-dark']};
+              color: ${p.theme.colors.brand};
             }
           `
         }
@@ -38,7 +38,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
             :hover {
               background-color: ${p.theme.colors['brand-light']};
-              color: ${p.theme.colors['brand-dark']};
+              color: ${p.theme.colors.brand};
             }
           `
         }

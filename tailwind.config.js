@@ -11,7 +11,8 @@ module.exports = {
         gray: {
           ...colors.gray,
           '100': '#f5f5f5',
-          '800': '#313233'
+          '600': '#646464',
+          '800': '#323232'
         }
       },
       fontFamily: {
@@ -34,7 +35,8 @@ module.exports = {
         '5xl': '2.5rem'
       },
       textColor: {
-        primary: '#646464',
+        body: '#323232',
+        heading: '#646464',
         brand: '#ff5722',
         'brand-light': '#f9c2b1',
         'brand-dark': '#e25225'

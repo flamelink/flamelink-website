@@ -15,7 +15,7 @@ const Layout: React.FC = ({ children }) => {
   return (
     <ThemeProvider theme={twConfig.theme}>
       <Provider>
-        <div className="flex flex-col antialiased font-sans text-base text-primary font-light min-h-screen">
+        <div className="flex flex-col antialiased font-sans text-base text-body font-normal min-h-screen">
           <Header />
           {children}
           <Footer />
