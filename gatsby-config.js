@@ -1,3 +1,5 @@
+const path = require('path')
+
 const isDev = process.env.NODE_ENV !== 'production'
 
 if (isDev) {
@@ -84,6 +86,15 @@ module.exports = {
         globals: true
       }
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: path.join(__dirname, 'src', 'images')
+      }
+    },
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {

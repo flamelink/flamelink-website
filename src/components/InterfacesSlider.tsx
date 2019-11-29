@@ -1,10 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import slideImage1 from '../images/group-24.png'
-import slideImage2 from '../images/group-24@2x.png'
-import slideImage3 from '../images/group-24@3x.png'
+import Img, { FluidObject } from 'gatsby-image'
 
-const X_OFFSET_PERCENTAGE = '130%'
+const X_OFFSET_PERCENTAGE = '125%'
 const DEPTH = '400px'
 
 const Selector = styled.input`
@@ -14,16 +12,15 @@ const Selector = styled.input`
 const Slide = styled.label`
   margin: auto;
   width: 45%;
-  height: 100%;
-  border-radius: 4px;
+  height: auto;
+  border-radius: 6px;
   position: absolute;
+  overflow: hidden;
   left: 0;
   right: 0;
   cursor: pointer;
   transition: transform 500ms ease;
 
-  picture,
-  source,
   img {
     width: 100%;
     max-width: 100%;
@@ -58,6 +55,7 @@ const Slider = styled.div`
     box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3),
       0 11px 7px 0 rgba(0, 0, 0, 0.19);
     transform: translate3d(0, 0, 0);
+    cursor: default;
   }
 
   /* Position: right */
@@ -69,27 +67,21 @@ const Slider = styled.div`
   }
 `
 
-const slides = [
-  {
-    inputId: 's1',
-    slideId: 'slide1',
-    bgColor: '#00bcd4' // blue
-  },
-  {
-    inputId: 's2',
-    slideId: 'slide2',
-    bgColor: '#cddc39' // green
-  },
-  {
-    inputId: 's3',
-    slideId: 'slide3',
-    bgColor: '#ff5722' // red
-  }
-]
-
 const selectedIndex = 1
 
-const InterfacesSlider = () => {
+export type InterfaceSlide = {
+  inputId: string
+  slideId: string
+  image: FluidObject
+  [key: string]: any
+}
+
+export type InterfacesSliderProps = {
+  slides: InterfaceSlide[]
+}
+
+const InterfacesSlider: React.FC<InterfacesSliderProps> = ({ slides }) => {
+  console.log({ slides })
   return (
     <Slider>
       {/* NB! All input selectors have to be listed before the slide labels for sibling selector to work */}
@@ -102,17 +94,8 @@ const InterfacesSlider = () => {
         />
       ))}
       {slides.map(slide => (
-        <Slide
-          htmlFor={slide.inputId}
-          id={slide.slideId}
-          style={{ backgroundColor: slide.bgColor }}
-        >
-          <picture>
-            <source
-              srcSet={`${slideImage1} 680px, ${slideImage2} 2x, ${slideImage3} 3x`}
-            />
-            <img src={slideImage1} alt="" />
-          </picture>
+        <Slide htmlFor={slide.inputId} id={slide.slideId}>
+          <Img fluid={slide.image} />
         </Slide>
       ))}
     </Slider>
