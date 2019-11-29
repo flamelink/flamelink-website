@@ -15,7 +15,7 @@ export const SectionContainer = tw.div`
 `
 
 export const SectionTitle = styled.h2`
-  ${tw`text-center text-heading text-5xl`}
+  ${tw`text-center text-heading text-3xl sm:text-4xl md:text-5xl`}
 
   margin-bottom: 3.125rem;
 `

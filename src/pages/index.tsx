@@ -1,4 +1,6 @@
 import React from 'react'
+import { graphql } from 'gatsby'
+import get from 'lodash/get'
 import { Group } from 'reakit/Group'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
@@ -8,8 +10,19 @@ import PageBanner from '../components/PageBanner'
 import PageContainer from '../components/PageContainer'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import Button from '../components/Button'
+import ExternalLink from '../components/ExternalLink'
+import InterfacesSlider, {
+  InterfacesSliderProps,
+  InterfaceSlide
+} from '../components/InterfacesSlider'
 
-function HomePage() {
+function HomePage({ data }) {
+  const pageData = get(data, 'allFlamelinkHomePageContent.edges[0].node')
+
+  if (!pageData) {
+    return <h2>Page data failed to load :(</h2>
+  }
+
   return (
     <Layout>
       <SEO
@@ -61,16 +74,38 @@ function HomePage() {
             </p>
           </SectionContainer>
         </Section>
+
+        {/* INTERFACE SECTION */}
         <Section className="bg-gray-100">
           <SectionContainer>
             <SectionTitle>
-              The easy-to-use, Intuitive, Content Interface for Firebase.
+              {get(pageData, 'interfaceSection.title', 'Content Interface')}
             </SectionTitle>
-            <Button variant="contained" color="primary">
-              Get Started
-            </Button>
           </SectionContainer>
+          <InterfacesSlider
+            slides={
+              get(pageData, 'interfaceSection.images', []).map(
+                (image: unknown, idx: number) => ({
+                  inputId: `s${idx + 1}`,
+                  slideId: `slide${idx + 1}`,
+                  image: get(
+                    image,
+                    'localFile.childImageSharp.fluid'
+                  ) as InterfaceSlide
+                })
+              ) as InterfacesSliderProps['slides']
+            }
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            as={ExternalLink}
+            href={get(pageData, 'interfaceSection.cta.url', '#')}
+          >
+            {get(pageData, 'interfaceSection.cta.text', 'Get Started')}
+          </Button>
         </Section>
+
         <Section className="bg-white">
           <SectionContainer>
             <SectionTitle>How Does Flamelink Work?</SectionTitle>
@@ -120,3 +155,70 @@ function HomePage() {
 }
 
 export default HomePage
+
+export const query = graphql`
+  query HomePageQuery {
+    allFlamelinkHomePageContent {
+      edges {
+        node {
+          banner {
+            title1
+            title2
+            excerpt
+            cta {
+              text
+              action
+            }
+            image {
+              localFile {
+                childImageSharp {
+                  fluid {
+                    base64
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                }
+              }
+            }
+          }
+          interfaceSection {
+            title
+            images {
+              localFile {
+                childImageSharp {
+                  fluid {
+                    base64
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                }
+              }
+            }
+            cta {
+              url
+              text
+            }
+          }
+        }
+      }
+    }
+  }
+`
