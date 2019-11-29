@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import take from 'lodash/take'
 import Img, { FluidObject } from 'gatsby-image'
 
 const X_OFFSET_PERCENTAGE = '125%'
@@ -81,11 +82,13 @@ export type InterfacesSliderProps = {
 }
 
 const InterfacesSlider: React.FC<InterfacesSliderProps> = ({ slides }) => {
-  console.log({ slides })
+  // This interface slider only works with 3 slides, so making sure if more is passed that it doesn't break
+  const theSlides = take(slides, 3)
+
   return (
     <Slider>
       {/* NB! All input selectors have to be listed before the slide labels for sibling selector to work */}
-      {slides.map((slide, slideIndex) => (
+      {theSlides.map((slide, slideIndex) => (
         <Selector
           type="radio"
           name="slider"
@@ -93,7 +96,7 @@ const InterfacesSlider: React.FC<InterfacesSliderProps> = ({ slides }) => {
           defaultChecked={slideIndex === selectedIndex}
         />
       ))}
-      {slides.map(slide => (
+      {theSlides.map(slide => (
         <Slide htmlFor={slide.inputId} id={slide.slideId}>
           <Img fluid={slide.image} />
         </Slide>
