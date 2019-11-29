@@ -8,6 +8,7 @@ import PageBanner from '../components/PageBanner'
 import PageContainer from '../components/PageContainer'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import Button from '../components/Button'
+import InterfacesSlider from '../components/InterfacesSlider'
 
 function HomePage() {
   return (
@@ -62,14 +63,13 @@ function HomePage() {
           </SectionContainer>
         </Section>
         <Section className="bg-gray-100">
-          <SectionContainer>
-            <SectionTitle>
-              The easy-to-use, Intuitive, Content Interface for Firebase.
-            </SectionTitle>
-            <Button variant="contained" color="primary">
-              Get Started
-            </Button>
-          </SectionContainer>
+          <SectionTitle>
+            The easy-to-use, Intuitive, Content Interface for Firebase.
+          </SectionTitle>
+          <InterfacesSlider />
+          <Button variant="contained" color="primary">
+            Get Started
+          </Button>
         </Section>
         <Section className="bg-white">
           <SectionContainer>
