@@ -1,7 +1,9 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
+import Img, { FixedObject } from 'gatsby-image'
 import get from 'lodash/get'
 import { Group } from 'reakit/Group'
+import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
 import Layout from '../components/Layout'
@@ -15,6 +17,10 @@ import InterfacesSlider, {
   InterfacesSliderProps,
   InterfaceSlide
 } from '../components/InterfacesSlider'
+
+const Envelope = styled.div`
+  ${tw`right-0 bottom-0 absolute z-0`}
+`
 
 function HomePage({ data }) {
   const pageData = get(data, 'allFlamelinkHomePageContent.edges[0].node')
@@ -177,17 +183,49 @@ function HomePage({ data }) {
         </Section>
 
         {/* NEWSLETTER SECTION */}
-        <Section className="bg-gray-100">
-          <SectionContainer>
-            <SectionTitle
-              css={css`
-                ${tw`text-brand`}
-              `}
-            >
-              {get(pageData, 'newsletterSection.title', '')}
-            </SectionTitle>
-            <p>{get(pageData, 'newsletterSection.excerpt', '')}</p>
-          </SectionContainer>
+        <Section
+          className="bg-gray-100"
+          css={css`
+            ${tw`relative overflow-visible`}
+          `}
+        >
+          <div
+            css={css`
+              ${tw`z-10`}
+            `}
+          >
+            <SectionContainer>
+              <SectionTitle
+                css={css`
+                  ${tw`text-brand`}
+                `}
+              >
+                {get(pageData, 'newsletterSection.title', '')}
+              </SectionTitle>
+              <input
+                type="email"
+                name="newsletter"
+                placeholder={get(
+                  pageData,
+                  'newsletterSection.placeholderText',
+                  ''
+                )}
+              />
+              <p>{get(pageData, 'newsletterSection.excerpt', '')}</p>
+            </SectionContainer>
+          </div>
+          <Envelope
+            css={css`
+              width: 50%;
+
+              /* TODO: Figure this out for the different sizes - will probably need many custom media queries */
+              @media screen and (min-width: 640px) {
+                width: 37%;
+              }
+            `}
+          >
+            <Img fluid={data.newsletterEnvelope.childImageSharp.fluid} />
+          </Envelope>
         </Section>
       </main>
     </Layout>
@@ -405,6 +443,17 @@ export const query = graphql`
             title
             placeholderText
           }
+        }
+      }
+    }
+    # Envelope image used for Newsletter Section
+    newsletterEnvelope: file(name: { eq: "envelope" }) {
+      childImageSharp {
+        # fixed(width: 533, height: 443) {
+        #   ...GatsbyImageSharpFixed
+        # }
+        fluid {
+          ...GatsbyImageSharpFluid
         }
       }
     }

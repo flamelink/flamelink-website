@@ -7,7 +7,7 @@ module.exports = {
       colors: {
         brand: '#ff5722',
         'brand-light': '#f9c2b1',
-        'brand-dark': '#e25225',
+        'brand-dark': '#ca3d10',
         gray: {
           ...colors.gray,
           '100': '#f5f5f5',
@@ -40,6 +40,9 @@ module.exports = {
         brand: '#ff5722',
         'brand-light': '#f9c2b1',
         'brand-dark': '#e25225'
+      },
+      margin: {
+        '15': '3.75rem'
       },
       padding: {
         '25': '6.25rem'

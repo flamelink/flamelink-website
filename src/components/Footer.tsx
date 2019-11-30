@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import styled from '@emotion/styled'
+import { css } from '@emotion/core'
+import tw from 'tailwind.macro'
 import {
   unstable_useFormState as useFormState,
   unstable_Form as Form,
@@ -11,17 +13,86 @@ import {
 } from 'reakit/Form'
 import ExternalLink from './ExternalLink'
 import Logo from './Logo'
+import FacebookIcon from '../icons/Facebook'
+import TwitterIcon from '../icons/Twitter'
+import YouTubeIcon from '../icons/YouTube'
+import GitHubIcon from '../icons/GitHub'
+import {
+  FACEBOOK_LINK,
+  TWITTER_LINK,
+  YOUTUBE_LINK,
+  GITHUB_LINK,
+  TERMS_AND_CONDITIONS_LINK,
+  PRIVACY_POLICY_LINK,
+  FLAMELINK_REGISTRATION_LINK,
+  DOCUMENTATION_LINK,
+  APP_CHANGELOG_LINK
+} from '../constants'
+import ArrowRight from '../icons/ArrowRight'
+
+const FooterNav = tw.nav`
+  sm:flex sm:flex-1
+  justify-between
+  items-start
+  flex-wrap
+  max-w-6xl
+  mx-auto
+  px-12 sm:px-8 py-12 md:pt-25 md:pb-20
+  text-base text-white
+  text-center sm:text-left
+  leading-normal
+`
+
+const Column = tw.div`
+  flex
+  flex-col
+  justify-start
+  items-stretch sm:items-start
+  sm:w-1/2
+  md:w-auto
+  mb-8 md:mb-5
+`
 
 const StripedToe = styled.div`
   height: 1.25rem;
-  background-color: transparent;
+  background-color: ${props => props.theme.colors.gray[800]};
   background-image: ${props => `repeating-linear-gradient(
     -45deg,
-    transparent 0,
-    transparent 5px,
+    ${props.theme.colors.gray[800]} 0,
+    ${props.theme.colors.gray[800]} 5px,
     ${props.theme.colors.brand} 5px,
     ${props.theme.colors.brand} 7px
   )`};
+  position: sticky;
+  bottom: 0;
+`
+
+const NavLink = styled.a`
+  ${tw`
+  hover:text-brand
+  leading-relaxed
+  outline-none
+  focus:text-brand-dark
+  `}
+
+  transition: all 250ms ease;
+`
+
+const SocialLinks = tw.ul`
+  flex
+  justify-center sm:justify-start
+  items-center
+  mt-5
+`
+
+const SocialLink = styled.li`
+  ${tw`text-white hover:text-brand cursor-pointer`}
+
+  transition: all 250ms ease;
+
+  &:not(:last-child) {
+    margin-right: 1.375rem;
+  }
 `
 
 function Footer() {
@@ -42,51 +113,91 @@ function Footer() {
 
   return (
     <footer className="bg-gray-800">
-      <nav className="sm:flex sm:flex-1 justify-between max-w-6xl mx-auto px-8 py-25 text-base text-white leading-normal">
-        <div className="flex flex-col justify-start items-start mb-5 -mt-2">
-          <span className="font-medium mb-3 md:mb-6">
-            <Logo />
-          </span>
-          <ExternalLink
-            className="hover:text-brand"
-            href="https://firebasestorage.googleapis.com/v0/b/flamelink-website.appspot.com/o/flamelink%2Fmedia%2F1542263734745_Flamelink%20Terms%20and%20Conditions.pdf?alt=media&token=ce193870-f339-4b07-9af0-d2e2926c7aee"
-          >
+      <FooterNav>
+        <Column
+          css={css`
+            ${tw`-mt-2`}
+          `}
+        >
+          <div className="mb-4 md:mb-6">
+            <Logo className="inline-block" />
+          </div>
+          <NavLink as={ExternalLink} href={TERMS_AND_CONDITIONS_LINK}>
             Terms &amp; Conditions
-          </ExternalLink>
-          <ExternalLink
-            className="hover:text-brand"
-            href="https://firebasestorage.googleapis.com/v0/b/flamelink-website.appspot.com/o/flamelink%2Fmedia%2F1542263738168_Flamelink%20Privacy%20Policy.pdf?alt=media&token=ce193870-f339-4b07-9af0-d2e2926c7aee"
-          >
+          </NavLink>
+          <NavLink as={ExternalLink} href={PRIVACY_POLICY_LINK}>
             Privacy Policy
-          </ExternalLink>
-          <Link className="hover:text-brand" to="/security">
+          </NavLink>
+          <NavLink as={Link} to="/security">
             Security
-          </Link>
-          <small className="text-base mt-3">&copy; 2020 Flamelink</small>
-        </div>
+          </NavLink>
+          <small className="text-base mt-5">&copy; 2018 Flamelink</small>
+          <SocialLinks>
+            <SocialLink>
+              <ExternalLink
+                className="outline-none focus:text-brand-dark"
+                href={FACEBOOK_LINK}
+              >
+                <FacebookIcon />
+              </ExternalLink>
+            </SocialLink>
+            <SocialLink>
+              <ExternalLink
+                className="outline-none focus:text-brand-dark"
+                href={TWITTER_LINK}
+              >
+                <TwitterIcon />
+              </ExternalLink>
+            </SocialLink>
+            <SocialLink>
+              <ExternalLink
+                className="outline-none focus:text-brand-dark"
+                href={YOUTUBE_LINK}
+              >
+                <YouTubeIcon />
+              </ExternalLink>
+            </SocialLink>
+            <SocialLink>
+              <ExternalLink
+                className="outline-none focus:text-brand-dark"
+                href={GITHUB_LINK}
+              >
+                <GitHubIcon />
+              </ExternalLink>
+            </SocialLink>
+          </SocialLinks>
+        </Column>
 
-        <div className="flex flex-col justify-start items-start mb-5">
+        <Column>
           <h3 className="font-medium mb-2 md:mb-5 uppercase">
             Newsletter Signup
           </h3>
-          <p className="w-56 md:w-64 mb-5">
+          <p className="w-56 md:w-64 mb-6 mx-auto sm:mx-0">
             Sign up to our newsletter and always stay in touch with the hottest
             news.
           </p>
 
           <Form {...form} className="w-full">
-            <FormLabel {...form} name="email" className="relative block">
+            <FormLabel
+              {...form}
+              name="email"
+              className="relative block mx-auto max-w-xs"
+            >
               <FormInput
                 {...form}
                 name="email"
                 placeholder="Email Address"
-                className="bg-gray-600 text-white text-sm py-3 pl-3 pr-4 w-full"
+                className="bg-gray-600 text-white text-sm py-3 pl-3 pr-4 w-full outline-none focus:placeholder-white focus:shadow focus:bg-brand-dark"
               />
               <FormSubmitButton
                 {...form}
-                className="absolute inset-y-0 right-0 mr-3 opacity-50 hover:opacity-100"
+                className="absolute inset-y-0 right-0 mr-3 opacity-50 hover:opacity-100 outline-none focus:opacity-100 focus:text-brand-dark"
               >
-                →
+                <ArrowRight
+                  css={css`
+                    height: 0.8rem;
+                  `}
+                />
               </FormSubmitButton>
             </FormLabel>
             <FormMessage
@@ -95,40 +206,32 @@ function Footer() {
               className="text-red-600 text-xs mt-2 absolute"
             />
           </Form>
-        </div>
+        </Column>
 
-        <div className="flex flex-col justify-start items-start mb-5">
+        <Column>
           <h3 className="font-medium mb-2 md:mb-5 uppercase">Flamelinks</h3>
-          <ExternalLink
-            className="hover:text-brand"
-            href="https://app.flamelink.io/register"
-          >
+          <NavLink as={ExternalLink} href={FLAMELINK_REGISTRATION_LINK}>
             Register Today
-          </ExternalLink>
-        </div>
+          </NavLink>
+        </Column>
 
-        <div className="flex flex-col justify-start items-start mb-5">
+        <Column
+          css={css`
+            ${tw`mb-0 sm:mb-0`}
+          `}
+        >
           <h3 className="font-medium mb-2 md:mb-5 uppercase">Support</h3>
-          <ExternalLink
-            className="hover:text-brand"
-            href="https://intercom.help/flamelink"
-          >
+          <NavLink as={ExternalLink} href={DOCUMENTATION_LINK}>
             Documentation
-          </ExternalLink>
-          <ExternalLink
-            className="hover:text-brand"
-            href="https://headwayapp.co/flamelink-changelog"
-          >
+          </NavLink>
+          <NavLink as={ExternalLink} href={APP_CHANGELOG_LINK}>
             Changelog
-          </ExternalLink>
-          <ExternalLink
-            className="hover:text-brand"
-            href="https://github.com/flamelink"
-          >
+          </NavLink>
+          <NavLink as={ExternalLink} href={GITHUB_LINK}>
             SDK's
-          </ExternalLink>
-        </div>
-      </nav>
+          </NavLink>
+        </Column>
+      </FooterNav>
       <StripedToe />
     </footer>
   )
