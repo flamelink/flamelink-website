@@ -1,3 +1,5 @@
+// Inspiration taken from Dmitriy Panfilov's codepen example: https://codepen.io/panfilov/pen/GogJVy
+
 import React from 'react'
 import styled from '@emotion/styled'
 import take from 'lodash/take'
@@ -90,6 +92,7 @@ const InterfacesSlider: React.FC<InterfacesSliderProps> = ({ slides }) => {
       {/* NB! All input selectors have to be listed before the slide labels for sibling selector to work */}
       {theSlides.map((slide, slideIndex) => (
         <Selector
+          key={slide.inputId}
           type="radio"
           name="slider"
           id={slide.inputId}
@@ -97,7 +100,7 @@ const InterfacesSlider: React.FC<InterfacesSliderProps> = ({ slides }) => {
         />
       ))}
       {theSlides.map(slide => (
-        <Slide htmlFor={slide.inputId} id={slide.slideId}>
+        <Slide key={slide.slideId} htmlFor={slide.inputId} id={slide.slideId}>
           <Img fluid={slide.image} />
         </Slide>
       ))}
