@@ -2,7 +2,11 @@ import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
 export const Section = tw.section`
-  flex flex-col justify-start items-center py-25
+  flex flex-col justify-start
+  items-center
+  overflow-x-hidden
+  overflow-y-visible
+  py-10 sm:py-25
 `
 
 export const SectionContainer = tw.div`
@@ -15,7 +19,11 @@ export const SectionContainer = tw.div`
 `
 
 export const SectionTitle = styled.h2`
-  ${tw`text-center text-heading text-3xl sm:text-4xl md:text-5xl`}
+  ${tw`
+    text-center
+    text-heading
+    text-2xl sm:text-4xl md:text-5xl
+  `}
 
   margin-bottom: 3.125rem;
 `
