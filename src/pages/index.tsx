@@ -179,7 +179,51 @@ function HomePage({ data }) {
 
         {/* AFFILIATES SECTION */}
         <Section className="bg-white">
-          <SectionContainer>...affiliates here...</SectionContainer>
+          <SectionContainer
+            css={css`
+              ${tw`block w-full`}
+            `}
+          >
+            <ul className="flex justify-between items-center flex-no-wrap">
+              {get(pageData, 'affiliatesSection.affiliates', []).map(
+                affiliate => (
+                  <li
+                    key={affiliate.name}
+                    title={affiliate.name}
+                    css={css`
+                      max-width: 10rem;
+                      width: 100%;
+                      height: auto;
+                      flex-shrink: 1;
+                      flex-grow: 0;
+                      transition: all 250ms ease;
+                      margin: 0 1rem;
+
+                      :hover {
+                        transform: scale(1.1);
+                      }
+                    `}
+                  >
+                    {affiliate.website ? (
+                      <ExternalLink href={affiliate.website}>
+                        <Img
+                          fluid={
+                            affiliate.logo[0].localFile.childImageSharp.fluid
+                          }
+                        />
+                      </ExternalLink>
+                    ) : (
+                      <Img
+                        fluid={
+                          affiliate.logo[0].localFile.childImageSharp.fluid
+                        }
+                      />
+                    )}
+                  </li>
+                )
+              )}
+            </ul>
+          </SectionContainer>
         </Section>
 
         {/* NEWSLETTER SECTION */}
@@ -421,17 +465,19 @@ export const query = graphql`
               logo {
                 localFile {
                   childImageSharp {
-                    fixed {
+                    fluid {
                       base64
                       tracedSVG
                       aspectRatio
-                      width
-                      height
                       src
                       srcSet
                       srcWebp
                       srcSetWebp
+                      sizes
+                      originalImg
                       originalName
+                      presentationWidth
+                      presentationHeight
                     }
                   }
                 }
