@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import get from 'lodash/get'
 import { Group } from 'reakit/Group'
 import { css } from '@emotion/core'
@@ -57,21 +57,14 @@ function HomePage({ data }) {
             </Group>
           </PageContainer>
         </PageBanner>
+
+        {/* FIREBASE + GCP SECTION */}
         <Section className="bg-white">
           <SectionContainer>
             <SectionTitle>
-              Built for Firebase and the Google Cloud Platform
+              {get(pageData, 'firebaseSection.title', '')}
             </SectionTitle>
-            <p>
-              Firebase and the Google Cloud Platform are great for developers,
-              but don't offer a great experience for non-developers managing
-              content. With Flamelink, we've given the Firebase & GCP community
-              a tool that's easy to set up and integrate, giving content editors
-              and clients the ability to manage content from day one.
-            </p>
-            <p>
-              All the power of Firebase and GCP. None of the content headaches.
-            </p>
+            <p>{get(pageData, 'firebaseSection.excerpt', '')}</p>
           </SectionContainer>
         </Section>
 
@@ -106,47 +99,94 @@ function HomePage({ data }) {
           </Button>
         </Section>
 
+        {/* HOW FLAMELINK WORKS SECTION */}
         <Section className="bg-white">
           <SectionContainer>
-            <SectionTitle>How Does Flamelink Work?</SectionTitle>
+            <SectionTitle>
+              {get(pageData, 'howItWorksSection.title', '')}
+            </SectionTitle>
+            <ol>
+              {get(pageData, 'howItWorksSection.steps', []).map(step => (
+                <li key={step.uniqueKey}>
+                  <h3>{step.title}</h3>
+                  <span>{step.excerpt}</span>
+                </li>
+              ))}
+            </ol>
           </SectionContainer>
         </Section>
-        <Section className="bg-green-400">
+
+        {/* CASE STUDIES SECTION */}
+        <Section
+          style={{
+            backgroundColor: get(
+              pageData,
+              'caseStudiesSection.caseStudies[0].brandColour',
+              '#fff'
+            )
+          }}
+        >
           <SectionContainer>
             <SectionTitle
               css={css`
                 ${tw`text-white`}
               `}
             >
-              Featured Case Studies
+              {get(pageData, 'caseStudiesSection.title', '')}
             </SectionTitle>
           </SectionContainer>
         </Section>
+
+        {/* KEY FEATURES SECTION */}
         <Section className="bg-white">
           <SectionContainer>
-            <SectionTitle>Key Features</SectionTitle>
-            <Button variant="contained" color="primary">
-              Learn More
+            <SectionTitle>
+              {get(pageData, 'featuresSection.title', '')}
+            </SectionTitle>
+            <ul>
+              {get(pageData, 'featuresSection.keyFeatures', []).map(feature => (
+                <li key={feature.title}>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.excerpt}</p>
+                </li>
+              ))}
+            </ul>
+            <Button
+              variant="contained"
+              color="primary"
+              as={Link}
+              to={get(pageData, 'featuresSection.cta.link', '')}
+            >
+              {get(pageData, 'featuresSection.cta.text', '')}
             </Button>
           </SectionContainer>
         </Section>
+
+        {/* TESTIMONIALS SECTION */}
         <Section className="bg-gray-100">
           <SectionContainer>
-            <SectionTitle>What our clients say</SectionTitle>
+            <SectionTitle>
+              {get(pageData, 'testimonialsSection.title', '')}
+            </SectionTitle>
           </SectionContainer>
         </Section>
+
+        {/* AFFILIATES SECTION */}
         <Section className="bg-white">
           <SectionContainer>...affiliates here...</SectionContainer>
         </Section>
+
+        {/* NEWSLETTER SECTION */}
         <Section className="bg-gray-100">
           <SectionContainer>
-            <SectionTitle className="text-brand">
-              Sign Up for Our Newsletter
+            <SectionTitle
+              css={css`
+                ${tw`text-brand`}
+              `}
+            >
+              {get(pageData, 'newsletterSection.title', '')}
             </SectionTitle>
-            <p>
-              Sign up to our newsletter and always stay in touch with the
-              hottest news.
-            </p>
+            <p>{get(pageData, 'newsletterSection.excerpt', '')}</p>
           </SectionContainer>
         </Section>
       </main>
@@ -169,6 +209,30 @@ export const query = graphql`
               text
               action
             }
+            image {
+              localFile {
+                childImageSharp {
+                  fluid {
+                    base64
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                }
+              }
+            }
+          }
+          firebaseSection {
+            title
+            excerpt
             image {
               localFile {
                 childImageSharp {
@@ -216,6 +280,130 @@ export const query = graphql`
               url
               text
             }
+          }
+          howItWorksSection {
+            title
+            steps {
+              url
+              uniqueKey
+              excerpt
+              title
+              icon
+            }
+          }
+          caseStudiesSection {
+            title
+            caseStudies {
+              title
+              brandColour
+              excerpt
+              logo {
+                localFile {
+                  childImageSharp {
+                    fluid {
+                      base64
+                      tracedSVG
+                      aspectRatio
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      sizes
+                      originalImg
+                      originalName
+                      presentationWidth
+                      presentationHeight
+                    }
+                  }
+                }
+              }
+            }
+          }
+          featuresSection {
+            title
+            cta {
+              text
+              link
+            }
+            keyFeatures {
+              title
+              excerpt
+              icon {
+                localFile {
+                  childImageSharp {
+                    fixed {
+                      base64
+                      tracedSVG
+                      aspectRatio
+                      width
+                      height
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      originalName
+                    }
+                  }
+                }
+              }
+            }
+          }
+          testimonialsSection {
+            title
+            testimonials {
+              avatar {
+                localFile {
+                  childImageSharp {
+                    fluid {
+                      base64
+                      tracedSVG
+                      aspectRatio
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      sizes
+                      originalImg
+                      originalName
+                      presentationWidth
+                      presentationHeight
+                    }
+                  }
+                }
+              }
+              name
+              jobTitle
+              quote
+            }
+          }
+          affiliatesSection {
+            affiliates {
+              name
+              website
+              logo {
+                localFile {
+                  childImageSharp {
+                    fixed {
+                      base64
+                      tracedSVG
+                      aspectRatio
+                      width
+                      height
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      originalName
+                    }
+                  }
+                }
+              }
+            }
+          }
+          newsletterSection {
+            excerpt
+            title
+            placeholderText
           }
         }
       }
