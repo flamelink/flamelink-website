@@ -1,0 +1,57 @@
+import React from 'react'
+import isFunction from 'lodash/isFunction'
+import { SwipeableHandlers } from 'react-swipeable'
+import { useCarousel } from './useSwipeableCarousel'
+
+type CarouselPayload = {
+  originalSlides: unknown[]
+  slides: unknown[]
+  active: number
+  setActive: (n: number) => void
+  handlers: SwipeableHandlers
+  style: React.CSSProperties
+}
+
+type CarouselProps = {
+  slides: unknown[]
+  interval?: number
+  children: (payload: CarouselPayload) => {}
+}
+
+const Carousel: React.FC<CarouselProps> = ({
+  slides,
+  interval = 5000,
+  children
+}) => {
+  const size = slides.length
+  const { active, setActive, handlers, style } = useCarousel({
+    size,
+    interval,
+    trackMouse: true,
+    trackTouch: true
+  })
+  const clonedSlides = slides.slice()
+
+  if (size) {
+    // Add necessary wrapping slides before and after the original slides
+    clonedSlides.push(slides[0])
+    clonedSlides.unshift(slides[size - 1])
+  }
+
+  return (
+    <>
+      {isFunction(children)
+        ? children({
+            originalSlides: slides,
+            slides: clonedSlides,
+            active,
+            setActive,
+            handlers,
+            style
+          })
+        : children}
+    </>
+  )
+}
+
+export default Carousel

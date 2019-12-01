@@ -11,6 +11,7 @@ module.exports = {
         gray: {
           ...colors.gray,
           '100': '#f5f5f5',
+          '400': '#c8c8c8',
           '600': '#646464',
           '800': '#323232'
         }
@@ -45,6 +46,7 @@ module.exports = {
         '15': '3.75rem'
       },
       padding: {
+        '15': '3.75rem',
         '25': '6.25rem'
       }
     }
