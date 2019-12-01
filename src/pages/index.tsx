@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
-import Img, { FixedObject } from 'gatsby-image'
+import Img from 'gatsby-image'
 import get from 'lodash/get'
 import { Group } from 'reakit/Group'
 import styled from '@emotion/styled'
@@ -13,6 +13,7 @@ import PageContainer from '../components/PageContainer'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import Button from '../components/Button'
 import ExternalLink from '../components/ExternalLink'
+import Carousel from '../components/Carousel'
 import InterfacesSlider, {
   InterfacesSliderProps,
   InterfaceSlide
@@ -23,7 +24,7 @@ const Envelope = styled.div`
 `
 
 function HomePage({ data }) {
-  const pageData = get(data, 'allFlamelinkHomePageContent.edges[0].node')
+  const pageData = get(data, 'flamelinkHomePageContent')
 
   if (!pageData) {
     return <h2>Page data failed to load :(</h2>
@@ -174,6 +175,92 @@ function HomePage({ data }) {
             <SectionTitle>
               {get(pageData, 'testimonialsSection.title', '')}
             </SectionTitle>
+            <Carousel
+              slides={get(pageData, 'testimonialsSection.testimonials', [])}
+              interval={0}
+            >
+              {({
+                originalSlides,
+                slides,
+                active,
+                setActive,
+                handlers,
+                style
+              }) => (
+                <div className="block w-full overflow-x-hidden">
+                  <div
+                    className="carousel-content"
+                    css={css`
+                      ${tw`flex justify-start items-stretch bg-white`}
+                      height:
+                    `}
+                    {...handlers}
+                    style={style}
+                  >
+                    {slides.map((slide, index) => (
+                      <div
+                        className="carousel-item"
+                        key={index}
+                        css={css`
+                          ${tw`text-center px-8 py-15 w-full`}
+                        `}
+                      >
+                        <blockquote
+                          css={css`
+                            ${tw`mb-10`}
+
+                            font-size: 1.375rem;
+                          `}
+                        >
+                          &quot;{slide.quote}&quot;
+                        </blockquote>
+                        <h3
+                          css={css`
+                            ${tw`text-xl`}
+                          `}
+                        >
+                          {slide.name}
+                        </h3>
+                        <h4
+                          css={css`
+                            ${tw`text-sm`}
+                          `}
+                        >
+                          {slide.jobTitle}
+                        </h4>
+                      </div>
+                    ))}
+                  </div>
+                  {originalSlides.length > 1 && (
+                    <ol
+                      className="carousel-indicators"
+                      css={css`
+                        ${tw`flex items-center justify-center`}
+                      `}
+                    >
+                      {originalSlides.map((_, index) => (
+                        <li
+                          onClick={() => setActive(index)}
+                          key={index}
+                          css={css`
+                            ${tw`
+                            w-3 h-3
+                            mx-1
+                            rounded-full
+                          `}
+
+                            ${active === index
+                              ? tw`bg-gray-600`
+                              : tw`bg-gray-400`}
+                          `}
+                          className={active === index ? 'active' : ''}
+                        ></li>
+                      ))}
+                    </ol>
+                  )}
+                </div>
+              )}
+            </Carousel>
           </SectionContainer>
         </Section>
 
@@ -280,216 +367,212 @@ export default HomePage
 
 export const query = graphql`
   query HomePageQuery {
-    allFlamelinkHomePageContent {
-      edges {
-        node {
-          banner {
-            title1
-            title2
-            excerpt
-            cta {
-              text
-              action
-            }
-            image {
-              localFile {
-                childImageSharp {
-                  fluid {
-                    base64
-                    tracedSVG
-                    aspectRatio
-                    src
-                    srcSet
-                    srcWebp
-                    srcSetWebp
-                    sizes
-                    originalImg
-                    originalName
-                    presentationWidth
-                    presentationHeight
-                  }
-                }
+    flamelinkHomePageContent {
+      banner {
+        title1
+        title2
+        excerpt
+        cta {
+          text
+          action
+        }
+        image {
+          localFile {
+            childImageSharp {
+              fluid {
+                base64
+                tracedSVG
+                aspectRatio
+                src
+                srcSet
+                srcWebp
+                srcSetWebp
+                sizes
+                originalImg
+                originalName
+                presentationWidth
+                presentationHeight
               }
             }
-          }
-          firebaseSection {
-            title
-            excerpt
-            image {
-              localFile {
-                childImageSharp {
-                  fluid {
-                    base64
-                    tracedSVG
-                    aspectRatio
-                    src
-                    srcSet
-                    srcWebp
-                    srcSetWebp
-                    sizes
-                    originalImg
-                    originalName
-                    presentationWidth
-                    presentationHeight
-                  }
-                }
-              }
-            }
-          }
-          interfaceSection {
-            title
-            images {
-              localFile {
-                childImageSharp {
-                  fluid {
-                    base64
-                    tracedSVG
-                    aspectRatio
-                    src
-                    srcSet
-                    srcWebp
-                    srcSetWebp
-                    sizes
-                    originalImg
-                    originalName
-                    presentationWidth
-                    presentationHeight
-                  }
-                }
-              }
-            }
-            cta {
-              url
-              text
-            }
-          }
-          howItWorksSection {
-            title
-            steps {
-              url
-              uniqueKey
-              excerpt
-              title
-              icon
-            }
-          }
-          caseStudiesSection {
-            title
-            caseStudies {
-              title
-              brandColour
-              excerpt
-              logo {
-                localFile {
-                  childImageSharp {
-                    fluid {
-                      base64
-                      tracedSVG
-                      aspectRatio
-                      src
-                      srcSet
-                      srcWebp
-                      srcSetWebp
-                      sizes
-                      originalImg
-                      originalName
-                      presentationWidth
-                      presentationHeight
-                    }
-                  }
-                }
-              }
-            }
-          }
-          featuresSection {
-            title
-            cta {
-              text
-              link
-            }
-            keyFeatures {
-              title
-              excerpt
-              icon {
-                localFile {
-                  childImageSharp {
-                    fixed {
-                      base64
-                      tracedSVG
-                      aspectRatio
-                      width
-                      height
-                      src
-                      srcSet
-                      srcWebp
-                      srcSetWebp
-                      originalName
-                    }
-                  }
-                }
-              }
-            }
-          }
-          testimonialsSection {
-            title
-            testimonials {
-              avatar {
-                localFile {
-                  childImageSharp {
-                    fluid {
-                      base64
-                      tracedSVG
-                      aspectRatio
-                      src
-                      srcSet
-                      srcWebp
-                      srcSetWebp
-                      sizes
-                      originalImg
-                      originalName
-                      presentationWidth
-                      presentationHeight
-                    }
-                  }
-                }
-              }
-              name
-              jobTitle
-              quote
-            }
-          }
-          affiliatesSection {
-            affiliates {
-              name
-              website
-              logo {
-                localFile {
-                  childImageSharp {
-                    fluid {
-                      base64
-                      tracedSVG
-                      aspectRatio
-                      src
-                      srcSet
-                      srcWebp
-                      srcSetWebp
-                      sizes
-                      originalImg
-                      originalName
-                      presentationWidth
-                      presentationHeight
-                    }
-                  }
-                }
-              }
-            }
-          }
-          newsletterSection {
-            excerpt
-            title
-            placeholderText
           }
         }
+      }
+      firebaseSection {
+        title
+        excerpt
+        image {
+          localFile {
+            childImageSharp {
+              fluid {
+                base64
+                tracedSVG
+                aspectRatio
+                src
+                srcSet
+                srcWebp
+                srcSetWebp
+                sizes
+                originalImg
+                originalName
+                presentationWidth
+                presentationHeight
+              }
+            }
+          }
+        }
+      }
+      interfaceSection {
+        title
+        images {
+          localFile {
+            childImageSharp {
+              fluid {
+                base64
+                tracedSVG
+                aspectRatio
+                src
+                srcSet
+                srcWebp
+                srcSetWebp
+                sizes
+                originalImg
+                originalName
+                presentationWidth
+                presentationHeight
+              }
+            }
+          }
+        }
+        cta {
+          url
+          text
+        }
+      }
+      howItWorksSection {
+        title
+        steps {
+          url
+          uniqueKey
+          excerpt
+          title
+          icon
+        }
+      }
+      caseStudiesSection {
+        title
+        caseStudies {
+          title
+          brandColour
+          excerpt
+          logo {
+            localFile {
+              childImageSharp {
+                fluid {
+                  base64
+                  tracedSVG
+                  aspectRatio
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  sizes
+                  originalImg
+                  originalName
+                  presentationWidth
+                  presentationHeight
+                }
+              }
+            }
+          }
+        }
+      }
+      featuresSection {
+        title
+        cta {
+          text
+          link
+        }
+        keyFeatures {
+          title
+          excerpt
+          icon {
+            localFile {
+              childImageSharp {
+                fixed {
+                  base64
+                  tracedSVG
+                  aspectRatio
+                  width
+                  height
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  originalName
+                }
+              }
+            }
+          }
+        }
+      }
+      testimonialsSection {
+        title
+        testimonials {
+          avatar {
+            localFile {
+              childImageSharp {
+                fluid {
+                  base64
+                  tracedSVG
+                  aspectRatio
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  sizes
+                  originalImg
+                  originalName
+                  presentationWidth
+                  presentationHeight
+                }
+              }
+            }
+          }
+          name
+          jobTitle
+          quote
+        }
+      }
+      affiliatesSection {
+        affiliates {
+          name
+          website
+          logo {
+            localFile {
+              childImageSharp {
+                fluid {
+                  base64
+                  tracedSVG
+                  aspectRatio
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  sizes
+                  originalImg
+                  originalName
+                  presentationWidth
+                  presentationHeight
+                }
+              }
+            }
+          }
+        }
+      }
+      newsletterSection {
+        excerpt
+        title
+        placeholderText
       }
     }
     # Envelope image used for Newsletter Section
