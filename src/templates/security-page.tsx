@@ -1,57 +1,39 @@
 import React from 'react'
-import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { PageContent } from '../components/PageContent'
 import { Section, SectionContainer } from '../components/Section'
 
-type Props = {
-  data: any // FIXME: don't use any
+type PageContext = {
+  isCreatedByStatefulCreatePages: boolean
+  title: string
+  slug: string
+  locale: string
+  html: string
 }
 
-const SecurityPage: React.FC<Props> = ({ data }) => {
-  const page = data.allFlamelinkSecurityPageContent.edges[0].node
-
-  return (
-    <Layout>
-      <SEO keywords={['flamelink', page.title]} title={page.title} />
-      <PageBanner title={page.title} />
-      <Section className="bg-white">
-        <SectionContainer>
-          <PageContent
-            dangerouslySetInnerHTML={{
-              __html: page.content.childMarkdownRemark.html
-            }}
-          />
-        </SectionContainer>
-      </Section>
-    </Layout>
-  )
+type PageProps = {
+  pageContext: PageContext
 }
+
+const SecurityPage: React.FC<PageProps> = ({ pageContext }) => (
+  <Layout>
+    <SEO
+      keywords={['flamelink', pageContext.title]}
+      title={pageContext.title}
+    />
+    <PageBanner title={pageContext.title} />
+    <Section className="bg-white">
+      <SectionContainer>
+        <PageContent
+          dangerouslySetInnerHTML={{
+            __html: pageContext.html
+          }}
+        />
+      </SectionContainer>
+    </Section>
+  </Layout>
+)
 
 export default SecurityPage
-
-export const query = graphql`
-  query($slug: String!, $locale: String!) {
-    allFlamelinkSecurityPageContent(
-      filter: { flamelink_locale: { eq: $locale }, slug: { eq: $slug } }
-      limit: 1
-    ) {
-      edges {
-        node {
-          id
-          title
-          slug
-          content {
-            id
-            childMarkdownRemark {
-              timeToRead
-              html
-            }
-          }
-        }
-      }
-    }
-  }
-`
