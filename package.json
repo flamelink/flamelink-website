@@ -14,8 +14,9 @@
   ],
   "license": "MIT",
   "scripts": {
+    "clear-cache": "rimraf .cache",
     "build": "gatsby build",
-    "dev": "gatsby develop",
+    "dev": "yarn clear-cache && gatsby develop",
     "type-check": "tsc",
     "lint": "eslint --ext tsx 'src/**/*.tsx' --ignore-path .eslintignore . --cache",
     "start": "yarn dev",
@@ -100,6 +101,7 @@
     "lint-staged": "9.4.2",
     "postcss-preset-env": "6.7.0",
     "prettier": "1.19.1",
+    "rimraf": "3.0.0",
     "tailwind.macro": "1.0.0-alpha.10",
     "tailwindcss": "1.1.3",
     "typescript": "3.7.2"

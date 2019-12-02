@@ -18,7 +18,7 @@ function threshold(target: EventTarget | null) {
 
 const transitionTime = 400
 const elastic = `transform ${transitionTime}ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`
-const smooth = `transform ${transitionTime}ms ease`
+const smooth = `transform ${transitionTime}ms ease-out`
 
 interface CarouselState {
   offset: number
@@ -131,6 +131,8 @@ type UseCarouselConfig = {
 type UseCarouselPayload = {
   active: number
   setActive: (n: number) => void
+  next: () => void
+  prev: () => void
   handlers: SwipeableHandlers
   style: React.CSSProperties
 }
@@ -173,10 +175,9 @@ export function useCarousel({
   }, [state.desired])
 
   const style: React.CSSProperties = {
-    // transform: 'translateX(0)',
-    transform: `translateX(-${(100 / (size + 2)) * state.active}%)`,
-    width: `${100 * (size + 2)}%`
-    // left: `-${(state.active + 1) * 100}%`
+    transform: 'translateX(0)',
+    width: `${100 * (size + 2)}%`,
+    left: `-${(state.active + 1) * 100}%`
   }
 
   if (state.desired !== state.active) {
@@ -199,6 +200,8 @@ export function useCarousel({
     active: state.active,
     setActive: n => dispatch({ type: 'jump', desired: n }),
     handlers,
-    style
+    style,
+    next: () => dispatch({ type: 'next', size }),
+    prev: () => dispatch({ type: 'prev', size })
   }
 }

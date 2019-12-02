@@ -162,7 +162,7 @@ function Header() {
   return (
     <MainHeader
       css={css`
-        ${stickyNav ? tw`sticky bg-brand` : tw`relative`}
+        ${stickyNav || isExpanded ? tw`sticky bg-brand` : tw`relative`}
       `}
     >
       <div className="flex flex-wrap items-center justify-between max-w-6xl mx-auto p-4 md:p-8">

@@ -13,11 +13,11 @@ import PageContainer from '../components/PageContainer'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import Button from '../components/Button'
 import ExternalLink from '../components/ExternalLink'
-import Carousel from '../components/Carousel'
 import InterfacesSlider, {
   InterfacesSliderProps,
   InterfaceSlide
 } from '../components/InterfacesSlider'
+import TestimonialsSlider from '../components/TestimonialsSlider'
 
 const Envelope = styled.div`
   ${tw`right-0 bottom-0 absolute z-0`}
@@ -175,92 +175,13 @@ function HomePage({ data }) {
             <SectionTitle>
               {get(pageData, 'testimonialsSection.title', '')}
             </SectionTitle>
-            <Carousel
-              slides={get(pageData, 'testimonialsSection.testimonials', [])}
-              interval={0}
-            >
-              {({
-                originalSlides,
-                slides,
-                active,
-                setActive,
-                handlers,
-                style
-              }) => (
-                <div className="block w-full overflow-x-hidden">
-                  <div
-                    className="carousel-content"
-                    css={css`
-                      ${tw`flex justify-start items-stretch bg-white`}
-                      height:
-                    `}
-                    {...handlers}
-                    style={style}
-                  >
-                    {slides.map((slide, index) => (
-                      <div
-                        className="carousel-item"
-                        key={index}
-                        css={css`
-                          ${tw`text-center px-8 py-15 w-full`}
-                        `}
-                      >
-                        <blockquote
-                          css={css`
-                            ${tw`mb-10`}
-
-                            font-size: 1.375rem;
-                          `}
-                        >
-                          &quot;{slide.quote}&quot;
-                        </blockquote>
-                        <h3
-                          css={css`
-                            ${tw`text-xl`}
-                          `}
-                        >
-                          {slide.name}
-                        </h3>
-                        <h4
-                          css={css`
-                            ${tw`text-sm`}
-                          `}
-                        >
-                          {slide.jobTitle}
-                        </h4>
-                      </div>
-                    ))}
-                  </div>
-                  {originalSlides.length > 1 && (
-                    <ol
-                      className="carousel-indicators"
-                      css={css`
-                        ${tw`flex items-center justify-center`}
-                      `}
-                    >
-                      {originalSlides.map((_, index) => (
-                        <li
-                          onClick={() => setActive(index)}
-                          key={index}
-                          css={css`
-                            ${tw`
-                            w-3 h-3
-                            mx-1
-                            rounded-full
-                          `}
-
-                            ${active === index
-                              ? tw`bg-gray-600`
-                              : tw`bg-gray-400`}
-                          `}
-                          className={active === index ? 'active' : ''}
-                        ></li>
-                      ))}
-                    </ol>
-                  )}
-                </div>
+            <TestimonialsSlider
+              testimonials={get(
+                pageData,
+                'testimonialsSection.testimonials',
+                []
               )}
-            </Carousel>
+            />
           </SectionContainer>
         </Section>
 

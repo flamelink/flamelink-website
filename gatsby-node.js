@@ -1,29 +1,32 @@
 exports.createPages = async function({ actions, graphql }) {
   const { data } = await graphql(`
     query SecurityPageQuery {
-      allFlamelinkSecurityPageContent(
-        filter: { slug: { eq: "security" } }
-        limit: 1
-      ) {
-        edges {
-          node {
-            id
-            title
-            slug
-            flamelink_locale
+      flamelinkSecurityPageContent {
+        id
+        title
+        slug
+        flamelink_locale
+        content {
+          childMarkdownRemark {
+            html
           }
         }
       }
     }
   `)
 
-  data.allFlamelinkSecurityPageContent.edges.forEach(edge => {
-    const { slug, flamelink_locale: locale } = edge.node
+  const {
+    slug,
+    flamelink_locale: locale,
+    title,
+    content: {
+      childMarkdownRemark: { html }
+    }
+  } = data.flamelinkSecurityPageContent
 
-    actions.createPage({
-      path: slug,
-      component: require.resolve('./src/templates/security-page.tsx'),
-      context: { slug, locale }
-    })
+  actions.createPage({
+    path: slug,
+    component: require.resolve('./src/templates/security-page.tsx'),
+    context: { slug, locale, title, html }
   })
 }
