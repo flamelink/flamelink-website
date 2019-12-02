@@ -1,0 +1,168 @@
+import React from 'react'
+import { Button } from 'reakit/Button'
+import { Group } from 'reakit/Group'
+import { useRoverState, Rover } from 'reakit/Rover'
+import { css } from '@emotion/core'
+import tw from 'tailwind.macro'
+import Img from 'gatsby-image'
+import Carousel from '../components/Carousel'
+
+type LocalFile = {
+  childImageSharp: any // TODO: improve types
+}
+
+type AvatarObj = {
+  localFile: LocalFile
+}
+
+type Testimonial = {
+  name: string
+  jobTitle: string
+  quote: string
+  avatar: AvatarObj[]
+}
+
+type Props = {
+  testimonials: Testimonial[]
+}
+
+const Avatar = ({ localFile }: { localFile: LocalFile }) => {
+  return (
+    <div
+      css={css`
+        ${tw`h-30 flex justify-center items-center absolute`}
+        top: -4rem;
+        width: calc(100% - 4rem);
+      `}
+    >
+      <span
+        css={css`
+          ${tw`w-30 h-30 inline-block rounded-full border-white`}
+          border-width: 1rem;
+        `}
+      >
+        <Img fluid={localFile.childImageSharp.fluid} />
+      </span>
+    </div>
+  )
+}
+
+const Dots: React.FC<{
+  slides: unknown[]
+  active: number
+  setActive: (n: number) => void
+}> = ({ slides, active, setActive }) => {
+  const rover = useRoverState({ loop: true, orientation: 'horizontal' })
+
+  return (
+    <Group
+      className="carousel-indicators"
+      css={css`
+        ${tw`flex items-center justify-center pb-15 pt-0`}
+      `}
+    >
+      {slides.map((_, index) => (
+        <Rover
+          key={index}
+          {...rover}
+          as={Button}
+          onClick={() => setActive(index)}
+          css={css`
+            ${tw`
+            mx-1
+            h-3
+            w-3
+            rounded-full
+            cursor-pointer
+            hover:bg-gray-600
+            focus:bg-brand-dark
+          `}
+
+            outline: 0 !important;
+            ${active === index ? tw`bg-gray-600` : tw`bg-gray-400`}
+          `}
+          className={active === index ? 'active' : ''}
+        />
+      ))}
+    </Group>
+  )
+}
+
+const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
+  return (
+    <Carousel slides={testimonials} interval={0}>
+      {({ originalSlides, slides, active, setActive, handlers, style }) => (
+        <div className="block w-full overflow-x-hidden pt-16">
+          <div
+            className="carousel-content-wrapper"
+            css={css`
+              ${tw`flex flex-col justify-start items-stretch bg-white`}
+
+              opacity: 0.96;
+              box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
+            `}
+          >
+            <div
+              className="carousel-content"
+              css={css`
+                ${tw`flex justify-start items-stretch relative`}
+              `}
+              {...handlers}
+              style={style}
+            >
+              {(slides as Testimonial[]).map((slide, index) => (
+                <div
+                  className="carousel-item"
+                  key={index}
+                  css={css`
+                    ${tw`text-center px-8 pt-15 pb-8 w-full relative`}
+                  `}
+                >
+                  <Avatar localFile={slide.avatar[0].localFile} />
+                  <div
+                    css={css`
+                      ${tw`flex flex-col justify-center items-stretch h-full`}
+                    `}
+                  >
+                    <blockquote
+                      css={css`
+                        ${tw`mb-10`}
+
+                        font-size: 1.375rem;
+                      `}
+                    >
+                      &quot;{slide.quote}&quot;
+                    </blockquote>
+                    <h3
+                      css={css`
+                        ${tw`text-xl`}
+                      `}
+                    >
+                      {slide.name}
+                    </h3>
+                    <h4
+                      css={css`
+                        ${tw`text-sm`}
+                      `}
+                    >
+                      {slide.jobTitle}
+                    </h4>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {originalSlides.length > 1 && (
+              <Dots
+                slides={originalSlides}
+                setActive={setActive}
+                active={active}
+              />
+            )}
+          </div>
+        </div>
+      )}
+    </Carousel>
+  )
+}
+
+export default TestimonialsSlider
