@@ -131,6 +131,8 @@ type UseCarouselConfig = {
 type UseCarouselPayload = {
   active: number
   setActive: (n: number) => void
+  next: () => void
+  prev: () => void
   handlers: SwipeableHandlers
   style: React.CSSProperties
 }
@@ -198,6 +200,8 @@ export function useCarousel({
     active: state.active,
     setActive: n => dispatch({ type: 'jump', desired: n }),
     handlers,
-    style
+    style,
+    next: () => dispatch({ type: 'next', size }),
+    prev: () => dispatch({ type: 'prev', size })
   }
 }

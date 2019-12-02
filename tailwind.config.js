@@ -36,7 +36,8 @@ module.exports = {
         '5xl': '2.5rem'
       },
       spacing: {
-        '30': '7.5rem'
+        '30': '7.5rem',
+        '34': '8.5rem'
       },
       textColor: {
         body: '#323232',

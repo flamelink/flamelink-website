@@ -8,6 +8,8 @@ type CarouselPayload = {
   slides: unknown[]
   active: number
   setActive: (n: number) => void
+  prev: () => void
+  next: () => void
   handlers: SwipeableHandlers
   style: React.CSSProperties
 }
@@ -24,7 +26,7 @@ const Carousel: React.FC<CarouselProps> = ({
   children
 }) => {
   const size = slides.length
-  const { active, setActive, handlers, style } = useCarousel({
+  const { active, setActive, handlers, style, prev, next } = useCarousel({
     size,
     interval,
     trackMouse: true,
@@ -47,7 +49,9 @@ const Carousel: React.FC<CarouselProps> = ({
             active,
             setActive,
             handlers,
-            style
+            style,
+            prev,
+            next
           })
         : children}
     </>

@@ -2,10 +2,13 @@ import React from 'react'
 import { Button } from 'reakit/Button'
 import { Group } from 'reakit/Group'
 import { useRoverState, Rover } from 'reakit/Rover'
+import get from 'lodash/get'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
 import Img from 'gatsby-image'
 import Carousel from '../components/Carousel'
+import ArrowLeftIcon from '../icons/ArrowLeft'
+import ArrowRightIcon from '../icons/ArrowRight'
 
 type LocalFile = {
   childImageSharp: any // TODO: improve types
@@ -30,14 +33,14 @@ const Avatar = ({ localFile }: { localFile: LocalFile }) => {
   return (
     <div
       css={css`
-        ${tw`h-30 flex justify-center items-center absolute`}
+        ${tw`h-34 flex justify-center items-center absolute`}
         top: -4rem;
         width: calc(100% - 4rem);
       `}
     >
       <span
         css={css`
-          ${tw`w-30 h-30 inline-block rounded-full border-white`}
+          ${tw`w-34 h-34 inline-block rounded-full border-white bg-white`}
           border-width: 1rem;
         `}
       >
@@ -75,7 +78,7 @@ const Dots: React.FC<{
             rounded-full
             cursor-pointer
             hover:bg-gray-600
-            focus:bg-brand-dark
+            focus:shadow-outline
           `}
 
             outline: 0 !important;
@@ -91,74 +94,109 @@ const Dots: React.FC<{
 const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
   return (
     <Carousel slides={testimonials} interval={0}>
-      {({ originalSlides, slides, active, setActive, handlers, style }) => (
-        <div className="block w-full overflow-x-hidden pt-16">
-          <div
-            className="carousel-content-wrapper"
+      {({
+        originalSlides,
+        slides,
+        active,
+        setActive,
+        handlers,
+        style,
+        prev,
+        next
+      }) => (
+        <div className="flex justify-start items-center flex-grow-0 flex-shrink-0">
+          <Button
+            onClick={prev}
+            className="mr-16 mt-16 text-gray-400 hover:text-gray-600 focus:shadow-outline"
             css={css`
-              ${tw`flex flex-col justify-start items-stretch bg-white`}
-
-              opacity: 0.96;
-              box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
+              :focus {
+                outline: 0;
+              }
             `}
           >
+            <ArrowLeftIcon />
+          </Button>
+          <div className="block w-full overflow-x-hidden pt-16 flex-grow flex-shrink">
             <div
-              className="carousel-content"
+              className="carousel-content-wrapper"
               css={css`
-                ${tw`flex justify-start items-stretch relative`}
+                ${tw`flex flex-col justify-start items-stretch bg-white`}
+
+                opacity: 0.96;
+                box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
               `}
-              {...handlers}
-              style={style}
             >
-              {(slides as Testimonial[]).map((slide, index) => (
-                <div
-                  className="carousel-item"
-                  key={index}
-                  css={css`
-                    ${tw`text-center px-8 pt-15 pb-8 w-full relative`}
-                  `}
-                >
-                  <Avatar localFile={slide.avatar[0].localFile} />
+              <div
+                className="carousel-content"
+                css={css`
+                  ${tw`flex justify-start items-stretch relative`}
+                `}
+                {...handlers}
+                style={style}
+              >
+                {(slides as Testimonial[]).map((slide, index) => (
                   <div
+                    className="carousel-item"
+                    key={index}
                     css={css`
-                      ${tw`flex flex-col justify-center items-stretch h-full`}
+                      ${tw`text-center px-8 pt-15 pb-8 w-full relative`}
                     `}
                   >
-                    <blockquote
+                    {get(slide, 'avatar[0].localFile') && (
+                      <Avatar localFile={slide.avatar[0].localFile} />
+                    )}
+                    <div
                       css={css`
-                        ${tw`mb-10`}
+                        ${tw`flex flex-col justify-center items-stretch h-full`}
+                      `}
+                    >
+                      <blockquote
+                        css={css`
+                          ${tw`mb-10`}
 
-                        font-size: 1.375rem;
-                      `}
-                    >
-                      &quot;{slide.quote}&quot;
-                    </blockquote>
-                    <h3
-                      css={css`
-                        ${tw`text-xl`}
-                      `}
-                    >
-                      {slide.name}
-                    </h3>
-                    <h4
-                      css={css`
-                        ${tw`text-sm`}
-                      `}
-                    >
-                      {slide.jobTitle}
-                    </h4>
+                          font-size: 1.375rem;
+                        `}
+                      >
+                        &quot;{slide.quote}&quot;
+                      </blockquote>
+                      <h3
+                        css={css`
+                          ${tw`text-xl`}
+                        `}
+                      >
+                        {slide.name}
+                      </h3>
+                      <h4
+                        css={css`
+                          ${tw`text-sm`}
+                        `}
+                      >
+                        {slide.jobTitle}
+                      </h4>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              {originalSlides.length > 1 && (
+                <Dots
+                  slides={originalSlides}
+                  setActive={setActive}
+                  active={active}
+                />
+              )}
             </div>
-            {originalSlides.length > 1 && (
-              <Dots
-                slides={originalSlides}
-                setActive={setActive}
-                active={active}
-              />
-            )}
           </div>
+          <Button
+            onClick={next}
+            className="ml-16 mt-16 text-gray-400 hover:text-gray-600 focus:shadow-outline"
+            css={css`
+              :focus {
+                outline: 0;
+              }
+            `}
+          >
+            <ArrowRightIcon />
+          </Button>
         </div>
       )}
     </Carousel>
