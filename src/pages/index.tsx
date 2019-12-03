@@ -68,10 +68,29 @@ function HomePage({ data }) {
         {/* FIREBASE + GCP SECTION */}
         <Section className="bg-white">
           <SectionContainer>
-            <SectionTitle>
+            <SectionTitle
+              css={css`
+                ${tw`mb-10`}
+              `}
+            >
               {get(pageData, 'firebaseSection.title', '')}
             </SectionTitle>
-            <p>{get(pageData, 'firebaseSection.excerpt', '')}</p>
+            {get(
+              pageData,
+              'firebaseSection.image[0].localFile.childImageSharp.fluid'
+            ) && (
+              <span className="block w-1/2 sm:w-64 md:w-1/3 max-w-full mx-auto mb-10">
+                <Img
+                  fluid={get(
+                    pageData,
+                    'firebaseSection.image[0].localFile.childImageSharp.fluid'
+                  )}
+                />
+              </span>
+            )}
+            <p className="text-center">
+              {get(pageData, 'firebaseSection.excerpt', '')}
+            </p>
           </SectionContainer>
         </Section>
 
