@@ -150,10 +150,28 @@ function HomePage({ data }) {
             <SectionTitle>
               {get(pageData, 'featuresSection.title', '')}
             </SectionTitle>
-            <ul>
+            <ul className="flex flex-wrap flex-grow-0 flex-shrink-0 justify-center align-start mb-5">
               {get(pageData, 'featuresSection.keyFeatures', []).map(feature => (
-                <li key={feature.title}>
-                  <h3>{feature.title}</h3>
+                <li
+                  key={feature.title}
+                  css={css`
+                    ${tw`text-center flex flex-col items-center justify-start`}
+
+                    margin: 0 1.5rem 2.5rem;
+                    max-width: 19.0625rem;
+                  `}
+                >
+                  {get(feature, 'icon[0].url') && (
+                    <span className="w-10 h-10">
+                      <img src={feature.icon[0].url} alt="" />
+                    </span>
+                  )}
+                  <h3
+                    className="text-xl text-heading font-medium"
+                    style={{ margin: '0.625rem 0' }}
+                  >
+                    {feature.title}
+                  </h3>
                   <p>{feature.excerpt}</p>
                 </li>
               ))}
@@ -257,6 +275,7 @@ function HomePage({ data }) {
               <input
                 type="email"
                 name="newsletter"
+                className="py-5 px-8 text-4xl mb-10"
                 placeholder={get(
                   pageData,
                   'newsletterSection.placeholderText',
@@ -268,11 +287,12 @@ function HomePage({ data }) {
           </div>
           <Envelope
             css={css`
-              width: 50%;
+              display: none; /* TODO: Chat to Eddie */
+              width: 40%;
 
               /* TODO: Figure this out for the different sizes - will probably need many custom media queries */
               @media screen and (min-width: 640px) {
-                width: 37%;
+                width: 30%;
               }
             `}
           >
@@ -417,22 +437,7 @@ export const query = graphql`
           title
           excerpt
           icon {
-            localFile {
-              childImageSharp {
-                fixed {
-                  base64
-                  tracedSVG
-                  aspectRatio
-                  width
-                  height
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  originalName
-                }
-              }
-            }
+            url
           }
         }
       }
