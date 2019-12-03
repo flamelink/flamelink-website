@@ -4,6 +4,9 @@ const { colors } = require('tailwindcss/defaultTheme')
 module.exports = {
   theme: {
     extend: {
+      boxShadow: {
+        default: '0 0 25px 0 rgba(0, 0, 0, 0.15)'
+      },
       colors: {
         brand: '#ff5722',
         'brand-light': '#f9c2b1',
