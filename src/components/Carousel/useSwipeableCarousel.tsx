@@ -13,7 +13,7 @@ function next(size: number, current: number) {
 
 function threshold(target: EventTarget | null) {
   const width = (target as HTMLElement).clientWidth
-  return width / 3
+  return width / 5
 }
 
 const transitionTime = 400
