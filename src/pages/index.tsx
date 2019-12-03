@@ -182,7 +182,13 @@ function HomePage({ data }) {
                 >
                   {get(feature, 'icon[0].url') && (
                     <span className="w-10 h-10">
-                      <img src={feature.icon[0].url} alt="" />
+                      <img
+                        src={feature.icon[0].url}
+                        alt=""
+                        loading="lazy"
+                        width="40"
+                        height="40"
+                      />
                     </span>
                   )}
                   <h3
