@@ -35,7 +35,7 @@ const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
       />
       <BackgroundImage
         Tag="section"
-        className="bg-brand w-screen pt-48 pb-20"
+        className="w-screen pt-48 pb-20"
         style={{ marginTop: '-7rem' }}
         fluid={get(
           pageContext,
