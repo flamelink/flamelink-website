@@ -131,11 +131,33 @@ function HomePage({ data }) {
             <SectionTitle>
               {get(pageData, 'howItWorksSection.title', '')}
             </SectionTitle>
-            <ol>
+            <ol className="flex justify-center items-stretch text-center">
               {get(pageData, 'howItWorksSection.steps', []).map(step => (
-                <li key={step.uniqueKey}>
-                  <h3>{step.title}</h3>
-                  <span>{step.excerpt}</span>
+                <li
+                  key={step.uniqueKey}
+                  className="flex flex-col justify-start items-center"
+                  css={css`
+                    margin: 0 1.8175rem;
+                  `}
+                >
+                  {get(step, 'icon[0].url') && (
+                    <span className="w-10 h-10">
+                      <img
+                        src={step.icon[0].url}
+                        alt=""
+                        loading="lazy"
+                        width="40"
+                        height="40"
+                      />
+                    </span>
+                  )}
+                  <h3
+                    className="text-xl leading-tight"
+                    style={{ marginBottom: '0.625rem' }}
+                  >
+                    {step.title}
+                  </h3>
+                  <span className="text-sm">{step.excerpt}</span>
                 </li>
               ))}
             </ol>
@@ -152,15 +174,17 @@ function HomePage({ data }) {
             )
           }}
         >
-          <SectionContainer>
-            <SectionTitle
-              css={css`
-                ${tw`text-white`}
-              `}
-            >
-              {get(pageData, 'caseStudiesSection.title', '')}
-            </SectionTitle>
-          </SectionContainer>
+          <div className="w-full h-full block">
+            <SectionContainer>
+              <SectionTitle
+                css={css`
+                  ${tw`text-white`}
+                `}
+              >
+                {get(pageData, 'caseStudiesSection.title', '')}
+              </SectionTitle>
+            </SectionContainer>
+          </div>
         </Section>
 
         {/* KEY FEATURES SECTION */}
