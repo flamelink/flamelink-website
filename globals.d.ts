@@ -1,3 +1,12 @@
+import 'react';
+
+declare module 'react' {
+  interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
+    loading?: 'auto' | 'eager' | 'lazy';
+  }
+}
+
+
 declare module '*.png'
 declare module '*.jpg'
 declare module '*.jpeg'
