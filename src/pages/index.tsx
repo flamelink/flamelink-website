@@ -70,7 +70,7 @@ function HomePage({ data }) {
           <SectionContainer>
             <SectionTitle
               css={css`
-                ${tw`mb-10`}
+                ${tw`mb-10 max-w-lg`}
               `}
             >
               {get(pageData, 'firebaseSection.title', '')}
@@ -79,7 +79,7 @@ function HomePage({ data }) {
               pageData,
               'firebaseSection.image[0].localFile.childImageSharp.fluid'
             ) && (
-              <span className="block w-1/2 sm:w-64 md:w-1/3 max-w-full mx-auto mb-10">
+              <span className="block w-1/2 sm:w-64 md:w-1/3 lg:w-1/4 max-w-full mx-auto mb-10">
                 <Img
                   fluid={get(
                     pageData,
@@ -88,7 +88,7 @@ function HomePage({ data }) {
                 />
               </span>
             )}
-            <p className="text-center">
+            <p className="text-center max-w-4xl">
               {get(pageData, 'firebaseSection.excerpt', '')}
             </p>
           </SectionContainer>
