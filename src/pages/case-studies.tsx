@@ -3,10 +3,9 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PageContainer from '../components/PageContainer'
 import PageBanner from '../components/PageBanner'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 
 function CaseStudiesPage({ data }) {
-  console.log({ data })
   return (
     <Layout>
       <SEO keywords={['flamelink', 'case studies']} title="Case Studies" />
@@ -14,7 +13,18 @@ function CaseStudiesPage({ data }) {
         <PageBanner title="Case Studies" />
         <PageContainer>
           <section className="flex flex-col md:flex-row items-center">
-            <div className="md:w-2/3 md:mr-8">Case Studies commence...</div>
+            <ul className="">
+              {data.allFlamelinkCaseStudiesContent.edges.map(edge => {
+                const { title, slug, excerpt, brandColour } = edge.node
+                return (
+                  <li style={{ backgroundColor: brandColour }} className="text-white p-10">
+                    <h2>{title}</h2>
+                    <p>{excerpt}</p>
+                    <Link to={`/case-studies/${slug}`}>View Case Study</Link>
+                  </li>
+                )
+              })}
+            </ul>
           </section>
         </PageContainer>
       </main>
