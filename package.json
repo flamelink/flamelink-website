@@ -59,7 +59,6 @@
     "gatsby-plugin-sharp": "2.3.4",
     "gatsby-plugin-sitemap": "2.2.20",
     "gatsby-plugin-typescript": "2.1.16",
-    "gatsby-plugin-web-font-loader": "1.0.4",
     "gatsby-source-filesystem": "2.1.36",
     "gatsby-source-flamelink": "2.0.0",
     "gatsby-transformer-sharp": "2.3.6",
@@ -71,7 +70,8 @@
     "react-dom": "16.11.0",
     "react-helmet": "5.2.1",
     "react-swipeable": "5.5.0",
-    "reakit": "1.0.0-beta.11"
+    "reakit": "1.0.0-beta.11",
+    "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
     "@babel/core": "7.7.2",
