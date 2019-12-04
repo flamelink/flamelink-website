@@ -61,7 +61,7 @@ const Dots: React.FC<{
     <Group
       className="carousel-indicators"
       css={css`
-        ${tw`flex items-center justify-center pb-15 pt-0`}
+        ${tw`flex items-center justify-center pb-15 pt-1`}
       `}
     >
       {slides.map((_, index) => (

@@ -96,14 +96,6 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
-      resolve: 'gatsby-plugin-web-font-loader',
-      options: {
-        google: {
-          families: ['Roboto:300,400,500&display=swap']
-        }
-      }
-    },
-    {
       resolve: 'gatsby-plugin-sitemap',
       options: {
         exclude: []
