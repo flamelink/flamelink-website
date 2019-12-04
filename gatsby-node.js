@@ -1,4 +1,5 @@
 exports.createPages = async function({ actions, graphql }) {
+  // Security Page
   const { data } = await graphql(`
     query SecurityPageQuery {
       flamelinkSecurityPageContent {
@@ -28,5 +29,120 @@ exports.createPages = async function({ actions, graphql }) {
     path: slug,
     component: require.resolve('./src/templates/security-page.tsx'),
     context: { slug, locale, title, html }
+  })
+
+  // Individual Case Study pages
+  const { data: csData } = await graphql(`
+    query CaseStudiesQuery {
+      allFlamelinkCaseStudiesContent {
+        edges {
+          node {
+            title
+            slug
+            excerpt
+            brandColour
+            testimonial
+            pageSections {
+              imagePosition
+              heading
+              content
+              icon {
+                url
+              }
+              image {
+                localFile {
+                  childImageSharp {
+                    fluid {
+                      base64
+                      tracedSVG
+                      aspectRatio
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      sizes
+                      originalImg
+                      originalName
+                      presentationWidth
+                      presentationHeight
+                    }
+                  }
+                }
+              }
+            }
+            logo {
+              url
+              localFile {
+                childImageSharp {
+                  fluid {
+                    base64
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                }
+              }
+            }
+            backgroundImage {
+              url
+              localFile {
+                childImageSharp {
+                  fluid {
+                    base64
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  csData.allFlamelinkCaseStudiesContent.edges.forEach(caseStudy => {
+    const {
+      title,
+      slug,
+      excerpt,
+      brandColour,
+      testimonial,
+      logo,
+      backgroundImage,
+      pageSections
+    } = caseStudy.node
+
+    actions.createPage({
+      path: `case-studies/${slug}`,
+      component: require.resolve('./src/templates/case-study-page.tsx'),
+      context: {
+        title,
+        slug,
+        excerpt,
+        brandColour,
+        testimonial,
+        logo,
+        backgroundImage,
+        pageSections
+      }
+    })
   })
 }
