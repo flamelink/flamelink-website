@@ -17,6 +17,8 @@ import FacebookIcon from '../icons/Facebook'
 import TwitterIcon from '../icons/Twitter'
 import YouTubeIcon from '../icons/YouTube'
 import GitHubIcon from '../icons/GitHub'
+import InstagramIcon from '../icons/Instagram'
+import LinkedInIcon from '../icons/LinkedIn'
 import {
   FACEBOOK_LINK,
   TWITTER_LINK,
@@ -26,7 +28,9 @@ import {
   PRIVACY_POLICY_LINK,
   FLAMELINK_REGISTRATION_LINK,
   DOCUMENTATION_LINK,
-  APP_CHANGELOG_LINK
+  APP_CHANGELOG_LINK,
+  LINKEDIN_LINK,
+  INSTAGRAM_LINK
 } from '../constants'
 import ArrowRight from '../icons/ArrowRight'
 
@@ -136,17 +140,9 @@ function Footer() {
             <SocialLink>
               <ExternalLink
                 className="outline-none focus:text-brand-dark"
-                href={FACEBOOK_LINK}
+                href={GITHUB_LINK}
               >
-                <FacebookIcon />
-              </ExternalLink>
-            </SocialLink>
-            <SocialLink>
-              <ExternalLink
-                className="outline-none focus:text-brand-dark"
-                href={TWITTER_LINK}
-              >
-                <TwitterIcon />
+                <GitHubIcon />
               </ExternalLink>
             </SocialLink>
             <SocialLink>
@@ -160,9 +156,33 @@ function Footer() {
             <SocialLink>
               <ExternalLink
                 className="outline-none focus:text-brand-dark"
-                href={GITHUB_LINK}
+                href={TWITTER_LINK}
               >
-                <GitHubIcon />
+                <TwitterIcon />
+              </ExternalLink>
+            </SocialLink>
+            <SocialLink>
+              <ExternalLink
+                className="outline-none focus:text-brand-dark"
+                href={LINKEDIN_LINK}
+              >
+                <LinkedInIcon />
+              </ExternalLink>
+            </SocialLink>
+            <SocialLink>
+              <ExternalLink
+                className="outline-none focus:text-brand-dark"
+                href={FACEBOOK_LINK}
+              >
+                <FacebookIcon />
+              </ExternalLink>
+            </SocialLink>
+            <SocialLink>
+              <ExternalLink
+                className="outline-none focus:text-brand-dark"
+                href={INSTAGRAM_LINK}
+              >
+                <InstagramIcon />
               </ExternalLink>
             </SocialLink>
           </SocialLinks>

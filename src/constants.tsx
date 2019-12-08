@@ -11,4 +11,6 @@ export const FACEBOOK_LINK = 'https://www.facebook.com/FlamelinkCMS/'
 export const TWITTER_LINK = 'https://twitter.com/flamelinkcms'
 export const YOUTUBE_LINK =
   'https://www.youtube.com/channel/UCPSOGjXxn2he52czV1XsW3g'
+export const LINKEDIN_LINK = 'https://za.linkedin.com/company/flamelink-io'
+export const INSTAGRAM_LINK = 'https://www.instagram.com/flamelink'
 export const GITHUB_LINK = 'https://github.com/flamelink'

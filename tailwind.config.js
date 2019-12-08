@@ -50,6 +50,9 @@ module.exports = {
         'brand-light': '#f9c2b1',
         'brand-dark': '#e25225'
       },
+      maxWidth: {
+        '6xl': '69.375rem'
+      },
       margin: {
         '15': '3.75rem'
       },
