@@ -6,7 +6,7 @@ export const Section = tw.section`
   items-center
   overflow-x-hidden
   overflow-y-visible
-  py-10 sm:py-25
+  py-10 sm:py-20
 `
 
 export const SectionContainer = tw.div`
@@ -20,6 +20,7 @@ export const SectionContainer = tw.div`
 
 export const SectionTitle = styled.h2`
   ${tw`
+    font-light
     text-center
     text-heading
     text-2xl sm:text-4xl md:text-5xl
