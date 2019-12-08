@@ -51,13 +51,23 @@ function HomePage({ data }) {
           <PageContainer>
             <h1 className="flex flex-col justify-start items-start text-white font-normal leading-none text-5xl mb-8">
               <span>Your workflow</span>
-              <span className="text-6xl uppercase">made easy!</span>
+              <span
+                className="uppercase"
+                css={css`
+                  font-size: 3.125rem;
+                `}
+              >
+                made easy!
+              </span>
             </h1>
-            <p className="text-white mb-8 max-w-md">
+            <p className="text-white text-lg mb-8 max-w-md">
               Flamelink plugs straight into Firebase, putting you in charge of
               your content and saving you time.
             </p>
             <Group>
+              <Button variant="contained" color="secondary">
+                Learn More
+              </Button>
               <Button variant="outlined" color="secondary">
                 Demo Video
               </Button>
@@ -70,7 +80,7 @@ function HomePage({ data }) {
           <SectionContainer>
             <SectionTitle
               css={css`
-                ${tw`mb-10 max-w-lg`}
+                ${tw`mb-10`}
               `}
             >
               {get(pageData, 'firebaseSection.title', '')}
@@ -88,9 +98,53 @@ function HomePage({ data }) {
                 />
               </span>
             )}
-            <p className="text-center max-w-4xl">
+            <p className="text-center text-lg max-w-4xl mb-20">
               {get(pageData, 'firebaseSection.excerpt', '')}
             </p>
+            <ul className="flex justify-center items-stretch">
+              {get(pageData, 'firebaseSection.personas', []).map(persona => (
+                <li
+                  key={persona.title}
+                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 shadow rounded py-10 px-12"
+                  style={{ margin: '0 1.875rem' }}
+                >
+                  {get(persona, 'icon[0].url') && (
+                    <span className="w-15 h-15 mb-5">
+                      <img
+                        src={persona.icon[0].url}
+                        alt=""
+                        loading="lazy"
+                        width="60"
+                        height="60"
+                      />
+                    </span>
+                  )}
+                  <h3 className="text-xl font-medium text-heading leading-snug">
+                    {persona.title}
+                  </h3>
+                  <ul
+                    css={css`
+                      ${tw`flex flex-col justify-start items-center leading-normal`}
+
+                      margin: 0.625rem 0 1.25rem;
+                      flex-grow: 1;
+                    `}
+                  >
+                    {persona.keyPoints.map(keyPoint => (
+                      <li key={keyPoint}>{keyPoint}</li>
+                    ))}
+                  </ul>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    as={Link}
+                    to={get(persona, 'cta.link', '')}
+                  >
+                    {get(persona, 'cta.text', '')}
+                  </Button>
+                </li>
+              ))}
+            </ul>
           </SectionContainer>
         </Section>
 
@@ -174,7 +228,7 @@ function HomePage({ data }) {
             )
           }}
         >
-          <div className="w-full h-full block">
+          <div className="w-full h-full block flex flex-col justify-start items-center">
             <SectionContainer>
               <SectionTitle
                 css={css`
@@ -408,6 +462,15 @@ export const query = graphql`
                 presentationHeight
               }
             }
+          }
+        }
+        personas {
+          title
+          icon
+          keyPoints
+          cta {
+            text
+            link
           }
         }
       }

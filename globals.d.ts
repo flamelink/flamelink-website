@@ -14,4 +14,5 @@ declare module '*.gif'
 declare module '*.svg'
 
 declare module 'tailwind.macro'
+
 declare module 'tailwindcss/resolveConfig'
