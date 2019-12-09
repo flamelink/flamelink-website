@@ -28,15 +28,29 @@ const HomeLink = styled(Link)`
   ${tw`no-underline text-white`}
 `
 const NavLink = styled.button`
-  transition: all 300ms ease-out;
+  ${tw`
+    block md:inline-block
+    m-0
+    no-underline
+    font-normal
+    text-lg
+    text-white
+    hover:text-brand-dark
+  `}
 
-  ${tw`block md:inline-block mt-4 md:mt-0 md:mr-6 no-underline font-normal text-white text-lg`}
+  transition: all 300ms ease-out;
+  padding: 0.875rem 1rem;
+  line-height: 1;
+
+  &[aria-expanded='true'] {
+    ${tw`bg-brand-dark hover:text-white hover:underline`}
+  }
 `
 
 const NavMenuItem = styled.a`
   transition: all 300ms ease-out;
 
-  ${tw`block py-2 px-2 no-underline font-normal text-body text-base`}
+  ${tw`block py-1 px-4 no-underline hover:underline font-normal text-white text-base`}
 `
 
 type CmsNavItem = {
@@ -57,12 +71,17 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
       </NavMenuItem>
     ))
     return (
-      <DropDownMenu
-        key={key}
-        aria-label={`${item.title} menu`}
-        disclosure={<NavLink as={ReakitButton}>{item.title}</NavLink>}
-        items={menuItems}
-      />
+      <div>
+        <DropDownMenu
+          key={key}
+          aria-label={`${item.title} menu`}
+          disclosure={<NavLink as={ReakitButton}>{item.title}</NavLink>}
+          items={menuItems}
+          css={css`
+            ${tw`bg-brand-dark text-white py-3 mt-2`}
+          `}
+        />
+      </div>
     )
   }
 
@@ -73,6 +92,7 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
         variant="contained"
         color="secondary"
         href={item.url}
+        className="ml-4 mt-4 md:mt-0 inline-block"
         {...(item.newWindow ? { as: ExternalLink } : {})}
       >
         {item.title}
@@ -165,7 +185,7 @@ function Header() {
         ${stickyNav || isExpanded ? tw`sticky bg-brand` : tw`relative`}
       `}
     >
-      <div className="flex flex-wrap items-center justify-between max-w-6xl mx-auto p-4 md:p-8">
+      <div className="flex flex-wrap items-baseline justify-between max-w-6xl mx-auto p-4 md:p-8">
         <HomeLink to="/" aria-label={site.siteMetadata.title}>
           <Logo />
         </HomeLink>
@@ -183,8 +203,8 @@ function Header() {
 
         <nav
           className={`${
-            isExpanded ? 'block' : 'hidden'
-          } md:block md:flex md:items-center w-full md:w-auto`}
+            isExpanded ? 'flex' : 'hidden md:visible md:block'
+          } md:flex flex-col md:flex-row justify-start items-center w-full md:w-auto p-4 md:p-0 mt-4 md:mt-0`}
         >
           {navItems.map(NavigationItem)}
         </nav>
