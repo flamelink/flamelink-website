@@ -17,6 +17,7 @@ import InterfacesSlider, {
   InterfacesSliderProps,
   InterfaceSlide
 } from '../components/InterfacesSlider'
+import CaseStudiesSlider from '../components/CaseStudiesSlider'
 import TestimonialsSlider from '../components/TestimonialsSlider'
 
 const Envelope = styled.div`
@@ -105,8 +106,11 @@ function HomePage({ data }) {
               {get(pageData, 'firebaseSection.personas', []).map(persona => (
                 <li
                   key={persona.title}
-                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 shadow rounded py-10 px-12"
-                  style={{ margin: '0 1.875rem' }}
+                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 rounded py-10 px-12"
+                  css={css`
+                    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+                    margin: 0 1.875rem;
+                  `}
                 >
                   {get(persona, 'icon[0].url') && (
                     <span className="w-15 h-15 mb-5">
@@ -219,27 +223,9 @@ function HomePage({ data }) {
         </Section>
 
         {/* CASE STUDIES SECTION */}
-        <Section
-          style={{
-            backgroundColor: get(
-              pageData,
-              'caseStudiesSection.caseStudies[0].brandColour',
-              '#fff'
-            )
-          }}
-        >
-          <div className="w-full h-full block flex flex-col justify-start items-center">
-            <SectionContainer>
-              <SectionTitle
-                css={css`
-                  ${tw`text-white`}
-                `}
-              >
-                {get(pageData, 'caseStudiesSection.title', '')}
-              </SectionTitle>
-            </SectionContainer>
-          </div>
-        </Section>
+        <CaseStudiesSlider
+          sectionData={get(pageData, 'caseStudiesSection', {})}
+        />
 
         {/* KEY FEATURES SECTION */}
         <Section className="bg-white">
@@ -515,8 +501,29 @@ export const query = graphql`
         title
         caseStudies {
           title
+          slug
           brandColour
           excerpt
+          backgroundImage {
+            localFile {
+              childImageSharp {
+                fluid {
+                  base64
+                  tracedSVG
+                  aspectRatio
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  sizes
+                  originalImg
+                  originalName
+                  presentationWidth
+                  presentationHeight
+                }
+              }
+            }
+          }
           logo {
             localFile {
               childImageSharp {

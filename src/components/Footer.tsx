@@ -207,7 +207,7 @@ function Footer() {
                 {...form}
                 name="email"
                 placeholder="Email Address"
-                className="bg-gray-600 text-white text-sm py-3 pl-3 pr-4 w-full focus:placeholder-white focus:shadow focus:bg-brand-dark"
+                className="bg-gray-600 text-white text-sm py-3 pl-3 pr-4 w-full placeholder-white focus:placeholder-white focus:shadow focus:bg-brand-dark"
                 css={css`
                   & ~ button:focus {
                     outline: 0;
