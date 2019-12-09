@@ -19,6 +19,7 @@ import InterfacesSlider, {
 } from '../components/InterfacesSlider'
 import CaseStudiesSlider from '../components/CaseStudiesSlider'
 import TestimonialsSlider from '../components/TestimonialsSlider'
+import Modal from '../components/Modal'
 
 const Envelope = styled.div`
   ${tw`right-0 bottom-0 absolute z-0`}
@@ -28,7 +29,11 @@ function HomePage({ data }) {
   const pageData = get(data, 'flamelinkHomePageContent')
 
   if (!pageData) {
-    return <h2>Page data failed to load :(</h2>
+    return (
+      <h2 className="text-heading text-center text-xl">
+        Page data failed to load :(
+      </h2>
+    )
   }
 
   return (
@@ -66,12 +71,23 @@ function HomePage({ data }) {
               your content and saving you time.
             </p>
             <Group>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ marginRight: '1rem' }}
+              >
                 Learn More
               </Button>
-              <Button variant="outlined" color="secondary">
-                Demo Video
-              </Button>
+              <Modal
+                aria-label="play demo video"
+                disclosure={
+                  <Button variant="outlined" color="secondary">
+                    Demo Video
+                  </Button>
+                }
+              >
+                <video src="https://www.youtube.com/embed/8Cw5ktNADBQ?=controls=0&rel=0&showinfo=0&autoplay=1&enablejsapi=1&iv_load_policy=3&cc_load_policy=0&cc_lang_pref=en&wmode=transparent&modestbranding=1&disablekb=1&origin=https%3A%2F%2Fflamelink.io&enablejsapi=1&widgetid=4" />
+              </Modal>
             </Group>
           </PageContainer>
         </PageBanner>
@@ -102,14 +118,19 @@ function HomePage({ data }) {
             <p className="text-center text-lg max-w-4xl mb-20">
               {get(pageData, 'firebaseSection.excerpt', '')}
             </p>
-            <ul className="flex justify-center items-stretch">
+            <ul className="flex flex-col md:flex-row justify-center items-stretch">
               {get(pageData, 'firebaseSection.personas', []).map(persona => (
                 <li
                   key={persona.title}
-                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 rounded py-10 px-12"
+                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 rounded py-10 px-12 mb-4 md:mb-0"
                   css={css`
                     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
-                    margin: 0 1.875rem;
+                    margin-left: 1.875rem;
+                    margin-right: 1.875rem;
+
+                    &:last-child {
+                      margin-bottom: 0;
+                    }
                   `}
                 >
                   {get(persona, 'icon[0].url') && (
@@ -189,13 +210,18 @@ function HomePage({ data }) {
             <SectionTitle>
               {get(pageData, 'howItWorksSection.title', '')}
             </SectionTitle>
-            <ol className="flex justify-center items-stretch text-center">
+            <ol className="flex flex-col md:flex-row justify-center items-stretch md:text-center">
               {get(pageData, 'howItWorksSection.steps', []).map(step => (
                 <li
                   key={step.uniqueKey}
-                  className="flex flex-col justify-start items-center"
+                  className="flex flex-col justify-start items-start md:items-center mb-4 md:mb-0"
                   css={css`
-                    margin: 0 1.8175rem;
+                    margin-left: 1.8175rem;
+                    margin-right: 1.8175rem;
+
+                    &:last-child {
+                      margin-bottom: 0;
+                    }
                   `}
                 >
                   {get(step, 'icon[0].url') && (
