@@ -131,10 +131,7 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
                 `}
               >
                 <div
-                  className="carousel-content"
-                  css={css`
-                    ${tw`flex justify-start items-stretch relative`}
-                  `}
+                  className="carousel-content flex justify-start items-stretch relative"
                   {...handlers}
                   style={style}
                 >
