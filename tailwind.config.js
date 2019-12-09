@@ -48,7 +48,7 @@ module.exports = {
         heading: '#646464',
         brand: '#ff5722',
         'brand-light': '#f9c2b1',
-        'brand-dark': '#e25225'
+        'brand-dark': '#9B4C36' // '#e25225'
       },
       maxWidth: {
         '6xl': '69.375rem'

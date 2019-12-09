@@ -20,13 +20,7 @@ const DropDownMenu: React.FC<Props> = ({ disclosure, items, ...props }) => {
       <MenuDisclosure {...menu} {...disclosure.props}>
         {disclosureProps => React.cloneElement(disclosure, disclosureProps)}
       </MenuDisclosure>
-      <Menu
-        {...menu}
-        {...props}
-        css={css`
-          ${tw`bg-white`}
-        `}
-      >
+      <Menu {...menu} {...props}>
         {items.map((item, i) => (
           <MenuItem {...menu} {...item.props} key={i}>
             {itemProps => React.cloneElement(item, itemProps)}
