@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="1021px" viewBox="0 0 1920 1021" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>background</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 0 1920 0 1920 1021 555.822917 1021 0 1021"></polygon>
+    </defs>
+    <g id="background" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Let's-Talk">
+            <g id="Group-2">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FF6633" xlink:href="#path-1"></use>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FB6331" stroke-linejoin="round" mask="url(#mask-2)" points="-19.7929688 76.7382812 79.5507812 47.7382812 254.540552 522.511719 -57 522.511719"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FF6B3A" stroke-linejoin="round" mask="url(#mask-2)" points="652.945312 253.636719 494.136719 110.214844 254.540552 522.511719 761.441406 741.261719"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FF6633" stroke-linejoin="round" mask="url(#mask-2)" points="663.34375 973.140625 395.33375 897.160156 254.540552 522.511719 761.441406 741.261719"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FB6331" stroke-linejoin="round" mask="url(#mask-2)" points="395.33375 897.160156 254.540552 522.511719 0 995.410156"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FB6331" stroke-linejoin="round" mask="url(#mask-2)" points="652.945313 253.636719 494.136719 110.214844 395.33375 -99.2617188 707.59375 -114.0625"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FF6633" stroke-linejoin="round" mask="url(#mask-2)" points="652.945312 253.636719 977.246094 -12.8925781 1071.55859 378.109375 761.441406 741.261719"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FB6331" stroke-linejoin="round" mask="url(#mask-2)" points="1036.59375 805.738281 1245.59375 757.347656 1071.55859 378.109375 761.441406 741.261719"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FF6B3A" stroke-linejoin="round" mask="url(#mask-2)" points="1036.59375 805.738281 1245.59375 757.347656 1013.98047 1096.75781 761.441406 741.261719"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FF6633" stroke-linejoin="round" mask="url(#mask-2)" points="1245.59375 757.347656 1013.98047 1096.75781 1488.16797 757.347656"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FB6331" stroke-linejoin="round" mask="url(#mask-2)" points="1815.60938 1053.0625 1013.98047 1096.75781 1488.16797 757.347656"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FB6331" stroke-linejoin="round" mask="url(#mask-2)" points="663.34 973.14 767.792969 1083.08203 1013.98047 1096.75781 761.441406 741.261719"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FB6331" stroke-linejoin="round" mask="url(#mask-2)" points="1456.58594 -78.0742188 977.246094 -12.8925781 1071.55859 378.109375 1115.59375 163.253906"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FF6B3A" stroke-linejoin="round" mask="url(#mask-2)" points="1522.86719 211.738281 1481.4375 297.769531 1071.55859 378.109375 1115.59375 163.253906"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" stroke-linejoin="round" mask="url(#mask-2)" points="1522.86719 211.738281 1456.59 -78.07 1115.59375 163.253906"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" stroke-linejoin="round" mask="url(#mask-2)" points="1481.4375 297.769531 1071.55859 378.109375 1245.59 757.35"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FF6B3A" stroke-linejoin="round" mask="url(#mask-2)" points="1481.4375 297.769531 1488.16797 757.35 1245.59 757.35"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FB6331" stroke-linejoin="round" mask="url(#mask-2)" points="1481.4375 297.769531 1488.16797 757.35 1843.8125 634.984375 1946.76172 355.316406 1522.86719 211.738281"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FF6B3A" stroke-linejoin="round" mask="url(#mask-2)" points="1815.60938 1053.0625 1488.16797 757.35 1843.8125 634.984375 1997.01953 812.71875"></polygon>
+                <polygon id="Path-4" stroke="#FF7144" stroke-width="5" fill="#FF6633" stroke-linejoin="round" mask="url(#mask-2)" points="235.59375 -136 79.5507813 47.7382812 494.136719 110.214844 395.335938 -99.2617188"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

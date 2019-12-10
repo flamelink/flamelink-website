@@ -31,8 +31,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               color: ${p.theme.colors.brand};
             }
           `
-        }
-        if (color === 'secondary') {
+        } else if (color === 'secondary') {
           btnStyles = p => css`
             color: ${p.theme.colors.white};
 
@@ -59,8 +58,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               color: ${p.theme.colors.white};
             }
           `
-        }
-        if (color === 'secondary') {
+        } else if (color === 'secondary') {
           btnStyles = p => css`
             border-width: 2px;
             border-color: ${p.theme.colors.white};
@@ -90,8 +88,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               color: ${p.theme.colors.white};
             }
           `
-        }
-        if (color === 'secondary') {
+        } else if (color === 'secondary') {
           btnStyles = p => css`
             border-width: 2px;
             border-color: ${p.theme.colors.white};
