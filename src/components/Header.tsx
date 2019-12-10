@@ -12,8 +12,13 @@ import Logo from './Logo'
 import ExternalLink from './ExternalLink'
 import DropDownMenu from './DropDownMenu'
 
-const MainHeader = styled.header`
+const MainHeader = styled.header<{ sticky: boolean }>`
   ${tw`top-0 w-screen z-20`}
+
+  ${props =>
+    props.sticky
+      ? tw`sticky bg-brand`
+      : tw`relative`}
 
   transition: background 350ms linear;
 `
@@ -27,7 +32,7 @@ const HomeLink = styled(Link)`
 
   ${tw`no-underline text-white`}
 `
-const NavLink = styled.button`
+const NavLink = styled.button<{ as?: unknown; to?: string }>`
   ${tw`
     block md:inline-block
     m-0
@@ -43,11 +48,11 @@ const NavLink = styled.button`
   line-height: 1;
 
   &[aria-expanded='true'] {
-    ${tw`bg-brand-dark hover:text-white hover:underline`}
+    ${tw`bg-gray-500 hover:text-white hover:underline`}
   }
 `
 
-const NavMenuItem = styled.a`
+const NavMenuItem = styled.a<{ as?: unknown }>`
   transition: all 300ms ease-out;
 
   ${tw`block py-1 px-4 no-underline hover:underline font-normal text-white text-base`}
@@ -71,14 +76,13 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
       </NavMenuItem>
     ))
     return (
-      <div>
+      <div key={key}>
         <DropDownMenu
-          key={key}
           aria-label={`${item.title} menu`}
           disclosure={<NavLink as={ReakitButton}>{item.title}</NavLink>}
           items={menuItems}
           css={css`
-            ${tw`bg-brand-dark text-white py-3 mt-2`}
+            ${tw`bg-gray-500 text-white py-3 mt-2`}
           `}
         />
       </div>
@@ -176,16 +180,21 @@ function Header() {
     [stickyNav],
     undefined,
     false,
-    200
+    150
   )
 
+  const isSticky = stickyNav || isExpanded
+
   return (
-    <MainHeader
-      css={css`
-        ${stickyNav || isExpanded ? tw`sticky bg-brand` : tw`relative`}
-      `}
-    >
-      <div className="flex flex-wrap items-baseline justify-between max-w-6xl mx-auto p-4 md:p-8">
+    <MainHeader sticky={isSticky}>
+      <div
+        className={`flex flex-wrap items-baseline justify-between max-w-6xl mx-auto p-4 ${
+          isSticky ? 'md:p-3' : 'md:p-8'
+        }`}
+        css={css`
+          transition: all 190ms linear;
+        `}
+      >
         <HomeLink to="/" aria-label={site.siteMetadata.title}>
           <Logo />
         </HomeLink>

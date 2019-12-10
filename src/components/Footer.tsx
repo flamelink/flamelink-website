@@ -71,7 +71,7 @@ const StripedToe = styled.div`
   bottom: 0;
 `
 
-const NavLink = styled.a`
+const NavLink = styled.a<{ as?: unknown; to?: string }>`
   ${tw`
   hover:text-brand
   leading-relaxed
@@ -248,6 +248,9 @@ function Footer() {
           <h3 className="font-medium mb-2 md:mb-5 uppercase">Support</h3>
           <NavLink as={ExternalLink} href={DOCUMENTATION_LINK}>
             Documentation
+          </NavLink>
+          <NavLink as={Link} to="/slack">
+            Slack Community
           </NavLink>
           <NavLink as={ExternalLink} href={APP_CHANGELOG_LINK}>
             Changelog
