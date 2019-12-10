@@ -1,6 +1,12 @@
 // See https://tailwindcss.com/docs/configuration for details
 const { colors } = require('tailwindcss/defaultTheme')
 
+const BRAND_COLOR = '#ff6633' // '#ff5722'
+const BRAND_COLOR_LIGHT = '#f9c2b1'
+const BRAND_COLOR_DARK = '#9B4C36' // '#e25225'
+const BRAND_COLOR_TEXT_HEADING = '#646464'
+const BRAND_COLOR_TEXT_BODY = '#323232'
+
 module.exports = {
   theme: {
     extend: {
@@ -8,15 +14,16 @@ module.exports = {
         default: '0 0 25px 0 rgba(0, 0, 0, 0.15)'
       },
       colors: {
-        brand: '#ff5722',
-        'brand-light': '#f9c2b1',
-        'brand-dark': '#ca3d10',
+        brand: BRAND_COLOR,
+        'brand-light': BRAND_COLOR_LIGHT,
+        'brand-dark': BRAND_COLOR_DARK,
         gray: {
           ...colors.gray,
           '100': '#f5f5f5',
           '400': '#c8c8c8',
-          '600': '#646464',
-          '800': '#323232'
+          '500': 'rgba(50, 50, 50, 0.48)',
+          '600': BRAND_COLOR_TEXT_HEADING,
+          '800': BRAND_COLOR_TEXT_BODY
         }
       },
       fontFamily: {
@@ -44,11 +51,11 @@ module.exports = {
         '34': '8.5rem'
       },
       textColor: {
-        body: '#323232',
-        heading: '#646464',
-        brand: '#ff5722',
-        'brand-light': '#f9c2b1',
-        'brand-dark': '#9B4C36' // '#e25225'
+        body: BRAND_COLOR_TEXT_BODY,
+        heading: BRAND_COLOR_TEXT_HEADING,
+        brand: BRAND_COLOR,
+        'brand-light': BRAND_COLOR_LIGHT,
+        'brand-dark': BRAND_COLOR_DARK
       },
       maxWidth: {
         '6xl': '69.375rem'
