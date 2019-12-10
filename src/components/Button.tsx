@@ -86,7 +86,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
             :hover {
               border-color: ${p.theme.colors['brand-dark']};
-              color: ${p.theme.colors['brand-dark']};
+              background-color: ${p.theme.colors['brand-dark']};
+              color: ${p.theme.colors.white};
             }
           `
         }
