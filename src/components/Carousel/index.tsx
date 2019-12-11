@@ -17,20 +17,27 @@ type CarouselPayload = {
 type CarouselProps = {
   slides: unknown[]
   interval?: number
+  isPaused?: boolean
+  trackMouse?: boolean
+  trackTouch?: boolean
   children: (payload: CarouselPayload) => {}
 }
 
 const Carousel: React.FC<CarouselProps> = ({
   slides,
   interval = 5000,
+  isPaused = false,
+  trackMouse = false,
+  trackTouch = true,
   children
 }) => {
   const size = slides.length
   const { active, setActive, handlers, style, prev, next } = useCarousel({
     size,
     interval,
-    trackMouse: true,
-    trackTouch: true
+    isPaused,
+    trackMouse,
+    trackTouch
   })
   const clonedSlides = slides.slice()
 
