@@ -124,6 +124,7 @@ function swiped(
 type UseCarouselConfig = {
   size: number
   interval: number
+  isPaused?: boolean
   trackMouse?: boolean
   trackTouch?: boolean
 }
@@ -140,6 +141,7 @@ type UseCarouselPayload = {
 export function useCarousel({
   size,
   interval,
+  isPaused = false,
   trackMouse = true,
   trackTouch = true
 }: UseCarouselConfig): UseCarouselPayload {
@@ -163,11 +165,11 @@ export function useCarousel({
 
   // Carousel auto-scroll behaviour
   useEffect(() => {
-    if (!interval) return
+    if (!interval || isPaused) return
 
     const id = setTimeout(() => dispatch({ type: 'next', size }), interval)
     return () => clearTimeout(id)
-  }, [state.offset, state.active, interval, size])
+  }, [state.offset, state.active, interval, isPaused, size])
 
   useEffect(() => {
     const id = setTimeout(() => dispatch({ type: 'done' }), transitionTime)

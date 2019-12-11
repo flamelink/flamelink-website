@@ -151,7 +151,7 @@ function SlackPage() {
         ) : (
           <Form
             {...form}
-            className="bg-white text-body py-10 px-12 mx-8 max-w-xl"
+            className="bg-white text-body py-10 px-12 mx-8 max-w-xl shadow"
           >
             <p className="text-center mb-10">{excerpt}</p>
             {formErrors && (
