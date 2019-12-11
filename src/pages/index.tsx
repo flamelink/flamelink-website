@@ -2,14 +2,11 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import get from 'lodash/get'
-import { Group } from 'reakit/Group'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
-import PageBanner from '../components/PageBanner'
-import PageContainer from '../components/PageContainer'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import Button from '../components/Button'
 import ExternalLink from '../components/ExternalLink'
@@ -17,9 +14,9 @@ import InterfacesSlider, {
   InterfacesSliderProps,
   InterfaceSlide
 } from '../components/InterfacesSlider'
+import HomepageSlider from '../components/HomepageSlider'
 import CaseStudiesSlider from '../components/CaseStudiesSlider'
 import TestimonialsSlider from '../components/TestimonialsSlider'
-import Modal from '../components/Modal'
 
 const Envelope = styled.div`
   ${tw`right-0 bottom-0 absolute z-0`}
@@ -52,45 +49,13 @@ function HomePage({ data }) {
         ]}
         title="Home"
       />
-      <main>
-        <PageBanner>
-          <PageContainer>
-            <h1 className="flex flex-col justify-start items-start text-white font-normal leading-none text-5xl mb-8">
-              <span>Your workflow</span>
-              <span
-                className="uppercase"
-                css={css`
-                  font-size: 3.125rem;
-                `}
-              >
-                made easy!
-              </span>
-            </h1>
-            <p className="text-white text-lg mb-8 max-w-md">
-              Flamelink plugs straight into Firebase, putting you in charge of
-              your content and saving you time.
-            </p>
-            <Group>
-              <Button
-                variant="contained"
-                color="secondary"
-                style={{ marginRight: '1rem' }}
-              >
-                Learn More
-              </Button>
-              <Modal
-                aria-label="play demo video"
-                disclosure={
-                  <Button variant="outlined" color="secondary">
-                    Demo Video
-                  </Button>
-                }
-              >
-                <video src="https://www.youtube.com/embed/8Cw5ktNADBQ?=controls=0&rel=0&showinfo=0&autoplay=1&enablejsapi=1&iv_load_policy=3&cc_load_policy=0&cc_lang_pref=en&wmode=transparent&modestbranding=1&disablekb=1&origin=https%3A%2F%2Fflamelink.io&enablejsapi=1&widgetid=4" />
-              </Modal>
-            </Group>
-          </PageContainer>
-        </PageBanner>
+      <main
+        css={css`
+          scroll-snap-type: proximity;
+          scroll-snap-type: x proximity;
+        `}
+      >
+        <HomepageSlider banners={get(pageData, 'banner', [])} />
 
         {/* FIREBASE + GCP SECTION */}
         <Section className="bg-white">
@@ -428,26 +393,16 @@ export const query = graphql`
         title1
         title2
         excerpt
-        cta {
+        ctas {
           text
           action
+          buttonType
         }
         image {
           localFile {
             childImageSharp {
-              fluid {
-                base64
-                tracedSVG
-                aspectRatio
-                src
-                srcSet
-                srcWebp
-                srcSetWebp
-                sizes
-                originalImg
-                originalName
-                presentationWidth
-                presentationHeight
+              fluid(quality: 100) {
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
@@ -460,18 +415,7 @@ export const query = graphql`
           localFile {
             childImageSharp {
               fluid {
-                base64
-                tracedSVG
-                aspectRatio
-                src
-                srcSet
-                srcWebp
-                srcSetWebp
-                sizes
-                originalImg
-                originalName
-                presentationWidth
-                presentationHeight
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
@@ -491,19 +435,8 @@ export const query = graphql`
         images {
           localFile {
             childImageSharp {
-              fluid {
-                base64
-                tracedSVG
-                aspectRatio
-                src
-                srcSet
-                srcWebp
-                srcSetWebp
-                sizes
-                originalImg
-                originalName
-                presentationWidth
-                presentationHeight
+              fluid(quality: 100) {
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
