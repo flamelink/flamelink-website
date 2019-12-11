@@ -1,12 +1,16 @@
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
-export const Section = tw.section`
+export const Section = styled.section`
+  ${tw`
   flex flex-col justify-start
   items-center
   overflow-x-hidden
   overflow-y-visible
   py-10 sm:py-20
+  `}
+
+  scroll-snap-align: start;
 `
 
 export const SectionContainer = tw.div`

@@ -16,6 +16,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       transition: all 250ms ease-in-out;
       padding: 0.875rem 1.5rem;
       line-height: 1;
+      font-weight: 500;
     `
 
     let btnStyles

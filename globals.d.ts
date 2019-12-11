@@ -13,6 +13,8 @@ declare module '*.jpeg'
 declare module '*.gif'
 declare module '*.svg'
 
+declare module 'react-hover-observer'
+
 declare module 'tailwind.macro'
 
 declare module 'tailwindcss/resolveConfig'

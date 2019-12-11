@@ -3,7 +3,7 @@ const { colors } = require('tailwindcss/defaultTheme')
 
 const BRAND_COLOR = '#ff6633' // '#ff5722'
 const BRAND_COLOR_LIGHT = '#f9c2b1'
-const BRAND_COLOR_DARK = '#9B4C36' // '#e25225'
+const BRAND_COLOR_DARK = '#b83400' // '#9B4C36' // '#e25225'
 const BRAND_COLOR_TEXT_HEADING = '#646464'
 const BRAND_COLOR_TEXT_BODY = '#323232'
 
