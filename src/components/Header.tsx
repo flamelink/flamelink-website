@@ -39,13 +39,20 @@ const NavLink = styled.button<{ as?: unknown; to?: string }>`
     no-underline
     font-normal
     text-lg
+    md:text-base
+    lg:text-g
     text-white
     hover:text-brand-dark
   `}
 
-  transition: all 300ms ease-out;
-  padding: 0.875rem 1rem;
   line-height: 1;
+  transition: all 300ms ease-out;
+
+  padding: 0.875rem 0.6rem;
+
+  @media (min-width: 769px) {
+    padding: 0.875rem 1rem;
+  }
 
   &[aria-expanded='true'] {
     ${tw`bg-gray-500 hover:text-white hover:underline`}
@@ -82,7 +89,7 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
           disclosure={<NavLink as={ReakitButton}>{item.title}</NavLink>}
           items={menuItems}
           css={css`
-            ${tw`bg-gray-500 text-white py-3 mt-2`}
+            ${tw`bg-gray-500 text-white py-1 lg:py-3 mt-2`}
           `}
         />
       </div>

@@ -45,7 +45,8 @@ const Dots: React.FC<{
     <Group
       className="carousel-indicators"
       css={css`
-        ${tw`flex items-center justify-center pb-15 pt-1`}
+        ${tw`flex items-center justify-center pb-15 pt-1 relative`}
+        z-index: 1;
       `}
     >
       {slides.map((_, index) => (
@@ -66,9 +67,10 @@ const Dots: React.FC<{
               p-0
             `}
 
+            ${active === index ? tw`bg-white` : tw`bg-brand-dark`}
+
             outline: 0 !important;
             transition: all 200ms linear;
-            ${active === index ? tw`bg-white` : tw`bg-brand-dark`}
             opacity: ${active === index ? 1 : 0.6}
 
             :hover {
@@ -98,15 +100,15 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
             next
           }) => (
             <Box
-              className="w-full h-screen flex justify-start items-stretch relative"
-              {...handlers}
+              className="w-full h-screen md:h-auto flex justify-start items-stretch relative overflow-x-hidden overflow-y-visible"
               style={{ marginTop: '-7rem', ...style }}
+              {...handlers}
             >
               {(slides as Banner[]).map((slide, index) => (
                 <BackgroundImage
                   key={index}
                   Tag="section"
-                  className="w-screen bg-brand pt-20 pb-20 w-full"
+                  className="w-screen bg-brand pt-20 pb-20 w-full relative"
                   fluid={get(slide, 'image[0].localFile.childImageSharp.fluid')}
                   css={css`
                     background-position: top center;
@@ -115,8 +117,30 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                   `}
                 >
                   <Box
+                    css={css`
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      z-index: 0;
+                      opacity: 0.875;
+                      background: rgb(224, 87, 41);
+                      background: linear-gradient(
+                        90deg,
+                        rgba(224, 87, 41, 1) 10%,
+                        rgba(255, 102, 51, 1) 75%
+                      );
+                      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e05729",endColorstr="#ff6633",GradientType=1);
+                    `}
+                  ></Box>
+                  <Box
                     className="flex flex-col flex-1 justify-center items-stretch max-w-6xl mx-auto px-4 md:px-8 w-full h-full relative"
-                    style={{ paddingTop: '9rem', paddingBottom: '9rem' }}
+                    css={css`
+                      padding-top: 9rem;
+                      padding-bottom: 9rem;
+                      z-index: 1;
+                    `}
                   >
                     <ReakitButton
                       onClick={prev}
@@ -135,9 +159,9 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                           outline: 0;
                         }
 
-                        :hover {
+                        /* :hover {
                           transform: translateX(-0.25rem) scale(1.1);
-                        }
+                        } */
                       `}
                     >
                       <ArrowLeftIcon />
@@ -148,29 +172,37 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                           ? css`
                               transition: transform 150ms ease-out,
                                 opacity 350ms ease-out;
-                              transform: translate(0%);
                               opacity: 1;
+                              transform: translate(0%);
                             `
                           : css`
                               transition: transform 50ms ease-in,
                                 opacity 150ms ease-in;
-                              transform: translate(-10%);
                               opacity: 0;
+                              transform: translate(0%, 15%);
+
+                              @media (min-width: 768px) {
+                                transform: translate(-10%);
+                              }
                             `
                       }
                     >
-                      <h1 className="flex flex-col justify-start items-start text-white font-normal leading-none text-5xl mb-8">
+                      <h1 className="flex flex-col justify-start items-start text-white font-normal leading-none text-3xl sm:text-4xl md:text-5xl mb-4 md:mb-8">
                         <span>{slide.title1}</span>
                         <span
                           className="uppercase"
                           css={css`
-                            font-size: 3.125rem;
+                            font-size: 2.5rem;
+
+                            @media (min-width: 768px) {
+                              font-size: 3.125rem;
+                            }
                           `}
                         >
                           {slide.title2}
                         </span>
                       </h1>
-                      <p className="text-white text-lg mb-8 max-w-md">
+                      <p className="text-white text-base sm:text-lg mb-8 max-w-full md:max-w-md">
                         {slide.excerpt}
                       </p>
                       <Group>
@@ -197,7 +229,7 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                               color="secondary"
                               as={Link}
                               to={cta.action}
-                              style={{ marginRight: '1rem' }}
+                              style={{ margin: '0 1rem 1rem 0' }}
                             >
                               {cta.text}
                             </Button>
@@ -222,9 +254,9 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                           outline: 0;
                         }
 
-                        :hover {
+                        /* :hover {
                           transform: translateX(0.25rem) scale(1.1);
-                        }
+                        } */
                       `}
                     >
                       <ArrowRightIcon />
