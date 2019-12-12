@@ -401,7 +401,7 @@ export const query = graphql`
         image {
           localFile {
             childImageSharp {
-              fluid(quality: 100) {
+              fluid(maxWidth: 1920) {
                 ...GatsbyImageSharpFluid_withWebp
               }
             }
@@ -414,7 +414,7 @@ export const query = graphql`
         image {
           localFile {
             childImageSharp {
-              fluid {
+              fluid(maxWidth: 460) {
                 ...GatsbyImageSharpFluid_withWebp
               }
             }
@@ -435,8 +435,8 @@ export const query = graphql`
         images {
           localFile {
             childImageSharp {
-              fluid(quality: 100) {
-                ...GatsbyImageSharpFluid_withWebp
+              fluid(maxWidth: 1440, quality: 100) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -466,19 +466,8 @@ export const query = graphql`
           backgroundImage {
             localFile {
               childImageSharp {
-                fluid {
-                  base64
-                  tracedSVG
-                  aspectRatio
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  sizes
-                  originalImg
-                  originalName
-                  presentationWidth
-                  presentationHeight
+                fluid(maxWidth: 1920, quality: 80) {
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }
@@ -486,19 +475,8 @@ export const query = graphql`
           logo {
             localFile {
               childImageSharp {
-                fluid {
-                  base64
-                  tracedSVG
-                  aspectRatio
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  sizes
-                  originalImg
-                  originalName
-                  presentationWidth
-                  presentationHeight
+                fluid(maxWidth: 460) {
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }
@@ -526,18 +504,7 @@ export const query = graphql`
             localFile {
               childImageSharp {
                 fluid {
-                  base64
-                  tracedSVG
-                  aspectRatio
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  sizes
-                  originalImg
-                  originalName
-                  presentationWidth
-                  presentationHeight
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }
@@ -554,19 +521,8 @@ export const query = graphql`
           logo {
             localFile {
               childImageSharp {
-                fluid {
-                  base64
-                  tracedSVG
-                  aspectRatio
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  sizes
-                  originalImg
-                  originalName
-                  presentationWidth
-                  presentationHeight
+                fluid(maxWidth: 460) {
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }
@@ -582,10 +538,7 @@ export const query = graphql`
     # Envelope image used for Newsletter Section
     newsletterEnvelope: file(name: { eq: "envelope" }) {
       childImageSharp {
-        # fixed(width: 533, height: 443) {
-        #   ...GatsbyImageSharpFixed
-        # }
-        fluid {
+        fluid(maxWidth: 768) {
           ...GatsbyImageSharpFluid
         }
       }
