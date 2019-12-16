@@ -3,11 +3,14 @@ import tw from 'tailwind.macro'
 
 export const Section = styled.section`
   ${tw`
-  flex flex-col justify-start
-  items-center
-  overflow-x-hidden
-  overflow-y-visible
-  py-10 sm:py-20
+    w-full
+    h-auto
+    flex flex-col
+    justify-start
+    items-center
+    overflow-x-hidden
+    overflow-y-visible
+    py-10 sm:py-20
   `}
 
   scroll-snap-align: start;
