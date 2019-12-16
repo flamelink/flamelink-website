@@ -61,10 +61,12 @@ module.exports = {
         '6xl': '69.375rem'
       },
       margin: {
+        '9': '2.25rem',
         '15': '3.75rem'
       },
       padding: {
         '15': '3.75rem',
+        '23': '5.75rem',
         '25': '6.25rem'
       }
     }
