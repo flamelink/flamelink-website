@@ -503,7 +503,7 @@ export const query = graphql`
           avatar {
             localFile {
               childImageSharp {
-                fluid {
+                fluid(maxWidth: 120) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }
