@@ -18,21 +18,30 @@ const PageBanner: React.FC<Props> = ({ title, children, style }) => {
 
   return (
     <section
-      id="pageBanner"
       className="bg-brand w-screen"
       css={css`
-        padding-top: 13.25rem;
-        padding-bottom: 10.5rem;
+        padding: 10rem 1rem 5rem;
+        margin-top: -7rem;
         width: 100%;
         background-image: url(${bgPattern.publicURL});
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
+
+        @media screen and (min-width: 641px) {
+          padding-top: 11.25rem;
+          padding-bottom: 6.5rem;
+        }
+
+        @media screen and (min-width: 1025px) {
+          padding-top: 13.25rem;
+          padding-bottom: 10.5rem;
+        }
       `}
-      style={{ marginTop: '-7rem', ...(style || {}) }}
+      style={style}
     >
       {title ? (
-        <h1 className="text-white font-normal text-5xl uppercase text-center">
+        <h1 className="text-white font-normal text-4xl sm:text-5xl md:text-6xl leading-none uppercase text-center">
           {title}
         </h1>
       ) : (

@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
 export const PageContent = styled.article`
-  ${tw`text-base leading-normal font-normal`}
+  ${tw`text-base leading-normal font-normal mx-2 sm:mx-4`}
 
   h1, h2, h3, h4, h5 {
     ${tw`font-medium mb-3`}
