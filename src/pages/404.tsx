@@ -11,12 +11,17 @@ function NotFoundPage() {
     <Layout>
       <SEO title="404: Not found" />
       <main className="flex flex-col justify-center items-center pb-20 py-10">
-        <PageBanner style={{ marginTop: '-10rem', paddingTop: '3rem' }} />
+        <PageBanner
+          style={{
+            marginTop: '-10rem',
+            paddingTop: 0,
+            paddingBottom: '7.5rem'
+          }}
+        />
         <h1
-          className="text-6xl text-brand mb-10 font-medium mt-15"
+          className="text-brand mb-10 font-medium mt-15 leading-none"
           css={css`
             font-size: 13.875rem;
-            line-height: 1;
           `}
         >
           404

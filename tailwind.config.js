@@ -44,7 +44,8 @@ module.exports = {
       },
       fontSize: {
         '4xl': '2rem',
-        '5xl': '2.5rem'
+        '5xl': '2.5rem',
+        '6xl': '3.125rem'
       },
       spacing: {
         '30': '7.5rem',
