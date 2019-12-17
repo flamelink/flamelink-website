@@ -80,11 +80,11 @@ function HomePage({ data }) {
             <p className="text-center text-lg max-w-4xl mb-20">
               {get(pageData, 'firebaseSection.excerpt', '')}
             </p>
-            <ul className="flex flex-col md:flex-row justify-center items-stretch">
+            <ul className="flex flex-col md:flex-row justify-center items-stretch text-center">
               {get(pageData, 'firebaseSection.personas', []).map(persona => (
                 <li
                   key={persona.title}
-                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 rounded py-10 px-12 mb-4 md:mb-0"
+                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 rounded py-6 px-8 md:py-10 md:px-12 mb-4 md:mb-0"
                   css={css`
                     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
                     margin-left: 1.875rem;
