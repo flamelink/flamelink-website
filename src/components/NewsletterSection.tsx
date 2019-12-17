@@ -1,15 +1,25 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import get from 'lodash/get'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
+import { IoIosCheckmarkCircleOutline as SuccessIcon } from 'react-icons/io'
 import { Box } from 'reakit/Box'
+import {
+  unstable_Form as Form,
+  unstable_FormLabel as FormLabel,
+  unstable_FormInput as FormInput,
+  unstable_FormMessage as FormMessage,
+  unstable_FormSubmitButton as FormSubmitButton
+} from 'reakit/Form'
 import { Section, SectionContainer, SectionTitle } from './Section'
 import VisibilityObserver, {
   VisibilityObserverPayload
 } from './VisibilityObserver'
-import { graphql, useStaticQuery } from 'gatsby'
+import ArrowRight from '../icons/ArrowRight'
+import { useNewsletterForm } from '../hooks/newsletter-form'
 
 const Envelope = styled.div`
   ${tw`right-0 bottom-0 absolute z-0`}
@@ -33,6 +43,8 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
     }
   `)
 
+  const form = useNewsletterForm()
+
   return (
     <VisibilityObserver threshold={0.45} once>
       {({ isIntersecting }: VisibilityObserverPayload) => (
@@ -44,7 +56,7 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
         >
           <Box
             css={css`
-              ${tw`z-10`}
+              ${tw`z-10 max-w-2xl w-full`}
             `}
           >
             <SectionContainer>
@@ -55,13 +67,51 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
               >
                 {get(data, 'title', '')}
               </SectionTitle>
-              <input
-                type="email"
-                name="newsletter"
-                className="py-4 px-5 sm:py-5 sm:px-8 w-full text-3xl sm:text-4xl mb-10 placeholder-gray-400"
-                placeholder={get(data, 'placeholderText', '')}
-              />
-              <p className="text-center">{get(data, 'excerpt', '')}</p>
+              <Form {...form} className="w-full mb-10">
+                <FormLabel
+                  {...form}
+                  name="email"
+                  className="relative block mx-auto w-full"
+                >
+                  <FormInput
+                    {...form}
+                    name="email"
+                    type="email"
+                    placeholder={get(data, 'placeholderText', '')}
+                    className="py-4 px-5 sm:py-5 sm:px-8 w-full text-3xl sm:text-4xl placeholder-gray-400 border border-gray-100 focus:border-brand outline-none"
+                    css={css`
+                      & ~ button:focus {
+                        outline: 0;
+                      }
+                    `}
+                  />
+                  <FormSubmitButton
+                    {...form}
+                    className="absolute inset-y-0 right-0 top-0 mr-5 opacity-50 hover:opacity-100 outline-none focus:opacity-100 focus:text-brand-dark"
+                  >
+                    <ArrowRight
+                      css={css`
+                        height: 1.125rem;
+                      `}
+                    />
+                  </FormSubmitButton>
+                </FormLabel>
+                <FormMessage
+                  {...form}
+                  name="email"
+                  className="text-red-600 text-xs mt-2 absolute"
+                />
+              </Form>
+              {form.submitSucceed ? (
+                <p className="text-center leading-normal flex justify-start items-center">
+                  <SuccessIcon className="mr-2 text-green-600 text-lg" /> Thanks
+                  for signing up to our newsletter!
+                </p>
+              ) : (
+                <p className="text-center leading-normal">
+                  {get(data, 'excerpt', '')}
+                </p>
+              )}
             </SectionContainer>
           </Box>
           <Envelope
@@ -73,7 +123,6 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
               transform: ${isIntersecting
                 ? 'translateX(0%)'
                 : 'translateX(100%)'};
-              opacity: ${isIntersecting ? 1 : 0};
 
               @media screen and (min-width: 960px) {
                 width: 50%;
