@@ -33,7 +33,7 @@ const Slide = styled.label`
     margin: 0;
   }
 `
-
+// https://www.freecodecamp.org/forum/t/perspective-problem-firefox-bug/137639/2
 const Slider = styled.div`
   height: 35vw;
   width: 100%;
@@ -41,7 +41,7 @@ const Slider = styled.div`
   position: relative;
   perspective: 1000px;
   transform-style: preserve-3d;
-  margin-bottom: 3.75rem;
+  margin-bottom: 2.5rem;
 
   /* Position: left */
   #s1:checked ~ #slide3,
