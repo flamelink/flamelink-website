@@ -1,8 +1,7 @@
 import { unstable_useFormState as useFormState } from 'reakit/Form'
 import { string, object } from 'yup'
 import set from 'lodash/set'
-import * as firebase from 'firebase/app'
-import firebaseApp from '../utils/firebase'
+import { getFirebaseApp } from '../utils/firebase'
 
 const schema = object().shape({
   email: string()
@@ -31,12 +30,14 @@ export const useNewsletterForm = () => {
       ),
     onSubmit: async payload => {
       try {
+        const firebaseApp = await getFirebaseApp()
+
         await firebaseApp
           .firestore()
           .collection('newsletter')
           .add({
             ...payload,
-            created: firebase.firestore.Timestamp.fromDate(new Date())
+            created: Date.now()
           })
 
         console.log(
