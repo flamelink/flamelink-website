@@ -1,7 +1,5 @@
 import React from 'react'
 import { useMenuState, Menu, MenuItem, MenuDisclosure } from 'reakit/Menu'
-import { css } from '@emotion/core'
-import tw from 'tailwind.macro'
 
 interface Props {
   disclosure: React.ReactElement

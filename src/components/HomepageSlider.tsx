@@ -4,7 +4,7 @@ import { Box } from 'reakit/Box'
 import { Group } from 'reakit/Group'
 import { useRoverState, Rover } from 'reakit/Rover'
 import get from 'lodash/get'
-import { css } from '@emotion/core'
+import { css, SerializedStyles } from '@emotion/core'
 import ReactHoverObserver from 'react-hover-observer'
 import tw from 'tailwind.macro'
 import BackgroundImage from 'gatsby-background-image'
@@ -38,7 +38,8 @@ const Dots: React.FC<{
   slides: unknown[]
   active: number
   setActive: (n: number) => void
-}> = ({ slides, active, setActive }) => {
+  onActiveSlide: boolean
+}> = ({ slides, active, setActive, onActiveSlide }) => {
   const rover = useRoverState({ loop: true, orientation: 'horizontal' })
 
   return (
@@ -78,9 +79,48 @@ const Dots: React.FC<{
             }
           `}
           className={active === index ? 'active' : ''}
+          {...(!onActiveSlide && { tabIndex: -1 })}
         />
       ))}
     </Group>
+  )
+}
+
+type SliderArrowProps = {
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onActiveSlide: boolean
+  ariaLabel: string
+  extraCss: SerializedStyles
+  icon: React.ReactNode
+}
+
+const SliderArrow: React.FC<SliderArrowProps> = ({
+  onClick,
+  onActiveSlide,
+  ariaLabel,
+  extraCss,
+  icon
+}) => {
+  return (
+    <ReakitButton
+      tabIndex={onActiveSlide ? 0 : -1}
+      onClick={onClick}
+      aria-label={ariaLabel}
+      className="text-white hover:text-brand-dark focus:shadow-outline absolute hidden lg:inline-block"
+      css={css`
+        top: calc(50% - 1.5rem);
+        transition: all 200ms linear;
+        opacity: ${onActiveSlide ? 1 : 0};
+
+        :focus {
+          outline: 0;
+        }
+
+        ${extraCss}
+      `}
+    >
+      {icon}
+    </ReakitButton>
   )
 }
 
@@ -89,6 +129,7 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
     <ReactHoverObserver hoverDelayInMs={300} hoverOffDelayInMs={300}>
       {({ isHovering }: { isHovering: boolean }) => (
         <Box
+          as="section"
           className="w-full overflow-x-hidden overflow-y-visible block relative"
           style={{ marginTop: '-7rem' }}
         >
@@ -111,7 +152,7 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                 {(slides as Banner[]).map((slide, index) => (
                   <BackgroundImage
                     key={index}
-                    Tag="section"
+                    Tag="div"
                     className="w-screen bg-brand pt-20 pb-20 w-full relative"
                     fluid={get(
                       slide,
@@ -149,30 +190,18 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                         z-index: 1;
                       `}
                     >
-                      <ReakitButton
+                      <SliderArrow
                         onClick={prev}
-                        aria-label="previous slide"
-                        className="text-white hover:text-brand-dark focus:shadow-outline absolute"
-                        css={css`
+                        ariaLabel="previous slide"
+                        onActiveSlide={active === index - 1}
+                        icon={<ArrowLeftIcon />}
+                        extraCss={css`
                           left: -4rem;
-                          top: calc(50% - 1.5rem);
-                          transition: all 200ms linear;
-                          opacity: ${active === index - 1 ? 1 : 0};
                           transform: ${active === index - 1
                             ? 'translateX(0)'
                             : 'translateX(2rem)'};
-
-                          :focus {
-                            outline: 0;
-                          }
-
-                          /* :hover {
-                          transform: translateX(-0.25rem) scale(1.1);
-                        } */
                         `}
-                      >
-                        <ArrowLeftIcon />
-                      </ReakitButton>
+                      />
                       <Box
                         css={
                           active === index - 1
@@ -212,31 +241,45 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                         <p className="text-white text-base sm:text-lg mb-8 max-w-full md:max-w-md">
                           {slide.excerpt}
                         </p>
-                        <Group>
-                          {slide.ctas.map((cta, index) =>
+                        <Group className="flex flex-col md:flex-row flex-no-wrap justify-start items-start">
+                          {slide.ctas.map((cta, ctaIndex) =>
                             cta.action === 'demo-video' ? (
                               <Modal
-                                key={index}
+                                key={ctaIndex}
                                 aria-label="play demo video"
+                                className="bg-white"
+                                tabIndex={-1}
                                 disclosure={
                                   <Button
                                     variant={cta.buttonType}
                                     color="secondary"
+                                    className="mb-4 md:mr-4"
+                                    tabIndex={active === index - 1 ? 0 : -1}
                                   >
                                     {cta.text}
                                   </Button>
                                 }
                               >
-                                <video src="https://www.youtube.com/embed/8Cw5ktNADBQ?=controls=0&rel=0&showinfo=0&autoplay=1&enablejsapi=1&iv_load_policy=3&cc_load_policy=0&cc_lang_pref=en&wmode=transparent&modestbranding=1&disablekb=1&origin=https%3A%2F%2Fflamelink.io&enablejsapi=1&widgetid=4" />
+                                <iframe
+                                  className="w-full h-full"
+                                  width="100%"
+                                  height="100%"
+                                  frameBorder="0"
+                                  allowFullScreen
+                                  allow="autoplay; encrypted-media"
+                                  title="Player for Flamelink.io a Firebase CMS"
+                                  src="https://www.youtube.com/embed/8Cw5ktNADBQ?=controls=0&amp;rel=0&amp;showinfo=0&amp;autoplay=0&amp;enablejsapi=1&amp;iv_load_policy=3&amp;cc_load_policy=0&amp;cc_lang_pref=en&amp;wmode=transparent&amp;modestbranding=1&amp;disablekb=1&amp;origin=https%3A%2F%2Fflamelink.io&amp;enablejsapi=1&amp;widgetid=4"
+                                />
                               </Modal>
                             ) : (
                               <Button
-                                key={index}
+                                key={ctaIndex}
                                 variant={cta.buttonType}
                                 color="secondary"
                                 as={Link}
                                 to={cta.action}
-                                style={{ margin: '0 1rem 1rem 0' }}
+                                className="mb-4 md:mr-4"
+                                tabIndex={active === index - 1 ? 0 : -1}
                               >
                                 {cta.text}
                               </Button>
@@ -244,36 +287,25 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                           )}
                         </Group>
                       </Box>
-                      <ReakitButton
+                      <SliderArrow
                         onClick={next}
-                        aria-label="next slide"
-                        className="text-white hover:text-brand-dark focus:shadow-outline absolute"
-                        css={css`
+                        ariaLabel="next slide"
+                        onActiveSlide={active === index - 1}
+                        icon={<ArrowRightIcon />}
+                        extraCss={css`
                           right: -4rem;
-                          top: calc(50% - 1.5rem);
-                          transition: all 200ms linear;
-                          opacity: ${active === index - 1 ? 1 : 0};
                           transform: ${active === index - 1
                             ? 'translateX(0)'
                             : 'translateX(-2rem)'};
-
-                          :focus {
-                            outline: 0;
-                          }
-
-                          /* :hover {
-                          transform: translateX(0.25rem) scale(1.1);
-                        } */
                         `}
-                      >
-                        <ArrowRightIcon />
-                      </ReakitButton>
+                      />
                     </Box>
                     {originalSlides.length > 1 && (
                       <Dots
                         slides={originalSlides}
                         setActive={setActive}
                         active={active}
+                        onActiveSlide={active === index - 1}
                       />
                     )}
                   </BackgroundImage>
