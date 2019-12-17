@@ -3,8 +3,8 @@ import { Link } from 'gatsby'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
+import { IoIosCheckmarkCircleOutline as SuccessIcon } from 'react-icons/io'
 import {
-  unstable_useFormState as useFormState,
   unstable_Form as Form,
   unstable_FormLabel as FormLabel,
   unstable_FormInput as FormInput,
@@ -33,6 +33,7 @@ import {
   INSTAGRAM_LINK
 } from '../constants'
 import ArrowRight from '../icons/ArrowRight'
+import { useNewsletterForm } from '../hooks/newsletter-form'
 
 const FooterNav = tw.nav`
   sm:flex sm:flex-1
@@ -100,20 +101,7 @@ const SocialLink = styled.li`
 `
 
 function Footer() {
-  const form = useFormState({
-    values: { email: '' },
-    onValidate: values => {
-      if (!values.email) {
-        const errors = {
-          email: 'Please specify a valid email address'
-        }
-        throw errors
-      }
-    },
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2))
-    }
-  })
+  const form = useNewsletterForm()
 
   return (
     <footer className="bg-gray-800">
@@ -230,6 +218,11 @@ function Footer() {
               name="email"
               className="text-red-600 text-xs mt-2 absolute"
             />
+            {form.submitSucceed ? (
+              <p className="flex justify-start items-center mt-2 text-sm">
+                <SuccessIcon className="mr-2 text-green-600 text-lg" /> Thanks!
+              </p>
+            ) : null}
           </Form>
         </Column>
 
