@@ -11,6 +11,8 @@ const firebaseConfig = {
   appId: process.env.GATSBY_FIREBASE_CONFIG_APP_ID
 }
 
+console.log(JSON.stringify(firebaseConfig, null, 2))
+
 const firebaseApp = firebase.initializeApp(firebaseConfig)
 
 export default firebaseApp
