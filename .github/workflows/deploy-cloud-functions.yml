@@ -1,0 +1,45 @@
+name: Deploy Cloud Functions
+
+on:
+  push:
+    paths:
+      - 'functions/**'
+    branches:
+      - branch_name_that_currently_does_not_exist_but_will_change_to_master
+
+env:
+  NODE_ENV: production
+
+jobs:
+  deploy_functions:
+    name: Deploy Cloud Functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: 8.x
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: functions/node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install dependencies
+        run: yarn install --cwd functions --production=false --frozen-lockfile
+
+      - name: Deploy to Firebase Hosting
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
