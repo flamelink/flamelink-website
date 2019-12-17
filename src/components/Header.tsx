@@ -39,8 +39,8 @@ const NavLink = styled.button<{ as?: unknown; to?: string }>`
     no-underline
     font-normal
     text-lg
-    md:text-base
-    lg:text-g
+    md:text-sm
+    lg:text-base
     text-white
     hover:text-brand-dark
   `}
@@ -195,7 +195,7 @@ function Header() {
   return (
     <MainHeader sticky={isSticky}>
       <div
-        className={`flex flex-wrap items-baseline justify-between max-w-6xl mx-auto p-4 ${
+        className={`flex flex-wrap md:flex-no-wrap items-baseline justify-between max-w-6xl mx-auto p-4 ${
           isSticky ? 'md:p-3' : 'md:p-8'
         }`}
         css={css`
