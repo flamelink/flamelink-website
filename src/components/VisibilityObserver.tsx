@@ -61,10 +61,13 @@ const useVisibilityObserver = ({
     [once]
   )
 
-  const observer = React.useMemo(
-    () => new IntersectionObserver(callback, options),
-    [callback, options]
-  )
+  const observer = React.useMemo(() => {
+    if (typeof IntersectionObserver === 'undefined') {
+      return
+    }
+
+    return new IntersectionObserver(callback, options)
+  }, [callback, options])
 
   React.useEffect(() => {
     const target = ref.current

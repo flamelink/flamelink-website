@@ -17,6 +17,7 @@ import HomepageSlider from '../components/HomepageSlider'
 import CaseStudiesSlider from '../components/CaseStudiesSlider'
 import TestimonialsSlider from '../components/TestimonialsSlider'
 import NewsletterSection from '../components/NewsletterSection'
+import HowItWorks from '../components/HowItWorks'
 
 function HomePage({ data }) {
   const pageData = get(data, 'flamelinkHomePageContent')
@@ -79,11 +80,11 @@ function HomePage({ data }) {
             <p className="text-center text-lg max-w-4xl mb-20">
               {get(pageData, 'firebaseSection.excerpt', '')}
             </p>
-            <ul className="flex flex-col md:flex-row justify-center items-stretch">
+            <ul className="flex flex-col md:flex-row justify-center items-stretch text-center">
               {get(pageData, 'firebaseSection.personas', []).map(persona => (
                 <li
                   key={persona.title}
-                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 rounded py-10 px-12 mb-4 md:mb-0"
+                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 rounded py-6 px-8 md:py-10 md:px-12 mb-4 md:mb-0"
                   css={css`
                     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
                     margin-left: 1.875rem;
@@ -166,48 +167,7 @@ function HomePage({ data }) {
         </Section>
 
         {/* HOW FLAMELINK WORKS SECTION */}
-        <Section className="bg-white">
-          <SectionContainer>
-            <SectionTitle>
-              {get(pageData, 'howItWorksSection.title', '')}
-            </SectionTitle>
-            <ol className="flex flex-col md:flex-row justify-center items-stretch md:text-center">
-              {get(pageData, 'howItWorksSection.steps', []).map(step => (
-                <li
-                  key={step.uniqueKey}
-                  className="flex flex-col justify-start items-start md:items-center mb-4 md:mb-0"
-                  css={css`
-                    margin-left: 1.8175rem;
-                    margin-right: 1.8175rem;
-
-                    &:last-child {
-                      margin-bottom: 0;
-                    }
-                  `}
-                >
-                  {get(step, 'icon[0].url') && (
-                    <span className="w-10 h-10">
-                      <img
-                        src={step.icon[0].url}
-                        alt=""
-                        loading="lazy"
-                        width="40"
-                        height="40"
-                      />
-                    </span>
-                  )}
-                  <h3
-                    className="text-xl leading-tight"
-                    style={{ marginBottom: '0.625rem' }}
-                  >
-                    {step.title}
-                  </h3>
-                  <span className="text-sm">{step.excerpt}</span>
-                </li>
-              ))}
-            </ol>
-          </SectionContainer>
-        </Section>
+        <HowItWorks data={get(pageData, 'howItWorksSection', {})} />
 
         {/* CASE STUDIES SECTION */}
         <CaseStudiesSlider
@@ -373,7 +333,9 @@ export const query = graphql`
         }
         personas {
           title
-          icon
+          icon {
+            url
+          }
           keyPoints
           cta {
             text
@@ -404,7 +366,9 @@ export const query = graphql`
           uniqueKey
           excerpt
           title
-          icon
+          icon {
+            url
+          }
         }
       }
       caseStudiesSection {
