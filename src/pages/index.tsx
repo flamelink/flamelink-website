@@ -17,6 +17,7 @@ import HomepageSlider from '../components/HomepageSlider'
 import CaseStudiesSlider from '../components/CaseStudiesSlider'
 import TestimonialsSlider from '../components/TestimonialsSlider'
 import NewsletterSection from '../components/NewsletterSection'
+import HowItWorks from '../components/HowItWorks'
 
 function HomePage({ data }) {
   const pageData = get(data, 'flamelinkHomePageContent')
@@ -166,48 +167,7 @@ function HomePage({ data }) {
         </Section>
 
         {/* HOW FLAMELINK WORKS SECTION */}
-        <Section className="bg-white">
-          <SectionContainer>
-            <SectionTitle>
-              {get(pageData, 'howItWorksSection.title', '')}
-            </SectionTitle>
-            <ol className="flex flex-col md:flex-row justify-center items-stretch md:text-center">
-              {get(pageData, 'howItWorksSection.steps', []).map(step => (
-                <li
-                  key={step.uniqueKey}
-                  className="flex flex-col justify-start items-start md:items-center mb-4 md:mb-0"
-                  css={css`
-                    margin-left: 1.8175rem;
-                    margin-right: 1.8175rem;
-
-                    &:last-child {
-                      margin-bottom: 0;
-                    }
-                  `}
-                >
-                  {get(step, 'icon[0].url') && (
-                    <span className="w-10 h-10">
-                      <img
-                        src={step.icon[0].url}
-                        alt=""
-                        loading="lazy"
-                        width="40"
-                        height="40"
-                      />
-                    </span>
-                  )}
-                  <h3
-                    className="text-xl leading-tight"
-                    style={{ marginBottom: '0.625rem' }}
-                  >
-                    {step.title}
-                  </h3>
-                  <span className="text-sm">{step.excerpt}</span>
-                </li>
-              ))}
-            </ol>
-          </SectionContainer>
-        </Section>
+        <HowItWorks data={get(pageData, 'howItWorksSection', {})} />
 
         {/* CASE STUDIES SECTION */}
         <CaseStudiesSlider
@@ -373,7 +333,9 @@ export const query = graphql`
         }
         personas {
           title
-          icon
+          icon {
+            url
+          }
           keyPoints
           cta {
             text
@@ -404,7 +366,9 @@ export const query = graphql`
           uniqueKey
           excerpt
           title
-          icon
+          icon {
+            url
+          }
         }
       }
       caseStudiesSection {
