@@ -11,6 +11,7 @@ import BackgroundImage from 'gatsby-background-image'
 import Button from './Button'
 import Carousel from './Carousel'
 import Modal from './Modal'
+import DemoVideo from './DemoVideo'
 import ArrowLeftIcon from '../icons/ArrowLeft'
 import ArrowRightIcon from '../icons/ArrowRight'
 import { Link } from 'gatsby'
@@ -131,7 +132,10 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
         <Box
           as="section"
           className="w-full overflow-x-hidden overflow-y-visible block relative"
-          style={{ marginTop: '-7rem' }}
+          css={css`
+            margin-top: -7rem;
+            scroll-snap-type: x mandatory;
+          `}
         >
           <Carousel slides={banners} interval={8000} isPaused={isHovering}>
             {({
@@ -148,6 +152,9 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                 className="h-screen md:h-auto flex flex-no-wrap justify-start items-stretch relative"
                 style={style}
                 {...handlers}
+                css={css`
+                  scroll-snap-align: start;
+                `}
               >
                 {(slides as Banner[]).map((slide, index) => (
                   <BackgroundImage
@@ -260,16 +267,7 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                                   </Button>
                                 }
                               >
-                                <iframe
-                                  className="w-full h-full"
-                                  width="100%"
-                                  height="100%"
-                                  frameBorder="0"
-                                  allowFullScreen
-                                  allow="autoplay; encrypted-media"
-                                  title="Player for Flamelink.io a Firebase CMS"
-                                  src="https://www.youtube.com/embed/8Cw5ktNADBQ?=controls=0&amp;rel=0&amp;showinfo=0&amp;autoplay=0&amp;enablejsapi=1&amp;iv_load_policy=3&amp;cc_load_policy=0&amp;cc_lang_pref=en&amp;wmode=transparent&amp;modestbranding=1&amp;disablekb=1&amp;origin=https%3A%2F%2Fflamelink.io&amp;enablejsapi=1&amp;widgetid=4"
-                                />
+                                <DemoVideo />
                               </Modal>
                             ) : (
                               <Button
