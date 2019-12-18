@@ -169,9 +169,7 @@ function HomePage({ data }) {
         <HowItWorks data={get(pageData, 'howItWorksSection', {})} />
 
         {/* CASE STUDIES SECTION */}
-        <CaseStudiesSlider
-          sectionData={get(pageData, 'caseStudiesSection', {})}
-        />
+        <CaseStudiesSlider data={get(pageData, 'caseStudiesSection', {})} />
 
         {/* KEY FEATURES SECTION */}
         <Section className="bg-white">

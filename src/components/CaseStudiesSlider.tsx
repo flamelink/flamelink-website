@@ -4,7 +4,7 @@ import { Group } from 'reakit/Group'
 import { Box } from 'reakit/Box'
 import { useRoverState, Rover } from 'reakit/Rover'
 import get from 'lodash/get'
-import { css } from '@emotion/core'
+import { css, SerializedStyles } from '@emotion/core'
 import tw from 'tailwind.macro'
 import Img from 'gatsby-image'
 import BackgroundImage from 'gatsby-background-image'
@@ -38,21 +38,22 @@ type SectionData = {
 }
 
 type Props = {
-  sectionData: SectionData
+  data: SectionData
 }
 
 const Dots: React.FC<{
   slides: unknown[]
   active: number
   setActive: (n: number) => void
-}> = ({ slides, active, setActive }) => {
+  onActiveSlide: boolean
+}> = ({ slides, active, setActive, onActiveSlide }) => {
   const rover = useRoverState({ loop: true, orientation: 'horizontal' })
 
   return (
     <Group
       className="carousel-indicators"
       css={css`
-        ${tw`flex items-center justify-center pb-15 pt-1`}
+        ${tw`flex items-center justify-center p-0`}
       `}
     >
       {slides.map((_, index) => (
@@ -68,26 +69,79 @@ const Dots: React.FC<{
             w-3
             rounded-full
             cursor-pointer
-            hover:bg-gray-600
+            outline-none
+            hover:bg-white
+            hover:opacity-100
             focus:shadow-outline
           `}
 
             outline: 0 !important;
-            ${active === index ? tw`bg-gray-600` : tw`bg-gray-400`}
+            transition: all 200ms linear;
+
+            :hover {
+              transform: scale(1.2);
+            }
+
+            ${active === index
+              ? tw`bg-white opacity-100`
+              : tw`bg-gray-500 opacity-75`}
           `}
           className={active === index ? 'active' : ''}
+          {...(!onActiveSlide && { tabIndex: -1 })}
         />
       ))}
     </Group>
   )
 }
 
-const CaseStudiesSlider: React.FC<Props> = ({ sectionData }) => {
-  const { title, caseStudies } = sectionData
+type SliderArrowProps = {
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onActiveSlide: boolean
+  ariaLabel: string
+  extraCss: SerializedStyles
+  icon: React.ReactNode
+}
+
+const SliderArrow: React.FC<SliderArrowProps> = ({
+  onClick,
+  onActiveSlide,
+  ariaLabel,
+  extraCss,
+  icon
+}) => {
+  return (
+    <Button
+      tabIndex={onActiveSlide ? 0 : -1}
+      onClick={onClick}
+      aria-label={ariaLabel}
+      className="mt-16 text-white focus:shadow-outline hover:opacity-50 hidden md:block"
+      css={css`
+        transition: all 200ms linear;
+        opacity: ${onActiveSlide ? 1 : 0};
+
+        :focus {
+          outline: 0;
+        }
+
+        ${extraCss}
+      `}
+    >
+      {icon}
+    </Button>
+  )
+}
+
+const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
+  const { title, caseStudies } = data
 
   return (
-    <Box className="block w-full overflow-x-hidden overflow-y-visible relative">
-      <Carousel slides={caseStudies} interval={0}>
+    <Box
+      className="block w-full overflow-x-hidden overflow-y-visible relative"
+      css={css`
+        scroll-snap-type: x mandatory;
+      `}
+    >
+      <Carousel slides={caseStudies.concat(caseStudies)} interval={0}>
         {({
           originalSlides,
           slides,
@@ -102,40 +156,50 @@ const CaseStudiesSlider: React.FC<Props> = ({ sectionData }) => {
             className="w-full flex justify-start items-stretch relative"
             {...handlers}
             style={style}
+            css={css`
+              scroll-snap-align: start;
+            `}
           >
-            {(slides as CaseStudy[]).map((slide, index) => (
+            {(slides as CaseStudy[]).map((slide, slideIndex) => (
               <BackgroundImage
-                key={index}
+                key={slideIndex}
                 Tag="section"
                 className="w-screen pt-20 pb-20"
                 fluid={get(
                   slide,
                   'backgroundImage[0].localFile.childImageSharp.fluid'
                 )}
-                backgroundColor={get(slide, 'brandColour', '#f5f5f5')}
+                backgroundColor={get(slide, 'brandColour', '#ff6633')}
               >
-                <Box className="flex flex-col justify-start items-center">
+                <Box
+                  className="flex flex-col justify-start items-center"
+                  css={css`
+                    transition: all 350ms ease-out;
+                    opacity: ${active === slideIndex - 1 ? 1 : 0};
+                  `}
+                >
                   <SectionContainer>
                     <SectionTitle
                       css={css`
-                        ${tw`text-white`}
+                        ${tw`text-white leading-none`}
                       `}
                     >
                       {title}
                     </SectionTitle>
-                    <Box className="w-full flex justify-start items-center flex-grow-0 flex-shrink-0">
+                    <Box className="w-full flex justify-start items-center flex-grow-0 flex-shrink-0 mb-10">
                       {originalSlides.length > 1 && (
-                        <Button
+                        <SliderArrow
                           onClick={prev}
-                          className="mr-16 mt-16 text-white focus:shadow-outline"
-                          css={css`
-                            :focus {
-                              outline: 0;
-                            }
+                          ariaLabel="previous slide"
+                          onActiveSlide={active === slideIndex - 1}
+                          icon={<ArrowLeftIcon />}
+                          extraCss={css`
+                            margin-right: 4rem;
+                            transform: ${active === slideIndex - 1
+                              ? 'translateX(0)'
+                              : 'translateX(1rem)'};
                           `}
-                        >
-                          <ArrowLeftIcon />
-                        </Button>
+                        />
                       )}
                       <Box className="block w-full overflow-x-hidden overflow-y-visible flex-grow flex-shrink">
                         <Box
@@ -177,23 +241,36 @@ const CaseStudiesSlider: React.FC<Props> = ({ sectionData }) => {
                                       />
                                     </span>
                                   )}
-                                  <h3 className="text-2xl font-light text-heading mb-6">
+                                  <h3 className="text-2xl sm:text-4xl md:text-5xl text-center leading-snug font-light text-heading mb-4">
                                     {slide.title}
                                   </h3>
-                                  <p className="text-sm mb-8">
+                                  <p className="text-sm sm:text-base leading-normal px-4 sm:px-6 md:px-8 mb-8 sm:mb-10">
                                     {slide.excerpt}
                                   </p>
                                   <Box>
                                     <Link
+                                      tabIndex={
+                                        active === slideIndex - 1 ? 0 : -1
+                                      }
                                       to={`/case-studies/${slide.slug}`}
-                                      className="uppercase mb-10 inline-block"
-                                      style={{
-                                        color: get(slide, 'brandColour')
-                                      }}
+                                      className="uppercase mb-10 inline-block font-normal flex justify-center items-center"
+                                      css={css`
+                                        color: ${get(
+                                          slide,
+                                          'brandColour',
+                                          '#646464'
+                                        )};
+
+                                        transition: transform 200ms linear;
+                                        transform: scale(1);
+
+                                        :hover {
+                                          transform: scale(1.1);
+                                        }
+                                      `}
                                     >
-                                      Learn More{' '}
+                                      <span>Learn More</span>
                                       <ArrowRight
-                                        className="inline-block"
                                         css={css`
                                           height: 0.875rem;
                                         `}
@@ -204,29 +281,31 @@ const CaseStudiesSlider: React.FC<Props> = ({ sectionData }) => {
                               </Box>
                             </Box>
                           </Box>
-                          {originalSlides.length > 1 && (
-                            <Dots
-                              slides={originalSlides}
-                              setActive={setActive}
-                              active={active}
-                            />
-                          )}
                         </Box>
                       </Box>
                       {originalSlides.length > 1 && (
-                        <Button
+                        <SliderArrow
                           onClick={next}
-                          className="ml-16 mt-16 text-white focus:shadow-outline"
-                          css={css`
-                            :focus {
-                              outline: 0;
-                            }
+                          ariaLabel="next slide"
+                          onActiveSlide={active === slideIndex - 1}
+                          icon={<ArrowRightIcon />}
+                          extraCss={css`
+                            margin-left: 4rem;
+                            transform: ${active === slideIndex - 1
+                              ? 'translateX(0)'
+                              : 'translateX(-1rem)'};
                           `}
-                        >
-                          <ArrowRightIcon />
-                        </Button>
+                        />
                       )}
                     </Box>
+                    {originalSlides.length > 1 && (
+                      <Dots
+                        slides={originalSlides}
+                        setActive={setActive}
+                        active={active}
+                        onActiveSlide={active === slideIndex - 1}
+                      />
+                    )}
                   </SectionContainer>
                 </Box>
               </BackgroundImage>
