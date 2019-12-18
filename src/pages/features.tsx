@@ -1,6 +1,7 @@
 import React from 'react'
 import get from 'lodash/get'
 import { graphql } from 'gatsby'
+import { css } from '@emotion/core'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
@@ -54,6 +55,49 @@ function FeaturesPage({ data }) {
             <SectionTitle>
               {get(pageData, 'userSection.title', '')}
             </SectionTitle>
+            <ul className="flex flex-col lg:flex-row justify-start lg:justify-center items-center lg:items-stretch">
+              {get(pageData, 'userSection.features', []).map(
+                ({ title, excerpt, icon }, index) => (
+                  <li
+                    key={title}
+                    className="bg-white shadow p-10 mb-8 lg:mb-0 mx-4 w-full sm:w-2/3 lg:w-1/2 rounded"
+                    css={css`
+                      max-width: 100%;
+
+                      @media screen and (min-width: 1024px) {
+                        max-width: 27.8125rem;
+                      }
+
+                      ${index + 1 === pageData.userSection.features.length &&
+                        css`
+                          margin-bottom: 0;
+                        `}
+                    `}
+                  >
+                    <header className="flex justify-start items-center mb-4">
+                      {get(icon, '[0].url') ? (
+                        <span className="w-8 h-8 mr-4">
+                          <img
+                            src={icon[0].url}
+                            alt=""
+                            loading="lazy"
+                            width="32"
+                            height="32"
+                          />
+                        </span>
+                      ) : null}
+                      <h3
+                        className="text-xl text-heading font-medium"
+                        style={{ margin: '0.625rem 0' }}
+                      >
+                        {title}
+                      </h3>
+                    </header>
+                    {excerpt ? <p>{excerpt}</p> : null}
+                  </li>
+                )
+              )}
+            </ul>
           </SectionContainer>
         </Section>
         <InterfacesSlider />
