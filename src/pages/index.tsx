@@ -139,7 +139,7 @@ function HomePage({ data }) {
         <Section className="bg-gray-100">
           <SectionContainer>
             <SectionTitle>
-              {get(pageData, 'interfaceSection.title', 'Content Interface')}
+              {get(pageData, 'interfaceSection.title', 'Content Interfaces')}
             </SectionTitle>
           </SectionContainer>
           <InterfacesSlider

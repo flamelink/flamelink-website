@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
+import ContactUsSection from '../components/ContactUsSection'
 
 function ContentPage() {
   return (
@@ -23,6 +24,7 @@ function ContentPage() {
             <SectionTitle>Case Studies</SectionTitle>
           </SectionContainer>
         </Section>
+        <ContactUsSection />
       </main>
     </Layout>
   )

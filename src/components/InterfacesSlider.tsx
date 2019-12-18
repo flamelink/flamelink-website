@@ -87,6 +87,10 @@ const InterfacesSlider: React.FC<InterfacesSliderProps> = ({ slides }) => {
   // This interface slider only works with 3 slides, so making sure if more is passed that it doesn't break
   const theSlides = take(slides, 3)
 
+  if (!theSlides || !theSlides.length) {
+    return null
+  }
+
   return (
     <Slider>
       {/* NB! All input selectors have to be listed before the slide labels for sibling selector to work */}
