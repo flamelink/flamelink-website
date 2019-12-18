@@ -45,7 +45,9 @@ const Avatar = ({ localFile }: { localFile: LocalFile }) => {
           border-width: 1rem;
         `}
       >
-        <Img fluid={localFile.childImageSharp.fluid} />
+        {get(localFile, 'childImageSharp.fluid') && (
+          <Img fluid={localFile.childImageSharp.fluid} />
+        )}
       </span>
     </Box>
   )

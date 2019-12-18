@@ -9,10 +9,7 @@ import SEO from '../components/SEO'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import Button from '../components/Button'
 import ExternalLink from '../components/ExternalLink'
-import InterfacesSlider, {
-  InterfacesSliderProps,
-  InterfaceSlide
-} from '../components/InterfacesSlider'
+import InterfacesSlider from '../components/InterfacesSlider'
 import HomepageSlider from '../components/HomepageSlider'
 import CaseStudiesSlider from '../components/CaseStudiesSlider'
 import TestimonialsSlider from '../components/TestimonialsSlider'
@@ -136,35 +133,7 @@ function HomePage({ data }) {
         </Section>
 
         {/* INTERFACE SECTION */}
-        <Section className="bg-gray-100">
-          <SectionContainer>
-            <SectionTitle>
-              {get(pageData, 'interfaceSection.title', 'Content Interfaces')}
-            </SectionTitle>
-          </SectionContainer>
-          <InterfacesSlider
-            slides={
-              get(pageData, 'interfaceSection.images', []).map(
-                (image: unknown, idx: number) => ({
-                  inputId: `s${idx + 1}`,
-                  slideId: `slide${idx + 1}`,
-                  image: get(
-                    image,
-                    'localFile.childImageSharp.fluid'
-                  ) as InterfaceSlide
-                })
-              ) as InterfacesSliderProps['slides']
-            }
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            as={ExternalLink}
-            href={get(pageData, 'interfaceSection.cta.url', '#')}
-          >
-            {get(pageData, 'interfaceSection.cta.text', 'Get Started')}
-          </Button>
-        </Section>
+        <InterfacesSlider />
 
         {/* HOW FLAMELINK WORKS SECTION */}
         <HowItWorks data={get(pageData, 'howItWorksSection', {})} />
@@ -241,21 +210,25 @@ function HomePage({ data }) {
                       }
                     `}
                   >
-                    {affiliate.website ? (
-                      <ExternalLink href={affiliate.website}>
+                    {get(
+                      affiliate,
+                      'logo[0].localFile.childImageSharp.fluid'
+                    ) &&
+                      (affiliate.website ? (
+                        <ExternalLink href={affiliate.website}>
+                          <Img
+                            fluid={
+                              affiliate.logo[0].localFile.childImageSharp.fluid
+                            }
+                          />
+                        </ExternalLink>
+                      ) : (
                         <Img
                           fluid={
                             affiliate.logo[0].localFile.childImageSharp.fluid
                           }
                         />
-                      </ExternalLink>
-                    ) : (
-                      <Img
-                        fluid={
-                          affiliate.logo[0].localFile.childImageSharp.fluid
-                        }
-                      />
-                    )}
+                      ))}
                   </li>
                 )
               )}
@@ -316,22 +289,6 @@ export const query = graphql`
             text
             link
           }
-        }
-      }
-      interfaceSection {
-        title
-        images {
-          localFile {
-            childImageSharp {
-              fluid(maxWidth: 1440, quality: 100) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-        }
-        cta {
-          url
-          text
         }
       }
       howItWorksSection {
