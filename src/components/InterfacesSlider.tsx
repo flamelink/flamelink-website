@@ -3,7 +3,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import take from 'lodash/take'
+import get from 'lodash/get'
 import Img, { FluidObject } from 'gatsby-image'
+import { graphql, useStaticQuery } from 'gatsby'
+import { Section, SectionContainer, SectionTitle } from './Section'
+import Button from './Button'
+import ExternalLink from './ExternalLink'
 
 const X_OFFSET_PERCENTAGE = '125%'
 const DEPTH = '400px'
@@ -76,39 +81,79 @@ export type InterfaceSlide = {
   inputId: string
   slideId: string
   image: FluidObject
-  [key: string]: any
 }
 
-export type InterfacesSliderProps = {
-  slides: InterfaceSlide[]
-}
+const InterfacesSlider: React.FC = () => {
+  const { flamelinkInterfacesSliderContent } = useStaticQuery(graphql`
+    query InterfacesSliderQuery {
+      flamelinkInterfacesSliderContent {
+        title
+        images {
+          localFile {
+            childImageSharp {
+              fluid(maxWidth: 1440, quality: 100) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+        cta {
+          text
+          url
+        }
+      }
+    }
+  `)
 
-const InterfacesSlider: React.FC<InterfacesSliderProps> = ({ slides }) => {
   // This interface slider only works with 3 slides, so making sure if more is passed that it doesn't break
-  const theSlides = take(slides, 3)
+  const slides = take(
+    get(flamelinkInterfacesSliderContent, 'images', []).map(
+      (image: unknown, idx: number) => ({
+        inputId: `s${idx + 1}`,
+        slideId: `slide${idx + 1}`,
+        image: get(image, 'localFile.childImageSharp.fluid') as InterfaceSlide
+      })
+    ),
+    3
+  ) as InterfaceSlide[]
 
-  if (!theSlides || !theSlides.length) {
+  if (!slides.length) {
     return null
   }
 
   return (
-    <Slider>
-      {/* NB! All input selectors have to be listed before the slide labels for sibling selector to work */}
-      {theSlides.map((slide, slideIndex) => (
-        <Selector
-          key={slide.inputId}
-          type="radio"
-          name="slider"
-          id={slide.inputId}
-          defaultChecked={slideIndex === selectedIndex}
-        />
-      ))}
-      {theSlides.map(slide => (
-        <Slide key={slide.slideId} htmlFor={slide.inputId} id={slide.slideId}>
-          <Img fluid={slide.image} />
-        </Slide>
-      ))}
-    </Slider>
+    <Section className="bg-gray-100">
+      <SectionContainer>
+        <SectionTitle>
+          {get(flamelinkInterfacesSliderContent, 'title', 'Content Interfaces')}
+        </SectionTitle>
+      </SectionContainer>
+      <Slider>
+        {/* NB! All input selectors have to be listed before the slide labels for sibling selector to work */}
+        {slides.map((slide, slideIndex) => (
+          <Selector
+            key={slide.inputId}
+            type="radio"
+            name="slider"
+            id={slide.inputId}
+            defaultChecked={slideIndex === selectedIndex}
+          />
+        ))}
+        {slides.map(slide => (
+          <Slide key={slide.slideId} htmlFor={slide.inputId} id={slide.slideId}>
+            {slide.image ? <Img fluid={slide.image} /> : null}
+          </Slide>
+        ))}
+      </Slider>
+      <Button
+        variant="contained"
+        color="primary"
+        as={ExternalLink}
+        href={get(flamelinkInterfacesSliderContent, 'cta.url', '#')}
+      >
+        {get(flamelinkInterfacesSliderContent, 'cta.text', 'Get Started')}
+      </Button>
+    </Section>
   )
 }
 

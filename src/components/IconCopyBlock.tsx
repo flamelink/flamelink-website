@@ -6,20 +6,29 @@ export type IconCopyBlockProps = {
   title: string
   excerpt?: string
   iconUrl?: string
+  wider?: boolean
 }
 
 const IconCopyBlock: React.FC<IconCopyBlockProps> = ({
   title,
   excerpt,
-  iconUrl
+  iconUrl,
+  wider
 }) => {
   return (
     <li
       css={css`
         ${tw`text-center flex flex-col items-center justify-start`}
 
-        margin: 0 1.5rem 2.5rem;
-        max-width: 19.0625rem;
+        ${wider
+          ? css`
+              margin: 0 1.5rem 2.5rem;
+              max-width: 19.0625rem;
+            `
+          : css`
+              margin: 0 1rem 2.5rem;
+              max-width: 15.9375rem;
+            `}
       `}
     >
       {iconUrl ? (
@@ -41,7 +50,8 @@ const IconCopyBlock: React.FC<IconCopyBlockProps> = ({
 IconCopyBlock.defaultProps = {
   title: '',
   excerpt: '',
-  iconUrl: ''
+  iconUrl: '',
+  wider: false
 }
 
 export default IconCopyBlock
