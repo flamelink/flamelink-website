@@ -12,6 +12,7 @@ import {
   unstable_FormMessage as FormMessage,
   unstable_FormSubmitButton as FormSubmitButton
 } from 'reakit/Form'
+import { FaSmile as SuccessIcon } from 'react-icons/fa'
 import AppProviders from '../components/AppProviders'
 import SEO from '../components/SEO'
 import Button from '../components/Button'
@@ -26,11 +27,9 @@ const schema = object().shape({
 })
 
 function SlackPage() {
-  const [formSubmitted, setFormSubmitted] = React.useState(false)
-  const [formErrors, setFormErrors] = React.useState<null | Error>(null)
-
   const form = useFormState({
     resetOnUnmount: true,
+    resetOnSubmitSucceed: false,
     values: { email: '', name: '' },
     onValidate: values =>
       schema.validate(values, { abortEarly: false }).then(
@@ -46,7 +45,7 @@ function SlackPage() {
           }
         }
       ),
-    onSubmit: user => {
+    onSubmit: async user => {
       const token =
         'xoxp-208585875490-265304393957-264650997009-d6db6f74da57665c006c72c428b60746'
 
@@ -54,24 +53,64 @@ function SlackPage() {
         token
       )}&email=${encodeURIComponent(
         user.email
-      )}&first_name=${encodeURIComponent(user.name)}`
+      )}&first_name=${encodeURIComponent(user.name)}&resend=true`
 
-      fetch(url, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
         }
       })
-        .then(() => {
-          setFormErrors(null)
-          setFormSubmitted(true)
-        })
-        .catch(error => {
-          setFormErrors(error)
-          setFormSubmitted(false)
-          // TODO: log to Sentry
-          console.log({ error })
-        })
+
+      const json = await response.json()
+
+      if (json.ok) {
+        return
+      }
+
+      let errorMessage = 'Something went wrong with the invitation.'
+
+      switch (json.error) {
+        case 'already_in_team': {
+          errorMessage = 'You are already part of our Slack workspace'
+          break
+        }
+
+        case 'already_in_team': {
+          errorMessage = 'You are already part of our Slack workspace'
+          break
+        }
+
+        case 'already_in_team_invited_user': {
+          errorMessage = 'You have already been invited to our Slack workspace'
+          break
+        }
+
+        case 'invalid_email': {
+          errorMessage = 'Slack says your email is invalid'
+          break
+        }
+
+        case 'invite_limit_reached': {
+          errorMessage = 'We\'ve reached our invite limit. Please contact us on support@flamelink.io'
+          break
+        }
+
+        case 'sent_recently': {
+          errorMessage = 'Check your inbox. You\'ve been invited recently'
+          break
+        }
+
+        case 'user_disabled': {
+          errorMessage = 'Your user account has been deactivated'
+          break
+        }
+
+        default:
+          break
+      }
+
+      throw { email: errorMessage }
     }
   })
 
@@ -97,19 +136,8 @@ function SlackPage() {
       slackImage: file(name: { eq: "slack-x-flamelink" }) {
         name
         childImageSharp {
-          fluid {
-            base64
-            tracedSVG
-            aspectRatio
-            src
-            srcSet
-            srcWebp
-            srcSetWebp
-            sizes
-            originalImg
-            originalName
-            presentationWidth
-            presentationHeight
+          fluid(maxWidth: 400) {
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
@@ -123,7 +151,7 @@ function SlackPage() {
     <AppProviders>
       <SEO title="Slack" />
       <main
-        className="flex flex-col justify-center bg-brand items-center min-h-screen w-screen"
+        className="flex flex-col justify-center bg-brand items-center min-h-screen w-screen px-8 py-12"
         css={css`
           width: 100%;
           background-image: url(${bgPattern.publicURL});
@@ -134,15 +162,18 @@ function SlackPage() {
       >
         <Link
           to="/"
-          className="w-full max-w-lg md:max-w-md lg:max-w-sm h-auto block mx-auto my-10"
+          className="w-full max-w-lg md:max-w-md lg:max-w-sm h-auto block mx-auto mb-8"
         >
           <Img fluid={slackImage.childImageSharp.fluid} alt={slackImage.name} />
         </Link>
-        <h1 className="text-white text-5xl font-thin mb-10">{title}</h1>
-        {formSubmitted ? (
+        <h1 className="text-white text-center text-3xl sm:text-4xl md:text-5xl leading-none font-thin mb-10">
+          {title}
+        </h1>
+        {form.submitSucceed ? (
           <>
-            <p className="text-center mb-10 text-white">
-              Thank you, your invite has been sent.
+            <p className="text-center mb-10 text-white flex justify-center items-center">
+              <SuccessIcon className="mr-2 text-lg" /> Thank you, your invite
+              has been sent.
             </p>
             <Button variant="contained" color="secondary" as={Link} to="/">
               Go back home
@@ -151,32 +182,24 @@ function SlackPage() {
         ) : (
           <Form
             {...form}
-            className="bg-white text-body py-10 px-12 mx-8 max-w-xl shadow"
+            className="bg-white text-body py-10 px-8 md:px-12 max-w-xl shadow"
           >
-            <p className="text-center mb-10">{excerpt}</p>
-            {formErrors && (
-              <p className="text-center mb-10 text-red-700">
-                An error has occurred. Please refresh and try again.
-              </p>
-            )}
-            <div className="px-12">
+            <p className="text-center text-sm leading-normal mb-10 md:px-4">
+              {excerpt}
+            </p>
+            <div className="md:px-12">
               <FormLabel {...form} name="name" className="block mb-2">
                 {nameFieldLabel}
               </FormLabel>
               <FormInput
                 {...form}
                 name="name"
-                className="border-2 border-gray-400 text-sm py-3 pl-3 pr-4 mb-3 w-full placeholder-body focus:placeholder-white focus:shadow focus:bg-brand-dark"
-                css={css`
-                  & ~ button:focus {
-                    outline: 0;
-                  }
-                `}
+                className="border border-gray-400 text-sm py-3 pl-3 pr-4 mb-1 w-full placeholder-body outline-none focus:border-brand focus:shadow"
               />
               <FormMessage
                 {...form}
                 name="name"
-                className="text-red-600 text-xs mt-2 mb-10"
+                className="text-red-600 text-xs mt-0 mb-2"
               />
               <FormLabel {...form} name="email" className="block mb-2">
                 {emailFieldLabel}
@@ -184,21 +207,16 @@ function SlackPage() {
               <FormInput
                 {...form}
                 name="email"
-                className="border-2 border-gray-400 text-sm py-3 pl-3 pr-4 mb-0 w-full placeholder-body focus:placeholder-white focus:shadow focus:bg-brand-dark"
-                css={css`
-                  & ~ button:focus {
-                    outline: 0;
-                  }
-                `}
+                className="border border-gray-400 text-sm py-3 pl-3 pr-4 mb-1 w-full placeholder-body outline-none focus:border-brand focus:shadow"
               />
               <FormMessage
                 {...form}
                 name="email"
-                className="text-red-600 text-xs mt-2 mb-10"
+                className="text-red-600 text-xs mt-0 mb-9"
               />
               <FormSubmitButton
                 {...form}
-                className="w-full bg-brand text-white hover:bg-brand-dark"
+                className="w-full bg-brand text-white hover:bg-brand-dark mb-5"
                 css={css`
                   text-transform: uppercase;
                   transition: all 250ms ease-in-out;
