@@ -141,7 +141,7 @@ const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
         scroll-snap-type: x mandatory;
       `}
     >
-      <Carousel slides={caseStudies.concat(caseStudies)} interval={0}>
+      <Carousel slides={caseStudies} interval={0}>
         {({
           originalSlides,
           slides,
