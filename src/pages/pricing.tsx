@@ -6,6 +6,7 @@ import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import ExternalLink from '../components/ExternalLink'
+import CheckMarkIcon from '../icons/CheckMark'
 
 function PricingPage() {
   return (
@@ -17,7 +18,7 @@ function PricingPage() {
           <SectionContainer
             as="aside"
             css={css`
-              ${tw`leading-normal text-center max-w-3xl`}
+              ${tw`leading-normal text-body font-normal text-center max-w-3xl`}
             `}
           >
             This is usually the awkward part at the end of a first date. The to
@@ -36,9 +37,34 @@ function PricingPage() {
         <Section className="bg-white">
           <SectionContainer>
             <SectionTitle>All Packages Include These Features</SectionTitle>
+            <ul className="flex flex-col justify-star items-stretch">
+              {[
+                'Unlimited Projects',
+                'Media Management',
+                'Menu Builder',
+                'Content Types',
+                'Global Settings',
+                'General Settings',
+                'Unlimited Records',
+                'Realtime Updates',
+                'SDK for Web',
+                'Unlimited App Users',
+                'Limitless Implementation'
+              ].map(feature => (
+                <li
+                  key={feature}
+                  className="flex flex-row justify-between items-center"
+                >
+                  <span className="text-base text-body font-normal leading-loose">
+                    {feature}
+                  </span>
+                  <CheckMarkIcon className="text-brand ml-8" />
+                </li>
+              ))}
+            </ul>
           </SectionContainer>
         </Section>
-        <Section className="bg-brand text-white">
+        <Section className="bg-brand text-white" pattern>
           <SectionContainer className="text-base text-center font-normal">
             <span className="text-xl font-medium uppercase mb-5">
               Please Note

@@ -18,6 +18,7 @@ import CaseStudiesSlider from '../components/CaseStudiesSlider'
 import TestimonialsSlider from '../components/TestimonialsSlider'
 import NewsletterSection from '../components/NewsletterSection'
 import HowItWorks from '../components/HowItWorks'
+import IconCopyBlocks from '../components/IconCopyBlocks'
 
 function HomePage({ data }) {
   const pageData = get(data, 'flamelinkHomePageContent')
@@ -138,7 +139,7 @@ function HomePage({ data }) {
         <Section className="bg-gray-100">
           <SectionContainer>
             <SectionTitle>
-              {get(pageData, 'interfaceSection.title', 'Content Interface')}
+              {get(pageData, 'interfaceSection.title', 'Content Interfaces')}
             </SectionTitle>
           </SectionContainer>
           <InterfacesSlider
@@ -177,38 +178,15 @@ function HomePage({ data }) {
             <SectionTitle>
               {get(pageData, 'featuresSection.title', '')}
             </SectionTitle>
-            <ul className="flex flex-wrap flex-grow-0 flex-shrink-0 justify-center align-start mb-5">
-              {get(pageData, 'featuresSection.keyFeatures', []).map(feature => (
-                <li
-                  key={feature.title}
-                  css={css`
-                    ${tw`text-center flex flex-col items-center justify-start`}
-
-                    margin: 0 1.5rem 2.5rem;
-                    max-width: 19.0625rem;
-                  `}
-                >
-                  {get(feature, 'icon[0].url') && (
-                    <span className="w-10 h-10">
-                      <img
-                        src={feature.icon[0].url}
-                        alt=""
-                        loading="lazy"
-                        width="40"
-                        height="40"
-                      />
-                    </span>
-                  )}
-                  <h3
-                    className="text-xl text-heading font-medium"
-                    style={{ margin: '0.625rem 0' }}
-                  >
-                    {feature.title}
-                  </h3>
-                  <p>{feature.excerpt}</p>
-                </li>
-              ))}
-            </ul>
+            <IconCopyBlocks
+              blocks={get(pageData, 'featuresSection.keyFeatures', []).map(
+                feature => ({
+                  title: feature.title,
+                  excerpt: feature.excerpt,
+                  iconUrl: get(feature, 'icon[0].url')
+                })
+              )}
+            />
             <Button
               variant="contained"
               color="primary"

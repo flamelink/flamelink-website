@@ -1,7 +1,40 @@
+import React from 'react'
 import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
+import { useStaticQuery, graphql } from 'gatsby'
 
-export const Section = styled.section`
+const UnstyledSection: React.FC<{
+  pattern?: boolean
+  className?: string
+}> = ({ children, pattern, ...props }) => {
+  const { bgPattern } = useStaticQuery(graphql`
+    query SectionPatternQuery {
+      bgPattern: file(name: { eq: "background" }) {
+        publicURL
+      }
+    }
+  `)
+
+  return (
+    <section
+      {...props}
+      css={
+        pattern &&
+        css`
+          background-image: url(${bgPattern.publicURL});
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        `
+      }
+    >
+      {children}
+    </section>
+  )
+}
+
+export const Section = styled(UnstyledSection)`
   ${tw`
     w-full
     h-auto

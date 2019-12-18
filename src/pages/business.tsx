@@ -3,6 +3,8 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
+import TestimonialsSlider from '../components/TestimonialsSlider'
+import ContactUsSection from '../components/ContactUsSection'
 
 function BusinessPage() {
   return (
@@ -26,6 +28,14 @@ function BusinessPage() {
             <SectionTitle>Case Studies</SectionTitle>
           </SectionContainer>
         </Section>
+
+        <Section className="bg-gray-100">
+          <SectionContainer>
+            <SectionTitle>What our clients say</SectionTitle>
+            <TestimonialsSlider testimonials={[]} />
+          </SectionContainer>
+        </Section>
+        <ContactUsSection />
       </main>
     </Layout>
   )
