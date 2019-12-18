@@ -48,7 +48,6 @@ function HomePage({ data }) {
       />
       <main
         css={css`
-          scroll-snap-type: proximity;
           scroll-snap-type: x proximity;
         `}
       >
