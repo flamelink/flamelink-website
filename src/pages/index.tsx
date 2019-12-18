@@ -155,6 +155,7 @@ function HomePage({ data }) {
                   iconUrl: get(feature, 'icon[0].url')
                 })
               )}
+              wider
             />
             <Button
               variant="contained"
