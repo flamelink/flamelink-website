@@ -35,6 +35,7 @@ function FeaturesPage({ data }) {
               blocks={getBlockData(
                 get(pageData, 'businessSection.features', [])
               )}
+              className="-mb-10"
             />
           </SectionContainer>
         </Section>
@@ -47,6 +48,7 @@ function FeaturesPage({ data }) {
               blocks={getBlockData(
                 get(pageData, 'contentSection.features', [])
               )}
+              className="-mb-10"
             />
           </SectionContainer>
         </Section>
@@ -57,7 +59,14 @@ function FeaturesPage({ data }) {
             </SectionTitle>
             <ul className="flex flex-col lg:flex-row justify-start lg:justify-center items-center lg:items-stretch">
               {get(pageData, 'userSection.features', []).map(
-                ({ title, excerpt, icon }, index) => (
+                (
+                  {
+                    title,
+                    excerpt,
+                    icon
+                  }: { title: string; excerpt: string; icon: any },
+                  index: number
+                ) => (
                   <li
                     key={title}
                     className="bg-white shadow p-10 mb-8 lg:mb-0 mx-4 w-full sm:w-2/3 lg:w-1/2 rounded"
@@ -108,6 +117,7 @@ function FeaturesPage({ data }) {
             </SectionTitle>
             <IconCopyBlocks
               blocks={getBlockData(get(pageData, 'techSection.features', []))}
+              className="-mb-10"
             />
           </SectionContainer>
         </Section>
