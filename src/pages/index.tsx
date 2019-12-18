@@ -48,7 +48,6 @@ function HomePage({ data }) {
       />
       <main
         css={css`
-          scroll-snap-type: proximity;
           scroll-snap-type: x proximity;
         `}
       >
@@ -170,9 +169,7 @@ function HomePage({ data }) {
         <HowItWorks data={get(pageData, 'howItWorksSection', {})} />
 
         {/* CASE STUDIES SECTION */}
-        <CaseStudiesSlider
-          sectionData={get(pageData, 'caseStudiesSection', {})}
-        />
+        <CaseStudiesSlider data={get(pageData, 'caseStudiesSection', {})} />
 
         {/* KEY FEATURES SECTION */}
         <Section className="bg-white">

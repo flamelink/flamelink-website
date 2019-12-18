@@ -69,11 +69,12 @@ const Dots: React.FC<{
               p-0
             `}
 
-            ${active === index ? tw`bg-white` : tw`bg-brand-dark`}
+            ${active === index
+              ? tw`bg-white`
+              : tw`bg-brand-dark`}
 
             outline: 0 !important;
             transition: all 200ms linear;
-            opacity: ${active === index ? 1 : 0.6}
 
             :hover {
               transform: scale(1.2);

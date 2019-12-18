@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from 'reakit/Button'
 import { Group } from 'reakit/Group'
+import { Box } from 'reakit/Box'
 import { useRoverState, Rover } from 'reakit/Rover'
 import get from 'lodash/get'
 import { css } from '@emotion/core'
@@ -31,7 +32,7 @@ type Props = {
 
 const Avatar = ({ localFile }: { localFile: LocalFile }) => {
   return (
-    <div
+    <Box
       css={css`
         ${tw`h-34 flex justify-center items-center absolute z-20`}
         top: -4rem;
@@ -46,7 +47,7 @@ const Avatar = ({ localFile }: { localFile: LocalFile }) => {
       >
         <Img fluid={localFile.childImageSharp.fluid} />
       </span>
-    </div>
+    </Box>
   )
 }
 
@@ -91,6 +92,31 @@ const Dots: React.FC<{
   )
 }
 
+type SliderArrowProps = {
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  ariaLabel: string
+  icon: React.ReactNode
+}
+
+const SliderArrow: React.FC<SliderArrowProps> = ({
+  onClick,
+  icon,
+  ariaLabel
+}) => (
+  <Button
+    onClick={onClick}
+    aria-label={ariaLabel}
+    className="mt-16 text-gray-400 hover:text-gray-600 focus:shadow-outline hidden lg:block"
+    css={css`
+      :focus {
+        outline: 0;
+      }
+    `}
+  >
+    {icon}
+  </Button>
+)
+
 const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
   return (
     <Carousel slides={testimonials} interval={0}>
@@ -104,40 +130,34 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
         prev,
         next
       }) => (
-        <div className="flex justify-start items-center flex-grow-0 flex-shrink-0">
-          <Button
+        <Box className="flex justify-start items-center max-w-full w-full">
+          <SliderArrow
             onClick={prev}
-            className="mr-16 mt-16 text-gray-400 hover:text-gray-600 focus:shadow-outline"
-            css={css`
-              :focus {
-                outline: 0;
-              }
-            `}
-          >
-            <ArrowLeftIcon />
-          </Button>
-          <div
-            css={css`
-              ${tw`mt-16 shadow`}
-            `}
-          >
-            <div className="block w-full pt-20 -mt-20 overflow-x-hidden overflow-y-visible flex-grow flex-shrink">
-              <div
+            icon={<ArrowLeftIcon />}
+            ariaLabel="previous slide"
+          />
+          <Box className="carousel-slide-wrapper mt-16 mx-8 lg:mx-16 shadow flex-shrink">
+            <Box className="carousel-slide block w-full pt-20 -mt-20 overflow-x-hidden overflow-y-visible">
+              <Box
                 className="carousel-content-wrapper"
                 css={css`
-                  ${tw`flex flex-col justify-start items-stretch bg-white`}
+                  ${tw`flex flex-col flex-no-wrap justify-start items-stretch bg-white w-full max-w-full`}
 
                   opacity: 0.96;
+                  scroll-snap-type: x mandatory;
                 `}
               >
-                <div
+                <Box
                   className="carousel-content flex justify-start items-stretch relative"
                   {...handlers}
                   style={style}
+                  css={css`
+                    scroll-snap-align: start;
+                  `}
                 >
                   {(slides as Testimonial[]).map((slide, index) => (
-                    <div key={index} className="flex w-full relative">
-                      <div
+                    <Box key={index} className="flex w-full relative">
+                      <Box
                         className="ghost-avatar"
                         css={css`
                           ${tw`h-34 w-full flex-grow-0 flex justify-center items-center absolute z-0`}
@@ -156,8 +176,8 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
                             `}
                           ></span>
                         </span>
-                      </div>
-                      <div
+                      </Box>
+                      <Box
                         className="carousel-item"
                         css={css`
                           ${tw`text-center px-8 pt-15 pb-8 w-full z-10 bg-white relative flex-grow-1`}
@@ -166,18 +186,12 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
                         {get(slide, 'avatar[0].localFile') && (
                           <Avatar localFile={slide.avatar[0].localFile} />
                         )}
-                        <div
+                        <Box
                           css={css`
                             ${tw`flex flex-col justify-center items-stretch h-full`}
                           `}
                         >
-                          <blockquote
-                            css={css`
-                              ${tw`mb-10 mt-4`}
-
-                              font-size: 1.375rem;
-                            `}
-                          >
+                          <blockquote className="mb-10 mt-4 text-lg">
                             &quot;{slide.quote}&quot;
                           </blockquote>
                           <h3
@@ -194,11 +208,11 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
                           >
                             {slide.jobTitle}
                           </h4>
-                        </div>
-                      </div>
-                    </div>
+                        </Box>
+                      </Box>
+                    </Box>
                   ))}
-                </div>
+                </Box>
                 {originalSlides.length > 1 && (
                   <Dots
                     slides={originalSlides}
@@ -206,21 +220,15 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
                     active={active}
                   />
                 )}
-              </div>
-            </div>
-          </div>
-          <Button
+              </Box>
+            </Box>
+          </Box>
+          <SliderArrow
             onClick={next}
-            className="ml-16 mt-16 text-gray-400 hover:text-gray-600 focus:shadow-outline"
-            css={css`
-              :focus {
-                outline: 0;
-              }
-            `}
-          >
-            <ArrowRightIcon />
-          </Button>
-        </div>
+            icon={<ArrowRightIcon />}
+            ariaLabel="next slide"
+          />
+        </Box>
       )}
     </Carousel>
   )
