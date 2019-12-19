@@ -74,7 +74,7 @@ function HomePage({ data }) {
                 />
               </span>
             )}
-            <p className="text-center text-lg max-w-4xl mb-20">
+            <p className="text-center text-lg max-w-5xl mb-20">
               {get(pageData, 'firebaseSection.excerpt', '')}
             </p>
             <ul className="flex flex-col md:flex-row justify-center items-stretch text-center">
@@ -162,6 +162,7 @@ function HomePage({ data }) {
               color="primary"
               as={Link}
               to={get(pageData, 'featuresSection.cta.link', '')}
+              className="mt-5"
             >
               {get(pageData, 'featuresSection.cta.text', '')}
             </Button>

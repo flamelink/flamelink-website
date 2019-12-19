@@ -1,11 +1,9 @@
 import React from 'react'
 import BackgroundImage from 'gatsby-background-image'
-import Img from 'gatsby-image'
 import get from 'lodash/get'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
-import { Section, SectionContainer } from '../components/Section'
-import { PageContent } from '../components/PageContent'
+import ImageRevealSection from '../components/ImageRevealSection'
 
 type PageSection = {
   // TODO: flesh out
@@ -16,7 +14,6 @@ type PageContext = {
   slug: string
   excerpt: string
   brandColour: string
-  testimonial: any
   logo: any[]
   backgroundImage: any[]
   pageSections: PageSection[]
@@ -49,44 +46,16 @@ const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
       </BackgroundImage>
       {get(pageContext, 'pageSections', []).map(
         (pageSection, index: number) => (
-          <Section
+          <ImageRevealSection
             key={index}
-            className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
-          >
-            <PageContent>
-              <header className="flex justify-start items-center w-full">
-                {get(pageSection, 'icon[0].url') && (
-                  <span className="w-10 h-10">
-                    <img
-                      src={pageSection.icon[0].url}
-                      alt=""
-                      loading="lazy"
-                      width="40"
-                      height="40"
-                    />
-                  </span>
-                )}
-                <h2>{pageSection.heading}</h2>
-              </header>
-              {get(pageSection, 'image[0].localFile.childImageSharp.fluid') && (
-                <div
-                  className="inline-block w-1/2"
-                  style={{ float: get(pageSection, 'imagePosition', 'right') }}
-                >
-                  <Img
-                    fluid={get(
-                      pageSection,
-                      'image[0].localFile.childImageSharp.fluid'
-                    )}
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              <SectionContainer>
-                <p>{pageSection.content}</p>
-              </SectionContainer>
-            </PageContent>
-          </Section>
+            bg={index % 2 === 0 ? 'white' : 'gray'}
+            iconUrl={get(pageSection, 'icon[0].url')}
+            heading={pageSection.heading}
+            content={pageSection.content}
+            imagePosition={get(pageSection, 'imagePosition', 'right')}
+            imageYOverlap={get(pageSection, 'imageYOverlap', '0rem')}
+            fluidImage={get(pageSection, 'image[0].localFile')}
+          />
         )
       )}
     </Layout>

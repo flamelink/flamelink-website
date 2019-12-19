@@ -41,9 +41,9 @@ exports.createPages = async function({ actions, graphql }) {
             slug
             excerpt
             brandColour
-            testimonial
             pageSections {
               imagePosition
+              imageYOverlap
               heading
               content
               icon {
@@ -124,7 +124,6 @@ exports.createPages = async function({ actions, graphql }) {
       slug,
       excerpt,
       brandColour,
-      testimonial,
       logo,
       backgroundImage,
       pageSections
@@ -138,7 +137,6 @@ exports.createPages = async function({ actions, graphql }) {
         slug,
         excerpt,
         brandColour,
-        testimonial,
         logo,
         backgroundImage,
         pageSections
