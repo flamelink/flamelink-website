@@ -120,6 +120,10 @@ const SliderArrow: React.FC<SliderArrowProps> = ({
 )
 
 const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
+  if (!testimonials || !testimonials.length) {
+    return null
+  }
+
   return (
     <Carousel slides={testimonials} interval={0}>
       {({

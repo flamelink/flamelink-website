@@ -92,7 +92,8 @@ function SlackPage() {
         }
 
         case 'invite_limit_reached': {
-          errorMessage = 'We\'ve reached our invite limit. Please contact us on support@flamelink.io'
+          errorMessage =
+            'We\'ve reached our invite limit. Please contact us on support@flamelink.io'
           break
         }
 
@@ -125,7 +126,7 @@ function SlackPage() {
       ctaText
     }
   } = useStaticQuery(graphql`
-    query PageQueries {
+    query SlackPageQueries {
       flamelinkSlackPageContent {
         title
         excerpt

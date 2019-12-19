@@ -13,7 +13,7 @@ import ExternalLink from './ExternalLink'
 import DropDownMenu from './DropDownMenu'
 
 const MainHeader = styled.header<{ sticky: boolean }>`
-  ${tw`top-0 w-screen z-20`}
+  ${tw`top-0 w-screen z-30`}
 
   ${props =>
     props.sticky

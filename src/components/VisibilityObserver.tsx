@@ -28,11 +28,11 @@ const getPayloadFromEntry = (
   }
 }
 
-const useVisibilityObserver = ({
-  root,
-  rootMargin,
-  threshold,
-  once,
+export const useVisibilityObserver = ({
+  root = null,
+  rootMargin = '0px',
+  threshold = 0,
+  once = false,
   ref
 }: Props & { ref: React.MutableRefObject<HTMLElement> }) => {
   const visibilityCount = React.useRef(0)

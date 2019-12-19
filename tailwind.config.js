@@ -59,6 +59,7 @@ module.exports = {
         'brand-dark': BRAND_COLOR_DARK
       },
       maxWidth: {
+        '4xl': '57.25rem',
         '6xl': '69.375rem'
       },
       margin: {

@@ -55,6 +55,7 @@ export const SectionContainer = tw.div`
   justify-start
   items-center
   max-w-6xl
+  w-full
   mx-4
 `
 
