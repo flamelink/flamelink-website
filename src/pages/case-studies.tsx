@@ -67,8 +67,8 @@ export const query = graphql`
           slug
           excerpt
           brandColour
-          testimonial
           pageSections {
+            imageYOverlap
             imagePosition
             heading
             content

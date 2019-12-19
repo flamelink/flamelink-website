@@ -13,7 +13,11 @@ function BusinessPage() {
         keywords={['flamelink', 'business', 'enterprise']}
         title="Business"
       />
-      <main>
+      <main
+        css={css`
+          scroll-snap-type: x proximity;
+        `}
+      >
         <PageBanner title="Business" />
         <Section className="bg-white">
           <SectionContainer>
