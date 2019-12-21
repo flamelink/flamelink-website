@@ -22,9 +22,9 @@ type Props = {
 }
 
 const ImageContainer = styled(Box)<{
-  inViewport?: boolean
-  imagePosition: Props['imagePosition']
-  imageYOverlap: Props['imageYOverlap']
+  ['data-in-viewport']?: boolean
+  ['data-image-position']: Props['imagePosition']
+  ['data-image-y-overlap']: Props['imageYOverlap']
 }>`
   position: absolute;
   display: inline-block;
@@ -33,15 +33,16 @@ const ImageContainer = styled(Box)<{
   border-radius: 0.25rem;
   overflow: hidden;
   ${props => css`
-    top: -${props.imageYOverlap};
-    bottom: -${props.imageYOverlap};
+    top: -${props['data-image-y-overlap'] || '0rem'};
+    bottom: -${props['data-image-y-overlap'] || '0rem'};
     height: calc(
-      100% + ${props.imageYOverlap} + ${props.imageYOverlap}
+      100% + ${props['data-image-y-overlap'] || '0rem'} +
+        ${props['data-image-y-overlap'] || '0rem'}
     ) !important;
   `}
-  ${props => props.imagePosition}: -1rem;
+  ${props => props['data-image-position']}: -1rem;
   ${props =>
-    props.inViewport
+    props['data-in-viewport']
       ? css`
           transition: transform 250ms ease-out;
           transform: translateX(0%);
@@ -49,22 +50,22 @@ const ImageContainer = styled(Box)<{
       : css`
           transition: transform 200ms ease-in;
           transform: translateX(
-            ${props.imagePosition === 'right' ? '100%' : '-100%'}
+            ${props['data-image-position'] === 'right' ? '100%' : '-100%'}
           );
         `}
 `
 
 const StyledBackgroundImage = styled(BackgroundImage)<{
-  imagePosition: Props['imagePosition']
+  ['data-image-position']: Props['imagePosition']
 }>`
   height: 100%;
   width: 100%;
   background-repeat: no-repeat !important;
-  background-size: cover;
+  background-size: cover !important;
   ${props =>
     css`
       background-position: top
-        ${props.imagePosition === 'right' ? 'left' : 'right'} !important;
+        ${props['data-image-position'] === 'right' ? 'left' : 'right'} !important;
     `}
 `
 
@@ -87,16 +88,22 @@ const ImageRevealSection: React.FC<Props> = ({
   })
 
   return (
-    <Box ref={containerRef} className="relative w-full h-auto">
+    <Box
+      ref={containerRef}
+      className="relative w-full h-auto"
+      css={css`
+        scroll-snap-align: start;
+      `}
+    >
       {get(fluidImage, 'childImageSharp.fluid') && (
         <ImageContainer
-          inViewport={containerInViewport}
-          imagePosition={imagePosition}
-          imageYOverlap={imageYOverlap}
+          data-in-viewport={containerInViewport}
+          data-image-position={imagePosition}
+          data-image-y-overlap={imageYOverlap}
         >
           <StyledBackgroundImage
             fluid={fluidImage.childImageSharp.fluid}
-            imagePosition={imagePosition}
+            data-image-position={imagePosition}
           />
         </ImageContainer>
       )}
@@ -115,11 +122,7 @@ const ImageRevealSection: React.FC<Props> = ({
             bg-red-400
           `}
 
-          ${bg === 'white'
-            ? tw`bg-white`
-            : tw`bg-gray-100`}
-
-          scroll-snap-align: start;
+          ${bg === 'white' ? tw`bg-white` : tw`bg-gray-100`}
         `}
       >
         <SectionContainer
