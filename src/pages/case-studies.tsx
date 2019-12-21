@@ -1,15 +1,22 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
+import get from 'lodash/get'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
-import PageContainer from '../components/PageContainer'
 import PageBanner from '../components/PageBanner'
 import ContactUsSection from '../components/ContactUsSection'
+import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
 
 function CaseStudiesPage({ data }) {
+  const caseStudies = React.useMemo(() => {
+    return get(data, 'allFlamelinkCaseStudiesContent.edges', []).map(
+      edge => edge.node
+    )
+  }, [data])
+
   return (
     <Layout>
       <SEO keywords={['flamelink', 'case studies']} title="Case Studies" />
@@ -31,25 +38,10 @@ function CaseStudiesPage({ data }) {
             <SectionTitle>These include</SectionTitle>
           </SectionContainer>
         </Section>
-        <PageContainer>
-          <section className="flex flex-col md:flex-row items-center">
-            <ul className="">
-              {data.allFlamelinkCaseStudiesContent.edges.map(edge => {
-                const { title, slug, excerpt, brandColour } = edge.node
-                return (
-                  <li
-                    style={{ backgroundColor: brandColour }}
-                    className="text-white p-10"
-                  >
-                    <h2>{title}</h2>
-                    <p>{excerpt}</p>
-                    <Link to={`/case-studies/${slug}`}>View Case Study</Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </section>
-        </PageContainer>
+        <CaseStudiesRevealSection
+          title="Case Studies"
+          caseStudies={caseStudies}
+        />
         <ContactUsSection />
       </main>
     </Layout>

@@ -1,44 +1,43 @@
 import React from 'react'
+import { Link } from 'gatsby'
 import { Box } from 'reakit/Box'
 import { css } from '@emotion/core'
 import get from 'lodash/get'
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 import BackgroundImage from 'gatsby-background-image'
+import Img from 'gatsby-image'
 import {
   useVisibilityObserver,
   VisibilityObserverPayload
 } from './VisibilityObserver'
 import { SectionContainer, SectionTitle } from './Section'
+import ArrowRight from '../icons/ArrowRight'
 
 type Props = {
-  iconUrl?: string
-  heading: string
-  content: string
-  bg: 'white' | 'gray'
-  imagePosition?: 'left' | 'right'
-  imageYOverlap?: string
-  fluidImage?: any // TODO: fix
+  title: string
+  slug: string
+  excerpt: string
+  logo: any
+  imagePosition: 'left' | 'right'
+  backgroundImage?: any // TODO: fix
+  brandColour: string
 }
 
 const ImageContainer = styled(Box)<{
   ['data-in-viewport']?: boolean
   ['data-image-position']: Props['imagePosition']
-  ['data-image-y-overlap']: Props['imageYOverlap']
 }>`
   position: absolute;
   display: inline-block;
   z-index: 20;
-  width: 42.15277778%;
+  width: 55.5556%;
   border-radius: 0.25rem;
   overflow: hidden;
   ${props => css`
-    top: -${props['data-image-y-overlap'] || '0rem'};
-    bottom: -${props['data-image-y-overlap'] || '0rem'};
-    height: calc(
-      100% + ${props['data-image-y-overlap'] || '0rem'} +
-        ${props['data-image-y-overlap'] || '0rem'}
-    ) !important;
+    top: -0rem;
+    bottom: -0rem;
+    height: calc(100% + 0rem + 0rem) !important;
   `}
   ${props => props['data-image-position']}: -1rem;
   ${props =>
@@ -69,16 +68,16 @@ const StyledBackgroundImage = styled(BackgroundImage)<{
     `}
 `
 
-const ImageRevealSection: React.FC<Props> = ({
-  iconUrl,
-  heading,
-  content,
-  bg,
-  fluidImage,
+const CaseStudyRevealItem: React.FC<Props> = ({
+  slug,
+  title,
+  excerpt,
+  brandColour,
   imagePosition,
-  imageYOverlap
+  backgroundImage,
+  logo
 }) => {
-  const containerRef = React.useRef<HTMLDivElement>(null!)
+  const containerRef = React.useRef<HTMLLIElement>(null!)
   const {
     isIntersecting: containerInViewport
   }: VisibilityObserverPayload = useVisibilityObserver({
@@ -89,25 +88,25 @@ const ImageRevealSection: React.FC<Props> = ({
 
   return (
     <Box
+      as="li"
       ref={containerRef}
       className="relative w-full h-auto"
       css={css`
         scroll-snap-align: start;
       `}
     >
-      {get(fluidImage, 'childImageSharp.fluid') && (
+      {get(backgroundImage, '[0].localFile.childImageSharp.fluid') && (
         <ImageContainer
           data-in-viewport={containerInViewport}
           data-image-position={imagePosition}
-          data-image-y-overlap={imageYOverlap}
         >
           <StyledBackgroundImage
-            fluid={fluidImage.childImageSharp.fluid}
+            fluid={backgroundImage[0].localFile.childImageSharp.fluid}
             data-image-position={imagePosition}
           />
         </ImageContainer>
       )}
-      <section
+      <Box
         css={css`
           ${tw`
             w-full
@@ -119,9 +118,8 @@ const ImageRevealSection: React.FC<Props> = ({
             overflow-y-visible
             relative
             py-32
+            bg-white
           `}
-
-          ${bg === 'white' ? tw`bg-white` : tw`bg-gray-100`}
         `}
       >
         <SectionContainer
@@ -139,7 +137,7 @@ const ImageRevealSection: React.FC<Props> = ({
                     ${imagePosition === 'right' ? '-10%' : '10%'}
                   );
                 `}
-            ${fluidImage && imagePosition === 'left'
+            ${backgroundImage && imagePosition === 'left'
               ? css`
                   flex-direction: row;
                   justify-content: flex-end;
@@ -151,43 +149,60 @@ const ImageRevealSection: React.FC<Props> = ({
           `}
           className="relative flex-grow-0 flex-shrink-0 mx-8"
         >
-          <Box className="w-1/2 relative">
-            <header className="flex justify-start items-center w-full mb-5">
-              {iconUrl && (
-                <span className="w-8 h-8 mr-2">
-                  <img
-                    src={iconUrl}
-                    alt=""
-                    loading="lazy"
-                    width="32"
-                    height="32"
-                  />
+          <Box className="max-w-sm relative shadow bg-white rounded p-10">
+            <header className="flex justify-start items-center w-full mb-8">
+              {get(logo, '[0].localFile.childImageSharp.fluid') ? (
+                <span className="block w-1/2 mb-0">
+                  <Img fluid={logo[0].localFile.childImageSharp.fluid} />
                 </span>
+              ) : (
+                <SectionTitle
+                  css={css`
+                    ${tw`text-left mb-0`}
+                  `}
+                >
+                  {title}
+                </SectionTitle>
               )}
-              <SectionTitle
+            </header>
+            <p className="text-body text-base mb-6">{excerpt}</p>
+            <Box className="flex justify-start">
+              <Link
+                to={`/case-studies/${slug}`}
+                className="uppercase mb-0 inline-block font-normal flex justify-center items-center"
                 css={css`
-                  ${tw`text-left mb-0`}
+                  color: ${brandColour};
+
+                  transition: transform 200ms linear;
+                  transform: scale(1);
+
+                  :hover {
+                    transform: scale(1.1);
+                  }
                 `}
               >
-                {heading}
-              </SectionTitle>
-            </header>
-            <p>{content}</p>
+                <span>Learn More</span>
+                <ArrowRight
+                  css={css`
+                    height: 0.875rem;
+                  `}
+                />
+              </Link>
+            </Box>
           </Box>
         </SectionContainer>
-      </section>
+      </Box>
     </Box>
   )
 }
 
-ImageRevealSection.defaultProps = {
-  iconUrl: '',
-  heading: '',
-  content: '',
-  bg: 'white',
-  fluidImage: null,
-  imagePosition: 'right',
-  imageYOverlap: '0rem'
+CaseStudyRevealItem.defaultProps = {
+  slug: '',
+  title: '',
+  excerpt: '',
+  logo: null,
+  backgroundImage: null,
+  brandColour: '#646464'
 }
 
-export default ImageRevealSection
+export default CaseStudyRevealItem
