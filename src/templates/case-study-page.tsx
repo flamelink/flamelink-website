@@ -52,8 +52,8 @@ const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
             iconUrl={get(pageSection, 'icon[0].url')}
             heading={pageSection.heading}
             content={pageSection.content}
-            imagePosition={get(pageSection, 'imagePosition', 'right')}
-            imageYOverlap={get(pageSection, 'imageYOverlap', '0rem')}
+            imagePosition={get(pageSection, 'imagePosition') || 'right'}
+            imageYOverlap={get(pageSection, 'imageYOverlap') || '0rem'}
             fluidImage={get(pageSection, 'image[0].localFile')}
           />
         )
