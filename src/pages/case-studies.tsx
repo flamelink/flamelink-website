@@ -9,19 +9,28 @@ import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import PageBanner from '../components/PageBanner'
 import ContactUsSection from '../components/ContactUsSection'
 import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
+import IconCopyBlocks from '../components/IconCopyBlocks'
 
 function CaseStudiesPage({ data }) {
   const caseStudies = React.useMemo(() => {
-    return get(data, 'allFlamelinkCaseStudiesContent.edges', []).map(
-      edge => edge.node
-    )
+    return get(data, 'caseStudies.edges', []).map(edge => edge.node)
   }, [data])
+
+  const { pageTitle, excerpt, useCasesSection } = get(
+    data,
+    'flamelinkCaseStudiesPageContent',
+    {}
+  )
 
   return (
     <Layout>
-      <SEO keywords={['flamelink', 'case studies']} title="Case Studies" />
-      <main>
-        <PageBanner title="Case Studies" />
+      <SEO keywords={['flamelink', 'case studies']} title={pageTitle} />
+      <main
+        css={css`
+          scroll-snap-type: x proximity;
+        `}
+      >
+        <PageBanner title={pageTitle} />
         <Section className="bg-white">
           <SectionContainer
             as="aside"
@@ -29,19 +38,22 @@ function CaseStudiesPage({ data }) {
               ${tw`leading-normal text-body font-normal text-center max-w-3xl`}
             `}
           >
-            Flamelink is trusted by thousands of Developers around the world to
-            manage the content infrastructure of their Firebase projects.
+            {excerpt}
           </SectionContainer>
         </Section>
         <Section className="bg-gray-100">
           <SectionContainer>
-            <SectionTitle>These include</SectionTitle>
+            <SectionTitle>{get(useCasesSection, 'title', '')}</SectionTitle>
+            <IconCopyBlocks
+              className="-mb-10"
+              blocks={get(useCasesSection, 'useCases', []).map(useCase => ({
+                title: useCase.title,
+                iconUrl: useCase.icon[0].url
+              }))}
+            />
           </SectionContainer>
         </Section>
-        <CaseStudiesRevealSection
-          title="Case Studies"
-          caseStudies={caseStudies}
-        />
+        <CaseStudiesRevealSection caseStudies={caseStudies} />
         <ContactUsSection />
       </main>
     </Layout>
@@ -51,8 +63,21 @@ function CaseStudiesPage({ data }) {
 export default CaseStudiesPage
 
 export const query = graphql`
-  query CaseStudiesQuery {
-    allFlamelinkCaseStudiesContent {
+  query CaseStudiesPageQuery {
+    flamelinkCaseStudiesPageContent {
+      pageTitle
+      excerpt
+      useCasesSection {
+        title
+        useCases {
+          title
+          icon {
+            url
+          }
+        }
+      }
+    }
+    caseStudies: allFlamelinkCaseStudiesContent {
       edges {
         node {
           title

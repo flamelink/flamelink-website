@@ -160,7 +160,7 @@ const CaseStudyRevealItem: React.FC<Props> = ({
               ) : (
                 <SectionTitle
                   css={css`
-                    ${tw`text-left mb-0`}
+                    ${tw`text-left mb-0 text-xl sm:text-xl md:text-2xl lg:text-2xl`}
                   `}
                 >
                   {title}
