@@ -71,18 +71,7 @@ export const query = graphql`
               localFile {
                 childImageSharp {
                   fluid {
-                    base64
-                    tracedSVG
-                    aspectRatio
-                    src
-                    srcSet
-                    srcWebp
-                    srcSetWebp
-                    sizes
-                    originalImg
-                    originalName
-                    presentationWidth
-                    presentationHeight
+                    ...GatsbyImageSharpFluid_withWebp
                   }
                 }
               }
@@ -92,18 +81,7 @@ export const query = graphql`
             localFile {
               childImageSharp {
                 fluid {
-                  base64
-                  tracedSVG
-                  aspectRatio
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  sizes
-                  originalImg
-                  originalName
-                  presentationWidth
-                  presentationHeight
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }
@@ -112,18 +90,16 @@ export const query = graphql`
             localFile {
               childImageSharp {
                 fluid {
-                  base64
-                  tracedSVG
-                  aspectRatio
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  sizes
-                  originalImg
-                  originalName
-                  presentationWidth
-                  presentationHeight
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
+          mainImage {
+            localFile {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }
