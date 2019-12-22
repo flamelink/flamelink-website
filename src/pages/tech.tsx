@@ -1,31 +1,104 @@
 import React from 'react'
+import { graphql } from 'gatsby'
+import get from 'lodash/get'
+import Img from 'gatsby-image'
+import { css } from '@emotion/core'
+import tw from 'tailwind.macro'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import ExternalLink from '../components/ExternalLink'
 import PageBanner from '../components/PageBanner'
-import { Section, SectionContainer, SectionTitle } from '../components/Section'
+import { Section, SectionContainer } from '../components/Section'
 import ContactUsSection from '../components/ContactUsSection'
+import ImageRevealSection from '../components/ImageRevealSection'
+import IconCopyBlocks from '../components/IconCopyBlocks'
+import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
 
-function TechPage() {
+function TechPage({ data }) {
+  const {
+    pageTitle,
+    overviewSection,
+    featuresSection,
+    caseStudiesSection,
+    packagesSection
+  } = get(data, 'flamelinkTechPersonaPageContent', {})
+
   return (
     <Layout>
-      <SEO keywords={['flamelink', 'tech']} title="Tech" />
-      <main>
-        <PageBanner title="Tech" />
-        <Section className="bg-white">
+      <SEO keywords={['flamelink', 'content']} title={pageTitle} />
+      <main
+        css={css`
+          scroll-snap-type: x proximity;
+        `}
+      >
+        <PageBanner title={pageTitle} />
+        <ImageRevealSection
+          bg="white"
+          heading={overviewSection.title}
+          content={overviewSection.excerpt}
+          imagePosition={overviewSection.imagePosition}
+          imageYOverlap={overviewSection.imageYOverlap}
+          fluidImage={get(overviewSection, 'image[0].localFile')}
+        />
+        <Section className="bg-gray-100">
           <SectionContainer>
-            <SectionTitle>Tech Stack</SectionTitle>
+            <p className="text-center max-w-4xl mb-15">
+              {featuresSection.excerpt}
+            </p>
+            <IconCopyBlocks
+              className="-mb-10"
+              blocks={get(featuresSection, 'features', []).map(feature => ({
+                title: feature.title,
+                iconUrl: feature.icon[0].url
+              }))}
+            />
           </SectionContainer>
         </Section>
+        <CaseStudiesRevealSection
+          title={caseStudiesSection.title}
+          caseStudies={caseStudiesSection.caseStudies}
+        />
         <Section className="bg-gray-100">
-          <SectionContainer></SectionContainer>
-        </Section>
-        <Section className="bg-white">
-          <SectionContainer>
-            <SectionTitle>Case Studies</SectionTitle>
+          <SectionContainer
+            css={css`
+              ${tw`block w-full`}
+            `}
+          >
+            <ul className="flex justify-between items-center flex-no-wrap">
+              {get(packagesSection, 'packages', []).map(pkg => (
+                <li
+                  key={pkg.name}
+                  title={pkg.name}
+                  css={css`
+                    max-width: 10rem;
+                    width: 100%;
+                    height: auto;
+                    flex-shrink: 1;
+                    flex-grow: 0;
+                    transition: all 250ms ease;
+                    margin: 0 1rem;
+
+                    :hover {
+                      transform: scale(1.1);
+                    }
+                  `}
+                >
+                  {get(pkg, 'logo[0].localFile.childImageSharp.fluid') &&
+                    (pkg.website ? (
+                      <ExternalLink href={pkg.website}>
+                        <Img
+                          fluid={pkg.logo[0].localFile.childImageSharp.fluid}
+                        />
+                      </ExternalLink>
+                    ) : (
+                      <Img
+                        fluid={pkg.logo[0].localFile.childImageSharp.fluid}
+                      />
+                    ))}
+                </li>
+              ))}
+            </ul>
           </SectionContainer>
-        </Section>
-        <Section className="bg-gray-100">
-          <SectionContainer></SectionContainer>
         </Section>
         <ContactUsSection />
       </main>
@@ -34,3 +107,76 @@ function TechPage() {
 }
 
 export default TechPage
+
+export const query = graphql`
+  query TechPersonaPageQuery {
+    flamelinkTechPersonaPageContent {
+      pageTitle
+      overviewSection {
+        imageYOverlap
+        imagePosition
+        excerpt
+        title
+        image {
+          localFile {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
+        }
+      }
+      featuresSection {
+        excerpt
+        features {
+          title
+          icon {
+            url
+          }
+        }
+      }
+      caseStudiesSection {
+        title
+        caseStudies {
+          title
+          slug
+          backgroundImage {
+            localFile {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
+          excerpt
+          logo {
+            localFile {
+              childImageSharp {
+                fixed {
+                  ...GatsbyImageSharpFixed_withWebp
+                }
+              }
+            }
+          }
+        }
+      }
+      packagesSection {
+        packages {
+          name
+          link
+          logo {
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 460) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`

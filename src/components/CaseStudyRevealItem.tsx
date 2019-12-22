@@ -20,6 +20,7 @@ type Props = {
   excerpt: string
   logo: any
   imagePosition: 'left' | 'right'
+  mainImage?: any // TODO: fix
   backgroundImage?: any // TODO: fix
   brandColour: string
 }
@@ -74,6 +75,7 @@ const CaseStudyRevealItem: React.FC<Props> = ({
   excerpt,
   brandColour,
   imagePosition,
+  mainImage,
   backgroundImage,
   logo
 }) => {
@@ -95,13 +97,13 @@ const CaseStudyRevealItem: React.FC<Props> = ({
         scroll-snap-align: start;
       `}
     >
-      {get(backgroundImage, '[0].localFile.childImageSharp.fluid') && (
+      {get(mainImage, '[0].localFile.childImageSharp.fluid') && (
         <ImageContainer
           data-in-viewport={containerInViewport}
           data-image-position={imagePosition}
         >
           <StyledBackgroundImage
-            fluid={backgroundImage[0].localFile.childImageSharp.fluid}
+            fluid={mainImage[0].localFile.childImageSharp.fluid}
             data-image-position={imagePosition}
           />
         </ImageContainer>
@@ -158,7 +160,7 @@ const CaseStudyRevealItem: React.FC<Props> = ({
               ) : (
                 <SectionTitle
                   css={css`
-                    ${tw`text-left mb-0`}
+                    ${tw`text-left mb-0 text-xl sm:text-xl md:text-2xl lg:text-2xl`}
                   `}
                 >
                   {title}
@@ -202,6 +204,7 @@ CaseStudyRevealItem.defaultProps = {
   excerpt: '',
   logo: null,
   backgroundImage: null,
+  mainImage: null,
   brandColour: '#646464'
 }
 

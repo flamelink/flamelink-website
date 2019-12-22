@@ -1,9 +1,4 @@
 import React from 'react'
-import { Box } from 'reakit/Box'
-import { css } from '@emotion/core'
-import get from 'lodash/get'
-import tw from 'tailwind.macro'
-import styled from '@emotion/styled'
 import { Section, SectionContainer, SectionTitle } from './Section'
 import CaseStudyRevealItem from './CaseStudyRevealItem'
 

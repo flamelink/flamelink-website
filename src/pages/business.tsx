@@ -10,17 +10,16 @@ import TestimonialsSlider from '../components/TestimonialsSlider'
 import ContactUsSection from '../components/ContactUsSection'
 import ImageRevealSection from '../components/ImageRevealSection'
 import IconCopyBlocks from '../components/IconCopyBlocks'
+import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
 
 function BusinessPage({ data }) {
-  const pageContent = data.flamelinkBusinessPersonaPageContent
-
   const {
     pageTitle,
     overviewSection,
     featuresSection,
     caseStudiesSection,
     testimonialsSection
-  } = pageContent
+  } = get(data, 'flamelinkBusinessPersonaPageContent', {})
 
   return (
     <Layout>
@@ -56,11 +55,10 @@ function BusinessPage({ data }) {
             />
           </SectionContainer>
         </Section>
-        <Section className="bg-white">
-          <SectionContainer>
-            <SectionTitle>{caseStudiesSection.title}</SectionTitle>
-          </SectionContainer>
-        </Section>
+        <CaseStudiesRevealSection
+          title={caseStudiesSection.title}
+          caseStudies={caseStudiesSection.caseStudies}
+        />
 
         <Section className="bg-gray-100">
           <SectionContainer>
@@ -91,18 +89,7 @@ export const query = graphql`
           localFile {
             childImageSharp {
               fluid {
-                base64
-                tracedSVG
-                aspectRatio
-                src
-                srcSet
-                srcWebp
-                srcSetWebp
-                sizes
-                originalImg
-                originalName
-                presentationWidth
-                presentationHeight
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
@@ -126,18 +113,7 @@ export const query = graphql`
             localFile {
               childImageSharp {
                 fluid {
-                  base64
-                  tracedSVG
-                  aspectRatio
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  sizes
-                  originalImg
-                  originalName
-                  presentationWidth
-                  presentationHeight
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }
@@ -147,16 +123,7 @@ export const query = graphql`
             localFile {
               childImageSharp {
                 fixed {
-                  base64
-                  tracedSVG
-                  aspectRatio
-                  width
-                  height
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  originalName
+                  ...GatsbyImageSharpFixed_withWebp
                 }
               }
             }
