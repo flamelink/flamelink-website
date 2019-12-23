@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'

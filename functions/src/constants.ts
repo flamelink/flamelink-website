@@ -10,3 +10,5 @@ export const MAILCHIMP_API_BASE_URL = get(config, 'mailchimp.apiBaseUrl', proces
 
 // SendGrid
 export const SENDGRID_API_KEY = get(config, 'sendgrid.apiKey', process.env.SENDGRID_API_KEY)
+
+export const FLAMELINK_SUPPORT_EMAIL = 'support@flamelink.io'

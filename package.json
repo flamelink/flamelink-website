@@ -18,7 +18,7 @@
     "build": "gatsby build",
     "dev": "yarn clear-cache && gatsby develop",
     "type-check": "tsc",
-    "lint": "eslint --ext tsx 'src/**/*.tsx' --ignore-path .eslintignore . --cache",
+    "lint": "eslint --ext tsx 'src/**/*.tsx' --ext ts 'functions/src/**/*.ts' --ignore-path .eslintignore . --cache",
     "start": "yarn dev",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
