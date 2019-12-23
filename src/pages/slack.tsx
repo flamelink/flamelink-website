@@ -76,11 +76,6 @@ function SlackPage() {
           break
         }
 
-        case 'already_in_team': {
-          errorMessage = 'You are already part of our Slack workspace'
-          break
-        }
-
         case 'already_in_team_invited_user': {
           errorMessage = 'You have already been invited to our Slack workspace'
           break
@@ -111,6 +106,7 @@ function SlackPage() {
           break
       }
 
+      // eslint-disable-next-line no-throw-literal
       throw { email: errorMessage }
     }
   })
