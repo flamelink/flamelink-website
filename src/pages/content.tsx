@@ -98,6 +98,16 @@ export const query = graphql`
         caseStudies {
           title
           slug
+          excerpt
+          logo {
+            localFile {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
           backgroundImage {
             localFile {
               childImageSharp {
@@ -107,12 +117,11 @@ export const query = graphql`
               }
             }
           }
-          excerpt
-          logo {
+          mainImage {
             localFile {
               childImageSharp {
-                fixed {
-                  ...GatsbyImageSharpFixed_withWebp
+                fluid {
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }

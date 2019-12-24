@@ -64,13 +64,13 @@ function TechPage({ data }) {
               ${tw`block w-full`}
             `}
           >
-            <ul className="flex justify-between items-center flex-no-wrap">
+            <ul className="flex justify-between items-stretch flex-no-wrap">
               {get(packagesSection, 'packages', []).map(pkg => (
                 <li
                   key={pkg.name}
                   title={pkg.name}
                   css={css`
-                    max-width: 10rem;
+                    max-width: 15.375rem;
                     width: 100%;
                     height: auto;
                     flex-shrink: 1;
@@ -141,6 +141,16 @@ export const query = graphql`
         caseStudies {
           title
           slug
+          excerpt
+          logo {
+            localFile {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
           backgroundImage {
             localFile {
               childImageSharp {
@@ -150,12 +160,11 @@ export const query = graphql`
               }
             }
           }
-          excerpt
-          logo {
+          mainImage {
             localFile {
               childImageSharp {
-                fixed {
-                  ...GatsbyImageSharpFixed_withWebp
+                fluid {
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }
