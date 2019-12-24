@@ -137,11 +137,13 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
         next
       }) => (
         <Box className="flex justify-start items-center max-w-full w-full">
-          <SliderArrow
-            onClick={prev}
-            icon={<ArrowLeftIcon />}
-            ariaLabel="previous slide"
-          />
+          {originalSlides.length > 1 && (
+            <SliderArrow
+              onClick={prev}
+              icon={<ArrowLeftIcon />}
+              ariaLabel="previous slide"
+            />
+          )}
           <Box className="carousel-slide-wrapper mt-16 mx-8 lg:mx-16 shadow flex-shrink">
             <Box className="carousel-slide block w-full pt-20 -mt-20 overflow-x-hidden overflow-y-visible">
               <Box
@@ -229,11 +231,13 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
               </Box>
             </Box>
           </Box>
-          <SliderArrow
-            onClick={next}
-            icon={<ArrowRightIcon />}
-            ariaLabel="next slide"
-          />
+          {originalSlides.length > 1 && (
+            <SliderArrow
+              onClick={next}
+              icon={<ArrowRightIcon />}
+              ariaLabel="next slide"
+            />
+          )}
         </Box>
       )}
     </Carousel>
