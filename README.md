@@ -13,13 +13,13 @@ yarn
 Build stylesheet from Tailwind config and run the project in development mode:
 
 ```sh
-yarn develop
+yarn dev
 ```
 
 ## Format and lint
 
-- `yarn analyze` - See what ESLint and Prettier can fix
-- `yarn fix` - Run Prettier and ESLint with the `--fix` option
+- `yarn lint` - See what ESLint and Prettier can fix
+- `yarn lint --fix` - Run Prettier and ESLint with the `--fix` option
 
 ## Build your site
 
