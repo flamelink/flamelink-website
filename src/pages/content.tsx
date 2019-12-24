@@ -21,7 +21,10 @@ function ContentPage({ data }) {
 
   return (
     <Layout>
-      <SEO keywords={['flamelink', 'content']} title={pageTitle} />
+      <SEO
+        keywords={['flamelink', 'content', 'cms', 'content management']}
+        title={pageTitle}
+      />
       <main
         css={css`
           scroll-snap-type: x proximity;

@@ -25,7 +25,7 @@ function TechPage({ data }) {
 
   return (
     <Layout>
-      <SEO keywords={['flamelink', 'content']} title={pageTitle} />
+      <SEO keywords={['flamelink', 'coding', 'technology']} title={pageTitle} />
       <main
         css={css`
           scroll-snap-type: x proximity;
@@ -84,8 +84,8 @@ function TechPage({ data }) {
                   `}
                 >
                   {get(pkg, 'logo[0].localFile.childImageSharp.fluid') &&
-                    (pkg.website ? (
-                      <ExternalLink href={pkg.website}>
+                    (pkg.link ? (
+                      <ExternalLink href={pkg.link}>
                         <Img
                           fluid={pkg.logo[0].localFile.childImageSharp.fluid}
                         />

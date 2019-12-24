@@ -237,6 +237,7 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                             className="uppercase"
                             css={css`
                               font-size: 2.5rem;
+                              word-break: break-all;
 
                               @media (min-width: 768px) {
                                 font-size: 3.125rem;
