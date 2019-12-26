@@ -102,6 +102,11 @@ const ContactUsSection: React.FC = () => {
                     'flamelink_fields.nameFieldPlaceholder',
                     ''
                   )}
+                  aria-label={get(
+                    flamelinkContactFormContent,
+                    'flamelink_fields.nameFieldPlaceholder',
+                    'name'
+                  )}
                 />
                 <FormMessage {...form} name="name" />
               </FormLabel>
@@ -117,6 +122,11 @@ const ContactUsSection: React.FC = () => {
                     'flamelink_fields.emailFieldPlaceholder',
                     ''
                   )}
+                  aria-label={get(
+                    flamelinkContactFormContent,
+                    'flamelink_fields.emailFieldPlaceholder',
+                    'email'
+                  )}
                 />
                 <FormMessage {...form} name="email" />
               </FormLabel>
@@ -131,6 +141,11 @@ const ContactUsSection: React.FC = () => {
                     flamelinkContactFormContent,
                     'flamelink_fields.messageFieldPlaceholder',
                     ''
+                  )}
+                  aria-label={get(
+                    flamelinkContactFormContent,
+                    'flamelink_fields.messageFieldPlaceholder',
+                    'message'
                   )}
                 />
                 <FormMessage {...form} name="message" />

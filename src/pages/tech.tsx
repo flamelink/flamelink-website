@@ -68,7 +68,6 @@ function TechPage({ data }) {
               {get(packagesSection, 'packages', []).map(pkg => (
                 <li
                   key={pkg.name}
-                  title={pkg.name}
                   css={css`
                     max-width: 15.375rem;
                     width: 100%;
@@ -88,11 +87,13 @@ function TechPage({ data }) {
                       <ExternalLink href={pkg.link}>
                         <Img
                           fluid={pkg.logo[0].localFile.childImageSharp.fluid}
+                          title={pkg.name}
                         />
                       </ExternalLink>
                     ) : (
                       <Img
                         fluid={pkg.logo[0].localFile.childImageSharp.fluid}
+                        title={pkg.name}
                       />
                     ))}
                 </li>

@@ -136,6 +136,7 @@ const InterfacesSlider: React.FC = () => {
             type="radio"
             name="slider"
             id={slide.inputId}
+            aria-label={`selector for ${slide.slideId}`}
             defaultChecked={slideIndex === selectedIndex}
           />
         ))}

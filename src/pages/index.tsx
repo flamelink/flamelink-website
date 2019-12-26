@@ -197,7 +197,6 @@ function HomePage({ data }) {
                 affiliate => (
                   <li
                     key={affiliate.name}
-                    title={affiliate.name}
                     css={css`
                       max-width: 10rem;
                       width: 100%;
@@ -222,6 +221,7 @@ function HomePage({ data }) {
                             fluid={
                               affiliate.logo[0].localFile.childImageSharp.fluid
                             }
+                            title={affiliate.name}
                           />
                         </ExternalLink>
                       ) : (
@@ -229,6 +229,7 @@ function HomePage({ data }) {
                           fluid={
                             affiliate.logo[0].localFile.childImageSharp.fluid
                           }
+                          title={affiliate.name}
                         />
                       ))}
                   </li>
