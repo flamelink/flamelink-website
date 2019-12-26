@@ -24,7 +24,11 @@ function FeaturesPage({ data }) {
   return (
     <Layout>
       <SEO keywords={['flamelink', 'features']} title="Features" />
-      <main>
+      <main
+        css={css`
+          scroll-snap-type: x proximity;
+        `}
+      >
         <PageBanner title="Features" />
         <Section className="bg-white">
           <SectionContainer>
