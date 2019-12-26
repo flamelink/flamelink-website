@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default (props: Object) => {
+export const Icon: React.FC<{ className?: string }> = props => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,3 +21,5 @@ export default (props: Object) => {
     </svg>
   )
 }
+
+export default Icon

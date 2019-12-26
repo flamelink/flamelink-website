@@ -78,6 +78,7 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
                     name="email"
                     type="email"
                     placeholder={get(data, 'placeholderText', '')}
+                    aria-label="email address for newsletter"
                     className="py-4 px-5 sm:py-5 sm:px-8 w-full text-3xl sm:text-4xl placeholder-gray-400 border border-gray-100 focus:border-brand outline-none"
                     css={css`
                       & ~ button:focus {

@@ -33,7 +33,6 @@ function CaseStudiesPage({ data }) {
         <PageBanner title={pageTitle} />
         <Section className="bg-white">
           <SectionContainer
-            as="aside"
             css={css`
               ${tw`leading-normal text-body font-normal text-center max-w-3xl`}
             `}

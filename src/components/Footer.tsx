@@ -130,7 +130,7 @@ function Footer() {
                 className="outline-none focus:text-brand-dark"
                 href={GITHUB_LINK}
               >
-                <GitHubIcon />
+                <GitHubIcon aria-label="Link to GitHub account" />
               </ExternalLink>
             </SocialLink>
             <SocialLink>
@@ -138,7 +138,7 @@ function Footer() {
                 className="outline-none focus:text-brand-dark"
                 href={YOUTUBE_LINK}
               >
-                <YouTubeIcon />
+                <YouTubeIcon aria-label="Link to YouTube channel" />
               </ExternalLink>
             </SocialLink>
             <SocialLink>
@@ -146,7 +146,7 @@ function Footer() {
                 className="outline-none focus:text-brand-dark"
                 href={TWITTER_LINK}
               >
-                <TwitterIcon />
+                <TwitterIcon aria-label="Link to Twitter account" />
               </ExternalLink>
             </SocialLink>
             <SocialLink>
@@ -154,7 +154,7 @@ function Footer() {
                 className="outline-none focus:text-brand-dark"
                 href={LINKEDIN_LINK}
               >
-                <LinkedInIcon />
+                <LinkedInIcon aria-label="Link to LinkedIn account" />
               </ExternalLink>
             </SocialLink>
             <SocialLink>
@@ -162,7 +162,7 @@ function Footer() {
                 className="outline-none focus:text-brand-dark"
                 href={FACEBOOK_LINK}
               >
-                <FacebookIcon />
+                <FacebookIcon aria-label="Link to Facebook page" />
               </ExternalLink>
             </SocialLink>
             <SocialLink>
@@ -170,7 +170,7 @@ function Footer() {
                 className="outline-none focus:text-brand-dark"
                 href={INSTAGRAM_LINK}
               >
-                <InstagramIcon />
+                <InstagramIcon aria-label="Link to Instagram account" />
               </ExternalLink>
             </SocialLink>
           </SocialLinks>
@@ -195,6 +195,7 @@ function Footer() {
                 {...form}
                 name="email"
                 placeholder="Email Address"
+                aria-label="Email address"
                 className="bg-gray-600 text-white text-sm py-3 pl-3 pr-4 w-full placeholder-white opacity-50 focus:opacity-100 focus:placeholder-white focus:shadow focus:bg-brand-dark"
                 css={css`
                   & ~ button:focus {
@@ -204,6 +205,7 @@ function Footer() {
               />
               <FormSubmitButton
                 {...form}
+                aria-label="submit"
                 className="absolute inset-y-0 right-0 mr-3 opacity-50 hover:opacity-100 outline-none focus:opacity-100 focus:text-brand-dark"
               >
                 <ArrowRight

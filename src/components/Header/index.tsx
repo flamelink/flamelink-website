@@ -131,7 +131,10 @@ function Header() {
           fullWidth
         >
           {({ dialog }: { dialog: DialogStateReturn }) => (
-            <nav className="flex flex-col justify-center items-center h-full w-full">
+            <nav
+              className="flex flex-col justify-center items-center h-full w-full"
+              aria-label="mobile menu"
+            >
               <BaseButton
                 className="text-white text-3xl leading-none mb-6 focus:outline-none"
                 onClick={() => dialog.hide()}
@@ -143,7 +146,10 @@ function Header() {
           )}
         </Modal>
 
-        <nav className="hidden md:visible md:block flex flex-row justify-start items-center w-auto p-0 mt-0">
+        <nav
+          className="hidden md:visible md:block flex flex-row justify-start items-center w-auto p-0 mt-0"
+          aria-label="menu"
+        >
           {navItems.map(NavigationItem)}
         </nav>
       </Box>
