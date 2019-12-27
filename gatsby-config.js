@@ -51,6 +51,7 @@ module.exports = {
         forceSSL: true
       }
     },
+    'gatsby-plugin-layout',
     {
       resolve: 'gatsby-transformer-remark',
       options: {

@@ -3,7 +3,6 @@ import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import PageBanner from '../components/PageBanner'
@@ -23,7 +22,7 @@ function CaseStudiesPage({ data }) {
   )
 
   return (
-    <Layout>
+    <>
       <SEO keywords={['flamelink', 'case studies']} title={pageTitle} />
       <main
         css={css`
@@ -55,7 +54,7 @@ function CaseStudiesPage({ data }) {
         <CaseStudiesRevealSection caseStudies={caseStudies} />
         <ContactUsSection />
       </main>
-    </Layout>
+    </>
   )
 }
 

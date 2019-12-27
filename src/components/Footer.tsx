@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
+import get from 'lodash/get'
 import { IoIosCheckmarkCircleOutline as SuccessIcon } from 'react-icons/io'
 import {
   unstable_Form as Form,
@@ -11,6 +12,7 @@ import {
   unstable_FormMessage as FormMessage,
   unstable_FormSubmitButton as FormSubmitButton
 } from 'reakit/Form'
+import { useTransitionStore } from 'gatsby-plugin-transitions'
 import ExternalLink from './ExternalLink'
 import Logo from './Logo'
 import FacebookIcon from '../icons/Facebook'
@@ -101,10 +103,33 @@ const SocialLink = styled.li`
 `
 
 function Footer() {
+  const [transitionState] = useTransitionStore()
   const form = useNewsletterForm()
 
+  const href =
+    typeof window !== 'undefined' && window.location && window.location.href
+
+  // Render footer on server (when no window object) and if the locations match
+  // This is to avoid a nasty flash of the footer during page transitions
+  const isVisible =
+    transitionState.hasEntered &&
+    (!href || href === get(transitionState, 'currentLocation.href', ''))
+
   return (
-    <footer className="bg-gray-800">
+    <footer
+      className="bg-gray-800"
+      css={
+        isVisible
+          ? css`
+              transition: opacity 1000ms ease-out;
+              opacity: 1;
+            `
+          : css`
+              transition: opacity 0ms linear;
+              opacity: 0;
+            `
+      }
+    >
       <FooterNav>
         <Column
           css={css`

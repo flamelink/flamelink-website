@@ -4,7 +4,6 @@ import Img from 'gatsby-image'
 import get from 'lodash/get'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import Button from '../components/Button'
@@ -29,7 +28,7 @@ function HomePage({ data }) {
   }
 
   return (
-    <Layout>
+    <>
       <SEO
         keywords={[
           'flamelink',
@@ -242,7 +241,7 @@ function HomePage({ data }) {
         {/* NEWSLETTER SECTION */}
         <NewsletterSection data={get(pageData, 'newsletterSection', {})} />
       </main>
-    </Layout>
+    </>
   )
 }
 

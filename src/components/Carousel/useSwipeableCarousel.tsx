@@ -148,10 +148,17 @@ export function useCarousel({
   const [state, dispatch] = useReducer(carouselReducer, initialCarouselState)
   const handlers = useSwipeable({
     onSwiping(e: EventData) {
-      dispatch({
-        type: 'drag',
-        offset: -e.deltaX
-      })
+      const xDelta = e.deltaX < 0 ? e.deltaX * -1 : e.deltaX
+      const yDelta = e.deltaY < 0 ? e.deltaY * -1 : e.deltaY
+      console.log('onSwiping', e.deltaX, e.deltaY, { xDelta, yDelta })
+
+      // Ignore horizontal drags if the user is mostly dragging/scrolling vertically
+      if (xDelta > yDelta) {
+        dispatch({
+          type: 'drag',
+          offset: -e.deltaX
+        })
+      }
     },
     onSwipedLeft(e: EventData) {
       swiped(e, dispatch, size, 1)

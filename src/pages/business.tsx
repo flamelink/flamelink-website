@@ -2,7 +2,6 @@ import React from 'react'
 import { css } from '@emotion/core'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
@@ -22,7 +21,7 @@ function BusinessPage({ data }) {
   } = get(data, 'flamelinkBusinessPersonaPageContent', {})
 
   return (
-    <Layout>
+    <>
       <SEO
         keywords={['flamelink', 'business', 'enterprise']}
         title={pageTitle}
@@ -70,7 +69,7 @@ function BusinessPage({ data }) {
         </Section>
         <ContactUsSection />
       </main>
-    </Layout>
+    </>
   )
 }
 
