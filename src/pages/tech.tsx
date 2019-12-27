@@ -4,7 +4,6 @@ import get from 'lodash/get'
 import Img from 'gatsby-image'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import ExternalLink from '../components/ExternalLink'
 import PageBanner from '../components/PageBanner'
@@ -24,7 +23,7 @@ function TechPage({ data }) {
   } = get(data, 'flamelinkTechPersonaPageContent', {})
 
   return (
-    <Layout>
+    <>
       <SEO keywords={['flamelink', 'coding', 'technology']} title={pageTitle} />
       <main
         css={css`
@@ -103,7 +102,7 @@ function TechPage({ data }) {
         </Section>
         <ContactUsSection />
       </main>
-    </Layout>
+    </>
   )
 }
 

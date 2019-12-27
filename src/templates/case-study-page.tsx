@@ -1,7 +1,6 @@
 import React from 'react'
 import BackgroundImage from 'gatsby-background-image'
 import get from 'lodash/get'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import ImageRevealSection from '../components/ImageRevealSection'
 
@@ -25,7 +24,7 @@ type PageProps = {
 
 const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
   return (
-    <Layout>
+    <>
       <SEO
         keywords={['flamelink', pageContext.title]}
         title={pageContext.title}
@@ -58,7 +57,7 @@ const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
           />
         )
       )}
-    </Layout>
+    </>
   )
 }
 

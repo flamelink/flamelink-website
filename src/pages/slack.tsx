@@ -148,8 +148,9 @@ function SlackPage() {
     <AppProviders>
       <SEO title="Slack" />
       <main
-        className="flex flex-col justify-center bg-brand items-center min-h-screen w-screen px-8 py-12"
+        className="flex flex-col justify-center bg-brand items-center min-h-screen w-screen px-8 pb-12 pt-40"
         css={css`
+          margin-top: -7rem;
           width: 100%;
           background-image: url(${bgPattern.publicURL});
           background-position: top center;

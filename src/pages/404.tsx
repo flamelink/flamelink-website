@@ -1,14 +1,13 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { css } from '@emotion/core'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import Button from '../components/Button'
 import PageBanner from '../components/PageBanner'
 
 function NotFoundPage() {
   return (
-    <Layout>
+    <>
       <SEO title="404: Not found" />
       <main className="flex flex-col justify-center items-center pb-20 py-10">
         <PageBanner
@@ -37,7 +36,7 @@ function NotFoundPage() {
           Return To Home
         </Button>
       </main>
-    </Layout>
+    </>
   )
 }
 

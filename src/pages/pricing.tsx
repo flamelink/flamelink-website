@@ -6,7 +6,6 @@ import tw from 'tailwind.macro'
 import { Box } from 'reakit/Box'
 import get from 'lodash/get'
 import { AiOutlineWarning as WarningIcon } from 'react-icons/ai'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
@@ -46,7 +45,7 @@ function PricingPage({ data }) {
   }, [plansSection])
 
   return (
-    <Layout>
+    <>
       <SEO keywords={['flamelink', 'pricing']} title={pageTitle} />
       <main
         css={css`
@@ -170,7 +169,7 @@ function PricingPage({ data }) {
           </SectionContainer>
         </Section>
       </main>
-    </Layout>
+    </>
   )
 }
 

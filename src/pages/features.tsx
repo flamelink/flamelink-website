@@ -2,7 +2,6 @@ import React from 'react'
 import get from 'lodash/get'
 import { graphql } from 'gatsby'
 import { css } from '@emotion/core'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
@@ -22,7 +21,7 @@ function FeaturesPage({ data }) {
   const pageData = get(data, 'flamelinkFeaturesPageContent', {})
 
   return (
-    <Layout>
+    <>
       <SEO keywords={['flamelink', 'features']} title="Features" />
       <main
         css={css`
@@ -127,7 +126,7 @@ function FeaturesPage({ data }) {
         </Section>
         <ContactUsSection />
       </main>
-    </Layout>
+    </>
   )
 }
 

@@ -7088,6 +7088,13 @@ gatsby-plugin-google-analytics@2.1.27:
   dependencies:
     "@babel/runtime" "^7.7.2"
 
+gatsby-plugin-layout@1.1.18:
+  version "1.1.18"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-layout/-/gatsby-plugin-layout-1.1.18.tgz#cd318ae1ca7a978ebaec9624af501eb83c2a67d6"
+  integrity sha512-e/FV9wQ2Ch+167KNtDe2rHyipMufABS7uCeBW7vo4GPhouGqF3a3Ww25Z4tWDt/lYbUpxfmtRYpvvWuigLUoWw==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
+
 gatsby-plugin-manifest@2.2.27:
   version "2.2.27"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-manifest/-/gatsby-plugin-manifest-2.2.27.tgz#19848ad1876362ac3a76981f77dca857b878ac68"
@@ -7191,6 +7198,12 @@ gatsby-plugin-sitemap@2.2.20:
     minimatch "^3.0.4"
     pify "^3.0.0"
     sitemap "^1.13.0"
+
+gatsby-plugin-transitions@jperasmus/gatsby-plugin-transitions#master:
+  version "2.1.5"
+  resolved "https://codeload.github.com/jperasmus/gatsby-plugin-transitions/tar.gz/c781b1592f7ae2e34d74eae9f38e5fff47e564e7"
+  dependencies:
+    prop-types "^15.7.2"
 
 gatsby-plugin-typescript@2.1.16:
   version "2.1.16"
