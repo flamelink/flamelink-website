@@ -150,7 +150,6 @@ export function useCarousel({
     onSwiping(e: EventData) {
       const xDelta = e.deltaX < 0 ? e.deltaX * -1 : e.deltaX
       const yDelta = e.deltaY < 0 ? e.deltaY * -1 : e.deltaY
-      console.log('onSwiping', e.deltaX, e.deltaY, { xDelta, yDelta })
 
       // Ignore horizontal drags if the user is mostly dragging/scrolling vertically
       if (xDelta > yDelta) {
