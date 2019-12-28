@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
+import { useTransition, animated } from 'react-spring'
 import { Box } from 'reakit/Box'
 import get from 'lodash/get'
 import { AiOutlineWarning as WarningIcon } from 'react-icons/ai'
@@ -29,20 +30,23 @@ function PricingPage({ data }) {
     standardFeaturesSection,
     termsSection
   } = get(data, 'flamelinkPricingPageContent', {})
+
   const [selectedOption, setSelectedOption] = React.useState('Individual')
-  const plans = React.useMemo(() => {
-    const pricingPlans = []
 
-    get(plansSection, 'individualPlans', []).forEach(plan =>
-      pricingPlans.push({ ...plan, type: 'Individual' })
-    )
-
-    get(plansSection, 'businessPlans', []).forEach(plan =>
-      pricingPlans.push({ ...plan, type: 'Business' })
-    )
-
-    return pricingPlans
-  }, [plansSection])
+  const transitions = useTransition(selectedOption, item => item, {
+    from: {
+      opacity: 0,
+      position: 'absolute'
+    },
+    enter: {
+      opacity: 1,
+      position: 'static'
+    },
+    leave: {
+      opacity: 0,
+      position: 'absolute'
+    }
+  })
 
   return (
     <>
@@ -71,54 +75,77 @@ function PricingPage({ data }) {
               onChange={setSelectedOption}
               className="mb-15"
             />
-            <Box as="ul" className="flex flex-row justify-center items-stretch">
-              {plans.map(plan => (
-                <PricingPlanCard
-                  key={plan.name}
-                  css={css`
-                    ${plan.type === selectedOption
-                      ? 'display: block;'
-                      : 'display: none;'}
-                  `}
+            <Box className="relative">
+              {transitions.map(({ item, props, key }) => (
+                <Box
+                  as={animated.ul}
+                  key={key}
+                  style={props}
+                  className="flex flex-row justify-center items-stretch"
                 >
-                  <header>
-                    <h2 className="text-brand text-5xl leading-snug font-light">
-                      {plan.name}
-                    </h2>
-                    <h3 className="text-base leading-snug">{plan.tagline}</h3>
-                  </header>
-                  <Box>
-                    {plan.currency}
-                    {plan.priceMonthly}
-                  </Box>
-                  <Box>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      className={plan.smallPrint ? 'mb-3' : 'mb-12'}
-                    >
-                      {plan.ctaText}
-                    </Button>
-                  </Box>
-                  {plan.smallPrint && (
-                    <small className="leading-snug italic mb-4 inline-block">
-                      {plan.smallPrint}
-                    </small>
-                  )}
-                  <hr className="mb-9" />
-                  <ul>
-                    {get(plan, 'features', []).map(feature => (
-                      <li
-                        key={feature}
+                  {(item === 'Individual'
+                    ? get(plansSection, 'individualPlans', [])
+                    : get(plansSection, 'businessPlans', [])
+                  ).map(plan => (
+                    <PricingPlanCard key={plan.name}>
+                      <header
                         css={css`
-                          line-height: 1.88;
+                          min-height: 6.25rem;
                         `}
                       >
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </PricingPlanCard>
+                        <h2 className="text-brand text-5xl leading-snug font-light">
+                          {plan.name}
+                        </h2>
+                        <h3 className="text-base leading-snug">
+                          {plan.tagline}
+                        </h3>
+                      </header>
+                      <Box className="flex flex-row justify-center items-baseline text-heading font-light py-10">
+                        <span
+                          css={css`
+                            font-size: 2.3125rem;
+                          `}
+                        >
+                          {plan.currency}
+                        </span>
+                        <span
+                          css={css`
+                            font-size: 5rem;
+                          `}
+                        >
+                          {plan.priceMonthly}
+                        </span>
+                      </Box>
+                      <Box>
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          className={plan.smallPrint ? 'mb-3' : 'mb-12'}
+                        >
+                          {plan.ctaText}
+                        </Button>
+                      </Box>
+                      {plan.smallPrint && (
+                        <small className="leading-snug italic mb-4 inline-block">
+                          {plan.smallPrint}
+                        </small>
+                      )}
+                      <hr className="mb-9" />
+                      <ul>
+                        {get(plan, 'features', []).map(feature => (
+                          <li
+                            key={feature}
+                            css={css`
+                              line-height: 1.88;
+                            `}
+                          >
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </PricingPlanCard>
+                  ))}
+                </Box>
               ))}
             </Box>
           </SectionContainer>
@@ -146,14 +173,14 @@ function PricingPage({ data }) {
         <Section className="bg-brand text-white" pattern>
           <SectionContainer className="text-base text-center font-normal">
             <header className="flex justify-start items-center mb-5">
-              <WarningIcon />
+              <WarningIcon className="text-5xl mr-3" />
               <span className="text-xl font-medium uppercase">
                 {get(termsSection, 'title', '')}
               </span>
             </header>
             <span className="mb-4">
               Storage, API Requests &amp; SLA are determined by your{' '}
-              <strong>Firebase</strong> plan.
+              <strong className="font-medium">Firebase</strong> plan.
             </span>
             <span>
               Remember, you need a Firebase* project to hook Flamelink up to.
