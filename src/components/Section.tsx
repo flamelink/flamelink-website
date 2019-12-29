@@ -56,7 +56,7 @@ export const SectionContainer = tw.div`
   items-center
   max-w-6xl
   w-full
-  mx-4
+  px-4
 `
 
 export const SectionTitle = styled.h2`

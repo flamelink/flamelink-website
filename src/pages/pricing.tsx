@@ -16,10 +16,11 @@ import Button from '../components/Button'
 import CheckMarkIcon from '../icons/CheckMark'
 
 const PricingPlanCard = styled.li`
-  ${tw`shadow py-10 px-8 mx-4 text-center`}
+  ${tw`shadow py-10 px-8 mx-4 text-center border-2 flex-shrink-1`}
 
   width: 21.875rem;
   max-width: 100%;
+  border-radius: 1px;
 `
 
 function PricingPage({ data }) {
@@ -81,13 +82,24 @@ function PricingPage({ data }) {
                   as={animated.ul}
                   key={key}
                   style={props}
-                  className="flex flex-row justify-center items-stretch"
+                  className="flex flex-row flex-wrap justify-center items-stretch"
                 >
                   {(item === 'Individual'
                     ? get(plansSection, 'individualPlans', [])
                     : get(plansSection, 'businessPlans', [])
                   ).map(plan => (
-                    <PricingPlanCard key={plan.name}>
+                    <PricingPlanCard
+                      key={plan.name}
+                      css={
+                        !plan.priceMonthly
+                          ? css`
+                              ${tw`border-brand`}
+                            `
+                          : css`
+                              ${tw`border-transparent`}
+                            `
+                      }
+                    >
                       <header
                         css={css`
                           min-height: 6.25rem;
@@ -101,20 +113,24 @@ function PricingPage({ data }) {
                         </h3>
                       </header>
                       <Box className="flex flex-row justify-center items-baseline text-heading font-light py-10">
-                        <span
-                          css={css`
-                            font-size: 2.3125rem;
-                          `}
-                        >
-                          {plan.currency}
-                        </span>
-                        <span
-                          css={css`
-                            font-size: 5rem;
-                          `}
-                        >
-                          {plan.priceMonthly}
-                        </span>
+                        {plan.priceMonthly && (
+                          <>
+                            <span
+                              css={css`
+                                font-size: 2.3125rem;
+                              `}
+                            >
+                              {plan.currency}
+                            </span>
+                            <span
+                              css={css`
+                                font-size: 5rem;
+                              `}
+                            >
+                              {plan.priceMonthly}
+                            </span>
+                          </>
+                        )}
                       </Box>
                       <Box>
                         <Button
