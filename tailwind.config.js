@@ -60,7 +60,7 @@ module.exports = {
       },
       maxWidth: {
         '4xl': '57.25rem',
-        '6xl': '69.375rem'
+        '6xl': '71.375rem' // '69.375rem'
       },
       margin: {
         '9': '2.25rem',
