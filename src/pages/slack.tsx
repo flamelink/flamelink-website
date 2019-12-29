@@ -148,7 +148,7 @@ function SlackPage() {
     <AppProviders>
       <SEO title="Slack" />
       <main
-        className="flex flex-col justify-center bg-brand items-center min-h-screen w-screen px-8 pb-12 pt-40"
+        className="flex flex-col justify-center bg-brand items-center min-h-screen w-screen px-4 pb-12 pt-40"
         css={css`
           margin-top: -7rem;
           width: 100%;
