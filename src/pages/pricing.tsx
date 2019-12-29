@@ -16,11 +16,21 @@ import Button from '../components/Button'
 import CheckMarkIcon from '../icons/CheckMark'
 
 const PricingPlanCard = styled.li`
-  ${tw`shadow py-10 px-8 mx-4 text-center border-2 flex-shrink-1`}
+  ${tw`shadow py-10 px-8 md:mx-4 text-center border-2 flex-shrink-1`}
 
   width: 21.875rem;
   max-width: 100%;
   border-radius: 1px;
+
+  &:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+
+  @media screen and (min-width: ${props => props.theme.screens.md}) {
+    &:not(:last-child) {
+      margin-bottom: 0;
+    }
+  }
 `
 
 function PricingPage({ data }) {
@@ -32,7 +42,7 @@ function PricingPage({ data }) {
     termsSection
   } = get(data, 'flamelinkPricingPageContent', {})
 
-  const [selectedOption, setSelectedOption] = React.useState('Individual')
+  const [selectedOption, setSelectedOption] = React.useState('Individuals')
 
   const transitions = useTransition(selectedOption, item => item, {
     from: {
@@ -72,19 +82,19 @@ function PricingPage({ data }) {
             <SectionTitle>{get(plansSection, 'title', '')}</SectionTitle>
             <ToggleButtons
               selected={selectedOption}
-              options={['Individual', 'Business']}
+              options={['Individuals', 'Business']}
               onChange={setSelectedOption}
               className="mb-15"
             />
-            <Box className="relative">
+            <Box className="relative w-full">
               {transitions.map(({ item, props, key }) => (
                 <Box
                   as={animated.ul}
                   key={key}
                   style={props}
-                  className="flex flex-row flex-wrap justify-center items-stretch"
+                  className="flex flex-col md:flex-row flex-no-wrap md:justify-center md:items-stretch w-full"
                 >
-                  {(item === 'Individual'
+                  {(item === 'Individuals'
                     ? get(plansSection, 'individualPlans', [])
                     : get(plansSection, 'businessPlans', [])
                   ).map(plan => (
@@ -112,31 +122,39 @@ function PricingPage({ data }) {
                           {plan.tagline}
                         </h3>
                       </header>
-                      <Box className="flex flex-row justify-center items-baseline text-heading font-light py-10">
-                        {plan.priceMonthly && (
-                          <>
-                            <span
-                              css={css`
-                                font-size: 2.3125rem;
-                              `}
-                            >
-                              {plan.currency}
-                            </span>
-                            <span
-                              css={css`
-                                font-size: 5rem;
-                              `}
-                            >
-                              {plan.priceMonthly}
-                            </span>
-                          </>
-                        )}
+                      <Box
+                        className={`flex flex-row justify-center items-baseline text-heading font-light py-10 ${
+                          !plan.priceMonthly ? 'opacity-0' : 'opacity-100'
+                        }`}
+                      >
+                        <span
+                          css={css`
+                            font-size: 2.3125rem;
+                            line-height: 1;
+                          `}
+                        >
+                          {plan.currency}
+                        </span>
+                        <span
+                          css={css`
+                            font-size: 5rem;
+                            line-height: 1;
+                          `}
+                        >
+                          {plan.priceMonthly || '0'}
+                        </span>
                       </Box>
                       <Box>
                         <Button
-                          variant="outlined"
+                          variant={plan.priceMonthly ? 'outlined' : 'contained'}
                           color="primary"
                           className={plan.smallPrint ? 'mb-3' : 'mb-12'}
+                          as={ExternalLink}
+                          href={
+                            plan.priceMonthly
+                              ? `https://app.flamelink.io/?utm_source=website&utm_medium=pricecard&utm_campaign=${plan.name}`
+                              : 'mailto:solarflare@flamelink.io?subject=Solar%20Flare%20Query'
+                          }
                         >
                           {plan.ctaText}
                         </Button>

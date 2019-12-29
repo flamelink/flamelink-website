@@ -1,6 +1,7 @@
 import React from 'react'
+import { css } from '@emotion/core'
 import { Group } from 'reakit/Group'
-import { Button } from 'reakit/Button'
+import Button from './Button'
 
 export type ToggleButtonsProps = {
   options: string[]
@@ -16,12 +17,24 @@ const ToggleButtons: React.FC<ToggleButtonsProps> = ({
   className
 }) => {
   return (
-    <Group className={className}>
+    <Group
+      className={`flex flex-row flex-no-wrap justify-center items-stretch ${className}`}
+    >
       {options.map(option => (
         <Button
           key={option}
           onClick={() => onChange(option)}
           data-selected={selected}
+          color="primary"
+          variant={selected === option ? 'contained' : 'outlined'}
+          className="flex-shrink flex-grow-0"
+          css={props => css`
+            min-width: 9rem;
+
+            @media screen and (min-width: ${props.screens.md}) {
+              min-width: 10rem;
+            }
+          `}
         >
           {option}
         </Button>

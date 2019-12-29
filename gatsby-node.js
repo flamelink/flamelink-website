@@ -52,7 +52,7 @@ exports.createPages = async function({ actions, graphql }) {
               image {
                 localFile {
                   childImageSharp {
-                    fluid {
+                    fluid(maxWidth: 1920, quality: 80) {
                       base64
                       tracedSVG
                       aspectRatio
@@ -74,7 +74,7 @@ exports.createPages = async function({ actions, graphql }) {
               url
               localFile {
                 childImageSharp {
-                  fluid {
+                  fluid(maxWidth: 460) {
                     base64
                     tracedSVG
                     aspectRatio
@@ -95,7 +95,7 @@ exports.createPages = async function({ actions, graphql }) {
               url
               localFile {
                 childImageSharp {
-                  fluid {
+                  fluid(maxWidth: 1920, quality: 80) {
                     base64
                     tracedSVG
                     aspectRatio

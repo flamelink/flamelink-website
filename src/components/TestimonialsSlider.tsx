@@ -144,7 +144,7 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
               ariaLabel="previous slide"
             />
           )}
-          <Box className="carousel-slide-wrapper mt-16 mx-8 lg:mx-16 shadow flex-shrink">
+          <Box className="carousel-slide-wrapper mt-16 mx-0 lg:mx-16 shadow flex-shrink w-full">
             <Box className="carousel-slide block w-full pt-20 -mt-20 overflow-x-hidden overflow-y-visible">
               <Box
                 className="carousel-content-wrapper"

@@ -87,7 +87,7 @@ export const query = graphql`
         image {
           localFile {
             childImageSharp {
-              fluid {
+              fluid(maxWidth: 900, quality: 80) {
                 ...GatsbyImageSharpFluid_withWebp
               }
             }
@@ -109,10 +109,11 @@ export const query = graphql`
           title
           slug
           excerpt
+          brandColour
           logo {
             localFile {
               childImageSharp {
-                fluid {
+                fluid(maxWidth: 460) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }
@@ -121,7 +122,7 @@ export const query = graphql`
           backgroundImage {
             localFile {
               childImageSharp {
-                fluid {
+                fluid(maxWidth: 1920, quality: 80) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }
@@ -130,7 +131,7 @@ export const query = graphql`
           mainImage {
             localFile {
               childImageSharp {
-                fluid {
+                fluid(maxWidth: 1400) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }
