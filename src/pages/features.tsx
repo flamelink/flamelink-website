@@ -22,7 +22,12 @@ function FeaturesPage({ data }) {
 
   return (
     <>
-      <SEO keywords={['flamelink', 'features']} title="Features" />
+      <SEO
+        keywords={['flamelink', 'features']}
+        title="Features"
+        description="Flamelink saves you time and money with a secure and scalable flexible content and integrations interface."
+        url="/features"
+      />
       <main
         css={css`
           scroll-snap-type: x proximity;

@@ -61,7 +61,19 @@ function PricingPage({ data }) {
 
   return (
     <>
-      <SEO keywords={['flamelink', 'pricing']} title={pageTitle} />
+      <SEO
+        keywords={[
+          'flamelink',
+          'pricing',
+          'saas',
+          'firebase',
+          'cms',
+          'content management system'
+        ]}
+        title={pageTitle}
+        description={excerpt}
+        url="/pricing"
+      />
       <main
         css={css`
           scroll-snap-type: x proximity;

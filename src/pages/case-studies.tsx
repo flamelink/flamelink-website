@@ -23,7 +23,12 @@ function CaseStudiesPage({ data }) {
 
   return (
     <>
-      <SEO keywords={['flamelink', 'case studies']} title={pageTitle} />
+      <SEO
+        keywords={['flamelink', 'case studies', 'use cases']}
+        title={pageTitle}
+        description={excerpt}
+        url="/case-studies"
+      />
       <main
         css={css`
           scroll-snap-type: x proximity;

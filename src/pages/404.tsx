@@ -8,7 +8,7 @@ import PageBanner from '../components/PageBanner'
 function NotFoundPage() {
   return (
     <>
-      <SEO title="404: Not found" />
+      <SEO title="404: Not found" description="Flamelink resource not found" />
       <main className="flex flex-col justify-center items-center pb-20 py-10">
         <PageBanner
           style={{

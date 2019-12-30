@@ -25,6 +25,8 @@ function BusinessPage({ data }) {
       <SEO
         keywords={['flamelink', 'business', 'enterprise']}
         title={pageTitle}
+        description={overviewSection.excerpt}
+        url="/business"
       />
       <main
         css={css`

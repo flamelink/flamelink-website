@@ -23,6 +23,8 @@ function ContentPage({ data }) {
       <SEO
         keywords={['flamelink', 'content', 'cms', 'content management']}
         title={pageTitle}
+        description={overviewSection.excerpt}
+        url="/content"
       />
       <main
         css={css`

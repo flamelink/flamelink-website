@@ -146,7 +146,12 @@ function SlackPage() {
 
   return (
     <AppProviders>
-      <SEO title="Slack" />
+      <SEO
+        title="Slack"
+        keywords={['flamelink', 'slack', 'community', 'support']}
+        url="/slack"
+        description={excerpt}
+      />
       <main
         className="flex flex-col justify-center bg-brand items-center min-h-screen w-screen px-4 pb-12 pt-40"
         css={css`
