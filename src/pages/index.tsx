@@ -38,10 +38,12 @@ function HomePage({ data }) {
           'database',
           'firestore',
           'google cloud platform',
+          'gcp',
           'content management',
           'headless'
         ]}
         title="Home"
+        url=""
       />
       <main
         css={css`

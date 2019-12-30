@@ -26,8 +26,18 @@ const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
   return (
     <>
       <SEO
-        keywords={['flamelink', pageContext.title]}
+        keywords={['flamelink', 'case study', pageContext.title]}
         title={pageContext.title}
+        description={`Flamelink case study for ${pageContext.title}. ${get(
+          pageContext,
+          'pageSections[0].content',
+          ''
+        )}`}
+        url={pageContext.slug}
+        image={get(
+          pageContext,
+          'mainImage[0].localFile.childImageSharp.fluid.src'
+        )}
       />
       <BackgroundImage
         Tag="section"

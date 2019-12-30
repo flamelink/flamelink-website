@@ -125,7 +125,7 @@ module.exports = {
         short_name: 'flamelink.io',
         start_url: '/',
         background_color: '#f5f5f5',
-        theme_color: '#f37046',
+        theme_color: '#ff6633',
         display: 'minimal-ui',
         icon: 'src/images/flamelink-icon-1024x1024.png'
       }

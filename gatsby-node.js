@@ -91,6 +91,27 @@ exports.createPages = async function({ actions, graphql }) {
                 }
               }
             }
+            mainImage {
+              url
+              localFile {
+                childImageSharp {
+                  fluid(maxWidth: 1920, quality: 80) {
+                    base64
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                }
+              }
+            }
             backgroundImage {
               url
               localFile {
@@ -126,19 +147,23 @@ exports.createPages = async function({ actions, graphql }) {
       brandColour,
       logo,
       backgroundImage,
+      mainImage,
       pageSections
     } = caseStudy.node
 
+    const fullSlug = `/case-studies/${slug}`
+
     actions.createPage({
-      path: `case-studies/${slug}`,
+      path: fullSlug,
       component: require.resolve('./src/templates/case-study-page.tsx'),
       context: {
         title,
-        slug,
+        slug: fullSlug,
         excerpt,
         brandColour,
         logo,
         backgroundImage,
+        mainImage,
         pageSections
       }
     })

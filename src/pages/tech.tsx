@@ -24,7 +24,20 @@ function TechPage({ data }) {
 
   return (
     <>
-      <SEO keywords={['flamelink', 'coding', 'technology']} title={pageTitle} />
+      <SEO
+        keywords={[
+          'flamelink',
+          'coding',
+          'technology',
+          'javascript',
+          'serverless',
+          'cloud',
+          'firebase'
+        ]}
+        title={pageTitle}
+        description={overviewSection.excerpt}
+        url="/tech"
+      />
       <main
         css={css`
           scroll-snap-type: x proximity;
