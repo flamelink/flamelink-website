@@ -104,7 +104,7 @@ function PricingPage({ data }) {
                   as={animated.ul}
                   key={key}
                   style={props}
-                  className="flex flex-col md:flex-row flex-no-wrap md:justify-center md:items-stretch w-full"
+                  className="flex flex-col md:flex-row flex-no-wrap md:justify-center items-center md:items-stretch w-auto md:w-full"
                 >
                   {(item === 'Individuals'
                     ? get(plansSection, 'individualPlans', [])
