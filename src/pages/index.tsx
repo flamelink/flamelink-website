@@ -44,6 +44,9 @@ function HomePage({ data }) {
         ]}
         title="Home"
         url=""
+        meta={[
+          { property: 'og:video', content: 'https://youtu.be/8Cw5ktNADBQ' }
+        ]}
       />
       <main
         css={css`
