@@ -18,3 +18,5 @@ declare module 'react-hover-observer'
 declare module 'tailwind.macro'
 
 declare module 'tailwindcss/resolveConfig'
+
+declare module 'gatsby-plugin-transitions'
