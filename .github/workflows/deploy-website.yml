@@ -1,16 +1,17 @@
-name: Deploy to Production
+name: Deploy Website
 
 on:
   push:
     branches:
       - master
+      - develop
 
 env:
   NODE_ENV: production
 
 jobs:
   build:
-    name: Build for Production
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -20,6 +21,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Cache node modules
         uses: actions/cache@v1
@@ -34,7 +40,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --production=false --frozen-lockfile
 
-      - name: Build static files
+      # TODO: Update FLAMELINK_ENV and SITE_URL once we're ready for real production
+      - name: Build static files (Production)
+        if: github.ref == 'refs/heads/master'
         run: yarn build
         env:
           FLAMELINK_ENV: staging
@@ -49,29 +57,54 @@ jobs:
           GATSBY_FIREBASE_CONFIG_APP_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_APP_ID }}
           GOOGLE_ANALYTICS_TRACKING_ID: ${{ secrets.GOOGLE_ANALYTICS_TRACKING_ID }}
 
-      - name: Archive Production Artifact
+      - name: Build static files (Staging)
+        if: github.ref == 'refs/heads/develop'
+        run: yarn build
+        env:
+          FLAMELINK_ENV: staging
+          SITE_URL: https://flamelink-staging.web.app
+          FIREBASE_CONFIG_PK: ${{ secrets.FIREBASE_CONFIG_PK }}
+          GATSBY_FIREBASE_CONFIG_API_KEY: ${{ secrets.GATSBY_FIREBASE_CONFIG_API_KEY }}
+          GATSBY_FIREBASE_CONFIG_AUTH_DOMAIN: ${{ secrets.GATSBY_FIREBASE_CONFIG_AUTH_DOMAIN }}
+          GATSBY_FIREBASE_CONFIG_DATABASE_URL: ${{ secrets.GATSBY_FIREBASE_CONFIG_DATABASE_URL }}
+          GATSBY_FIREBASE_CONFIG_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_PROJECT_ID }}
+          GATSBY_FIREBASE_CONFIG_STORAGE_BUCKET: ${{ secrets.GATSBY_FIREBASE_CONFIG_STORAGE_BUCKET }}
+          GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID }}
+          GATSBY_FIREBASE_CONFIG_APP_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_APP_ID }}
+
+      - name: Archive Build Artifact
         uses: actions/upload-artifact@master
         with:
           name: public
           path: public
 
   deploy:
-    name: Deploy to Production
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - name: Download Production Artifact
+      - name: Download Build Artifact
         uses: actions/download-artifact@master
         with:
           name: public
 
-      - name: Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting (Production)
+        if: github.ref == 'refs/heads/master'
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:jan-2020
+        env:
+          PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Deploy to Firebase Hosting (Staging)
+        if: github.ref == 'refs/heads/develop'
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:staging
         env:
           PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
