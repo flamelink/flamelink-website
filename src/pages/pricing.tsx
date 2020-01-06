@@ -7,6 +7,8 @@ import { useTransition, animated } from 'react-spring'
 import { Box } from 'reakit/Box'
 import get from 'lodash/get'
 import { AiOutlineWarning as WarningIcon } from 'react-icons/ai'
+import { JsonLd } from 'react-schemaorg'
+import { WebApplication } from 'schema-dts'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
@@ -14,6 +16,17 @@ import ExternalLink from '../components/ExternalLink'
 import ToggleButtons from '../components/ToggleButtons'
 import Button from '../components/Button'
 import CheckMarkIcon from '../icons/CheckMark'
+
+type PricingPlan = {
+  name: string
+  tagline: string
+  currency?: string
+  priceMonthly?: string
+  priceAnnually?: string
+  ctaText?: string
+  smallPrint?: string
+  features: string[]
+}
 
 const PricingPlanCard = styled.li`
   ${tw`shadow py-10 px-8 md:mx-4 text-center border-2 flex-shrink-1`}
@@ -59,8 +72,63 @@ function PricingPage({ data }) {
     }
   })
 
+  const allPlans: PricingPlan[] = React.useMemo(() => {
+    return get(plansSection, 'individualPlans', []).concat(
+      get(plansSection, 'businessPlans', [])
+    )
+  }, [plansSection])
+
   return (
     <>
+      <JsonLd<WebApplication>
+        item={{
+          '@context': 'https://schema.org',
+          '@type': 'WebApplication',
+          '@id': 'flamelink',
+          applicationCategory: 'Content Management System',
+          name: 'Flamelink - A Firebase CMS',
+          operatingSystem: 'all',
+          browserRequirements: 'Requires JavaScript and HTML5 support',
+          url: 'https://app.flamelink.io',
+          offers: [
+            {
+              '@type': 'Offer',
+              offeredBy: {
+                '@type': 'Organization',
+                name: 'Flamelink'
+              },
+              availability: 'http://schema.org/InStock',
+              category: 'SaaS',
+              priceCurrency: 'USD',
+              priceSpecification: allPlans.map(plan => ({
+                '@type': 'UnitPriceSpecification',
+                price: get(plan, 'priceMonthly', ''),
+                priceCurrency: 'USD',
+                name: get(plan, 'name', ''),
+                referenceQuantity: {
+                  '@type': 'QuantitativeValue',
+                  value: '1',
+                  unitCode: 'MON'
+                }
+              }))
+            }
+          ],
+          creator: {
+            '@type': 'Organization',
+            '@id': '#organization',
+            url: 'https://flamelink.io',
+            email: 'info@flamelink.io',
+            name: 'Flamelink',
+            slogan: 'A Firebase CMS',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://flamelink.io/flamelink-logo-darkgrey-tag.png',
+              width: '1200px',
+              height: '312px'
+            }
+          }
+        }}
+      />
       <SEO
         keywords={[
           'flamelink',
@@ -104,12 +172,12 @@ function PricingPage({ data }) {
                   as={animated.ul}
                   key={key}
                   style={props}
-                  className="flex flex-col md:flex-row flex-no-wrap md:justify-center md:items-stretch w-full"
+                  className="flex flex-col md:flex-row flex-no-wrap md:justify-center items-center md:items-stretch w-auto md:w-full"
                 >
                   {(item === 'Individuals'
                     ? get(plansSection, 'individualPlans', [])
                     : get(plansSection, 'businessPlans', [])
-                  ).map(plan => (
+                  ).map((plan: PricingPlan) => (
                     <PricingPlanCard
                       key={plan.name}
                       css={
@@ -178,7 +246,11 @@ function PricingPage({ data }) {
                       )}
                       <hr className="mb-9" />
                       <ul>
-                        {get(plan, 'features', []).map(feature => (
+                        {(get(
+                          plan,
+                          'features',
+                          []
+                        ) as PricingPlan['features']).map(feature => (
                           <li
                             key={feature}
                             css={css`
@@ -202,17 +274,19 @@ function PricingPage({ data }) {
               {get(standardFeaturesSection, 'title', '')}
             </SectionTitle>
             <ul className="flex flex-col justify-star items-stretch">
-              {get(standardFeaturesSection, 'features', []).map(feature => (
-                <li
-                  key={feature}
-                  className="flex flex-row justify-between items-center"
-                >
-                  <span className="text-base text-body font-normal leading-loose">
-                    {feature}
-                  </span>
-                  <CheckMarkIcon className="text-brand ml-8" />
-                </li>
-              ))}
+              {get(standardFeaturesSection, 'features', []).map(
+                (feature: string) => (
+                  <li
+                    key={feature}
+                    className="flex flex-row justify-between items-center"
+                  >
+                    <span className="text-base text-body font-normal leading-loose">
+                      {feature}
+                    </span>
+                    <CheckMarkIcon className="text-brand ml-8" />
+                  </li>
+                )
+              )}
             </ul>
           </SectionContainer>
         </Section>

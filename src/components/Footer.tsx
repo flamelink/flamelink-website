@@ -148,7 +148,9 @@ function Footer() {
           <NavLink as={Link} to="/security">
             Security
           </NavLink>
-          <small className="text-base mt-5">&copy; 2018 Flamelink</small>
+          <small className="text-base mt-5">
+            &copy; {new Date().getFullYear()} Flamelink
+          </small>
           <SocialLinks>
             <SocialLink>
               <ExternalLink

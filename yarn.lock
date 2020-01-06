@@ -13308,6 +13308,11 @@ react-reconciler@^0.21.0:
     prop-types "^15.6.2"
     scheduler "^0.15.0"
 
+react-schemaorg@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-schemaorg/-/react-schemaorg-1.0.0.tgz#976a036a965eca597db8682455a2e7c8cd95f0b0"
+  integrity sha512-dMSxyXBeFB0A3VLpsGLMK8W1rMh05+N7YzlBgp0WLMqt+9Y1yHDCO/gR4+dK8lu9574kknYomeZr79woBtFRYw==
+
 react-side-effect@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.2.0.tgz#0e940c78faba0c73b9b0eba9cd3dda8dfb7e7dae"
@@ -14093,6 +14098,11 @@ scheduler@^0.17.0:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
+
+schema-dts@0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/schema-dts/-/schema-dts-0.4.5.tgz#7ba5f705bf21301756d8f32acb17d7f9b7f279d1"
+  integrity sha512-LiWBc0/7dGwd5NqWfLBxOwqhBkH2cCuctMKpIjXLI0qD0gu6XqpKGPDDUhAgZOr2BlvYQHhdrEEM1wmTEWWqMw==
 
 schema-utils@^0.4.0, schema-utils@^0.4.5:
   version "0.4.7"
