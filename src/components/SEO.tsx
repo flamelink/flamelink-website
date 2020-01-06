@@ -21,6 +21,7 @@ type Props = {
   meta?: MetaEntry[]
   keywords?: string[]
   title: string
+  children?: React.ReactNode
 }
 
 const SEO: React.FC<Props> = ({
@@ -30,7 +31,8 @@ const SEO: React.FC<Props> = ({
   keywords = [],
   title,
   image,
-  url
+  url,
+  children
 }) => {
   const { site } = useStaticQuery(graphql`
     query DefaultSEOQuery {
@@ -151,8 +153,14 @@ const SEO: React.FC<Props> = ({
       meta={metaTags}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title} | ${site.siteMetadata.tagline}`}
-    />
+    >
+      {children}
+    </Helmet>
   )
+}
+
+SEO.defaultProps = {
+  children: null
 }
 
 export default SEO
