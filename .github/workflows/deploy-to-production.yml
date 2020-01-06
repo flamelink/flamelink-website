@@ -47,6 +47,7 @@ jobs:
           GATSBY_FIREBASE_CONFIG_STORAGE_BUCKET: ${{ secrets.GATSBY_FIREBASE_CONFIG_STORAGE_BUCKET }}
           GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID }}
           GATSBY_FIREBASE_CONFIG_APP_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_APP_ID }}
+          GOOGLE_ANALYTICS_TRACKING_ID: ${{ secrets.GOOGLE_ANALYTICS_TRACKING_ID }}
 
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
