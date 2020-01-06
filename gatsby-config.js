@@ -39,18 +39,22 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-typescript',
     'gatsby-plugin-emotion',
-    {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        trackingId: 'UA-102176977-1',
-        head: true,
-        respectDNT: true,
-        pageTransitionDelay: 0,
-        sampleRate: 100,
-        siteSpeedSampleRate: 10,
-        forceSSL: true
-      }
-    },
+    ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID
+      ? [
+          {
+            resolve: 'gatsby-plugin-google-analytics',
+            options: {
+              trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+              head: true,
+              respectDNT: true,
+              pageTransitionDelay: 0,
+              sampleRate: 100,
+              siteSpeedSampleRate: 10,
+              forceSSL: true
+            }
+          }
+        ]
+      : []),
     'gatsby-plugin-layout',
     {
       resolve: 'gatsby-transformer-remark',
