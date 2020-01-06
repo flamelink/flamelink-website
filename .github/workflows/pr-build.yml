@@ -1,4 +1,4 @@
-name: Build per Pull Request
+name: Build Pull Request
 
 on: [pull_request]
 
@@ -15,6 +15,11 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Cache node modules
         uses: actions/cache@v1
