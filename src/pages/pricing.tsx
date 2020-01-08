@@ -11,6 +11,7 @@ import { JsonLd } from 'react-schemaorg'
 import { WebApplication } from 'schema-dts'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
+import { PageContent } from '../components/PageContent'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import ExternalLink from '../components/ExternalLink'
 import ToggleButtons from '../components/ToggleButtons'
@@ -298,21 +299,20 @@ function PricingPage({ data }) {
                 {get(termsSection, 'title', '')}
               </span>
             </header>
-            <span className="mb-4">
-              Storage, API Requests &amp; SLA are determined by your{' '}
-              <strong className="font-medium">Firebase</strong> plan.
-            </span>
-            <span>
-              Remember, you need a Firebase* project to hook Flamelink up to.
-              For more on Firebase pricing check out:
-            </span>
-            <ExternalLink
-              className="font-medium mb-4 hover:underline"
-              href="https://firebase.google.com/pricing"
-            >
-              https://firebase.google.com/pricing
-            </ExternalLink>
-            <span>*Firebase plan limitations apply</span>
+            <PageContent
+              css={css`
+                p a {
+                  ${tw`font-medium block mb-4 hover:underline hover:text-white hover:opacity-75`}
+                }
+              `}
+              dangerouslySetInnerHTML={{
+                __html: get(
+                  termsSection,
+                  'content.childMarkdownRemark.html',
+                  ''
+                )
+              }}
+            />
           </SectionContainer>
         </Section>
       </main>
@@ -356,7 +356,11 @@ export const query = graphql`
       }
       termsSection {
         title
-        content
+        content {
+          childMarkdownRemark {
+            html
+          }
+        }
       }
     }
   }
