@@ -15,6 +15,7 @@ import TestimonialsSlider from '../components/TestimonialsSlider'
 import NewsletterSection from '../components/NewsletterSection'
 import HowItWorks from '../components/HowItWorks'
 import IconCopyBlocks from '../components/IconCopyBlocks'
+import { PageContent } from '../components/PageContent'
 
 function HomePage({ data }) {
   const pageData = get(data, 'flamelinkHomePageContent')
@@ -78,9 +79,18 @@ function HomePage({ data }) {
                 />
               </span>
             )}
-            <p className="text-center text-lg max-w-5xl mb-20">
-              {get(pageData, 'firebaseSection.excerpt', '')}
-            </p>
+            <PageContent
+              css={css`
+                ${tw`text-center text-lg max-w-5xl mb-20`}
+              `}
+              dangerouslySetInnerHTML={{
+                __html: get(
+                  pageData,
+                  'firebaseSection.excerpt.childMarkdownRemark.html',
+                  ''
+                )
+              }}
+            />
             <ul className="flex flex-col md:flex-row justify-center items-stretch text-center">
               {get(pageData, 'firebaseSection.personas', []).map(persona => (
                 <li
@@ -279,7 +289,11 @@ export const query = graphql`
       }
       firebaseSection {
         title
-        excerpt
+        excerpt {
+          childMarkdownRemark {
+            html
+          }
+        }
         image {
           localFile {
             childImageSharp {
