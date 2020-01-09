@@ -10,11 +10,20 @@ import {
   VisibilityObserverPayload
 } from './VisibilityObserver'
 import { SectionContainer, SectionTitle } from './Section'
+import {PageContent} from './PageContent'
+
+type childMarkdownRemark = {
+  html: string
+}
+
+type HtmlContent = {
+  childMarkdownRemark: childMarkdownRemark
+}
 
 type Props = {
   iconUrl?: string
   heading: string
-  content: string
+  content: string | HtmlContent
   bg: 'white' | 'gray'
   imagePosition?: 'left' | 'right'
   imageYOverlap?: string
@@ -172,7 +181,17 @@ const ImageRevealSection: React.FC<Props> = ({
                 {heading}
               </SectionTitle>
             </header>
-            <p>{content}</p>
+            <PageContent
+            css={css`
+            ${tw`mx-0 sm:mx-0`}`}
+              dangerouslySetInnerHTML={{
+                __html: get(
+                  content,
+                  'childMarkdownRemark.html',
+                  content
+                )
+              }}
+            />
           </Box>
         </SectionContainer>
       </section>
