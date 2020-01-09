@@ -7654,10 +7654,10 @@ gatsby-source-filesystem@2.1.45:
     valid-url "^1.0.9"
     xstate "^4.7.2"
 
-gatsby-source-flamelink@3.0.0-alpha.1:
-  version "3.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/gatsby-source-flamelink/-/gatsby-source-flamelink-3.0.0-alpha.1.tgz#a78a327416e60a9de92cc0b0e573be0ab8d0ac66"
-  integrity sha512-PodRIw1OhhRj/g+y10yaDlxB0lcUOcAHZxaceONU0EN4hPa7VlEZ+HqpVVSf3rtJn05oz7JpKnSkonPlSqDu5A==
+gatsby-source-flamelink@3.0.0-alpha.2:
+  version "3.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/gatsby-source-flamelink/-/gatsby-source-flamelink-3.0.0-alpha.2.tgz#b249d8a20e508f38ce1c926398e154d95709f492"
+  integrity sha512-43PkClBvjxFad6q+dW86is6kd05UeUDdgdTSpMi9WjGrPRSYazu6k6Ctx18Hao/8j6ZRnanddvgelhsVkobfWQ==
   dependencies:
     "@babel/runtime" "7.7.7"
     compose-then "1.0.1"
