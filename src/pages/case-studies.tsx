@@ -80,7 +80,7 @@ export const query = graphql`
         }
       }
     }
-    caseStudies: allFlamelinkCaseStudiesContent {
+    caseStudies: allFlamelinkCaseStudiesContent(filter: {_fl_meta_: {status: {eq: "publish"}}}) {
       edges {
         node {
           title

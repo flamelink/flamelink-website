@@ -18,8 +18,8 @@ const CaseStudiesRevealSection: React.FC<Props> = ({ title, caseStudies }) => {
       <ul className="w-full h-auto">
         {caseStudies.map((caseStudy, index) => (
           <CaseStudyRevealItem
-            key={index}
             {...caseStudy}
+            key={index}
             imagePosition={index % 2 === 0 ? 'left' : 'right'}
           />
         ))}

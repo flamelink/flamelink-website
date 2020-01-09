@@ -34,7 +34,7 @@ exports.createPages = async function({ actions, graphql }) {
   // Individual Case Study pages
   const { data: csData } = await graphql(`
     query CaseStudiesQuery {
-      allFlamelinkCaseStudiesContent {
+      allFlamelinkCaseStudiesContent(filter: {_fl_meta_: {status: {eq: "publish"}}}) {
         edges {
           node {
             title

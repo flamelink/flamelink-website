@@ -116,12 +116,12 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
             </SectionContainer>
           </Box>
           <Envelope
-            css={css`
+            css={props => css`
               width: 0%;
               transition: ${isIntersecting
                 ? 'all 350ms ease-out'
                 : 'all 190ms ease-in'};
-              transform: ${isIntersecting
+              transform: ${isIntersecting || get(props, 'device.prefersReducedMotion', false)
                 ? 'translateX(0%)'
                 : 'translateX(100%)'};
 
