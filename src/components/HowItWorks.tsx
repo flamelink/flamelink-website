@@ -20,7 +20,7 @@ const HowItWorks = ({ data }) => {
                 <li
                   key={step.uniqueKey}
                   className="flex flex-row md:flex-col justify-start items-stretch md:items-center mb-0"
-                  css={css`
+                  css={props => css`
                     max-width: 15rem;
 
                     @media screen and (min-width: 768px) {
@@ -34,7 +34,7 @@ const HowItWorks = ({ data }) => {
                     transition: all 200ms ease-out;
                     transition-delay: ${100 * stepIndex}ms;
 
-                    ${isIntersecting
+                    ${isIntersecting || get(props, 'device.prefersReducedMotion', false)
                       ? css`
                           opacity: 1;
                           transform: translate(0px, 0px);
