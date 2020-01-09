@@ -1,5 +1,6 @@
 import React from 'react'
 import { css } from '@emotion/core'
+import get from 'lodash/get'
 import tw from 'tailwind.macro'
 
 export type IconCopyBlockProps = {
@@ -17,7 +18,7 @@ const IconCopyBlock: React.FC<IconCopyBlockProps> = ({
 }) => {
   return (
     <li
-      css={css`
+      css={props => css`
         ${tw`text-center flex flex-col items-center justify-start`}
 
         ${wider
@@ -29,6 +30,9 @@ const IconCopyBlock: React.FC<IconCopyBlockProps> = ({
               margin: 0 1rem 2.5rem;
               max-width: 15.9375rem;
             `}
+
+        /* Full width for small screens */
+        ${get(props, 'device.size') === 'xs' ? css`min-width: 100%; max-width: 100%;` : ''}
       `}
     >
       {iconUrl ? (

@@ -81,7 +81,7 @@ function HomePage({ data }) {
             )}
             <PageContent
               css={css`
-                ${tw`text-center text-lg max-w-5xl mb-20`}
+                ${tw`text-center text-base md:text-lg max-w-5xl mb-8 md:mb-16`}
               `}
               dangerouslySetInnerHTML={{
                 __html: get(
@@ -209,7 +209,7 @@ function HomePage({ data }) {
               ${tw`block w-full`}
             `}
           >
-            <ul className="flex justify-between items-center flex-no-wrap">
+            <ul className="flex justify-between items-center flex-no-wrap overflow-x-scroll">
               {get(pageData, 'affiliatesSection.affiliates', []).map(
                 affiliate => (
                   <li

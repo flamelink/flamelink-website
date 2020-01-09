@@ -39,12 +39,21 @@ export const useTheme = () => {
         break
     }
 
+    const sizes = {
+      xsUp: size !== 'xs',
+      smUp: sm,
+      mdUp: md,
+      lgUp: lg,
+      xlUp: xl
+    }
+
     return {
       ...twConfig.theme,
       device: {
         prefersReducedMotion,
         prefersDarkUI,
-        size
+        size,
+        sizes
       }
     }
   }, [prefersDarkUI, prefersReducedMotion, sm, md, lg, xl])
