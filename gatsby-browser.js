@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/browser'
 import './src/styles/globals.css'
 import 'typeface-roboto'
 
@@ -7,6 +8,14 @@ export const onClientEntry = () => {
     import('intersection-observer')
     console.log('# IntersectionObserver is polyfilled!')
   }
+
+  Sentry.init({
+    dsn: process.env.GATSBY_SENTRY_DSN,
+    environment: process.env.FLAMELINK_ENV,
+    attachStacktrace: true
+  })
+
+  window.Sentry = Sentry
 }
 
 // Disable - gatsby-page-transitions handle this
