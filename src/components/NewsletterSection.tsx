@@ -121,7 +121,7 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
               transition: ${isIntersecting
                 ? 'all 350ms ease-out'
                 : 'all 190ms ease-in'};
-              transform: ${isIntersecting || get(props, 'theme.device.prefersReducedMotion', false)
+              transform: ${isIntersecting || get(props, 'device.prefersReducedMotion', false)
                 ? 'translateX(0%)'
                 : 'translateX(100%)'};
 

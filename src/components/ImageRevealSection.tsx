@@ -126,7 +126,7 @@ const ImageRevealSection: React.FC<Props> = ({
       >
         <SectionContainer
           css={props => css`
-            ${containerInViewport || get(props, 'theme.device.prefersReducedMotion', false)
+            ${containerInViewport || get(props, 'device.prefersReducedMotion', false)
               ? css`
                   transition: opacity 350ms linear, transform 250ms ease-out;
                   opacity: 1;
