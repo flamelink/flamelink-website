@@ -1,8 +1,16 @@
 import 'react';
+import { Hub as Sentry } from '@sentry/types'
+import { BrowserClient } from '@sentry/browser'
 
 declare module 'react' {
   interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
     loading?: 'auto' | 'eager' | 'lazy';
+  }
+}
+
+declare global {
+  interface Window {
+    Sentry: Sentry & BrowserClient
   }
 }
 
