@@ -27,7 +27,7 @@ const SecurityPage: React.FC<PageProps> = ({ pageContext }) => (
     <PageBanner title={pageContext.title} />
     <Section className="bg-white">
       <SectionContainer>
-        <PageContent
+        <PageContent as="article"
           dangerouslySetInnerHTML={{
             __html: pageContext.html
           }}

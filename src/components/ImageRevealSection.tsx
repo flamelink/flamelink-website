@@ -27,7 +27,7 @@ const ImageContainer = styled(Box)<{
   ['data-image-y-overlap']: Props['imageYOverlap']
 }>`
   position: absolute;
-  display: inline-block;
+  display: ${props =>  get(props, 'theme.device.sizes.mdUp', false) ? 'inline-block' : 'none'};
   z-index: 20;
   width: 42.15277778%;
   border-radius: 0.25rem;
@@ -42,7 +42,7 @@ const ImageContainer = styled(Box)<{
   `}
   ${props => props['data-image-position']}: -1rem;
   ${props =>
-    props['data-in-viewport']
+    props['data-in-viewport'] || get(props, 'theme.device.prefersReducedMotion', false)
       ? css`
           transition: transform 250ms ease-out;
           transform: translateX(0%);
@@ -118,15 +118,15 @@ const ImageRevealSection: React.FC<Props> = ({
             overflow-x-hidden
             overflow-y-visible
             relative
-            py-32
+            py-15 md:py-32
           `}
 
           ${bg === 'white' ? tw`bg-white` : tw`bg-gray-100`}
         `}
       >
         <SectionContainer
-          css={css`
-            ${containerInViewport
+          css={props => css`
+            ${containerInViewport || get(props, 'theme.device.prefersReducedMotion', false)
               ? css`
                   transition: opacity 350ms linear, transform 250ms ease-out;
                   opacity: 1;
@@ -151,7 +151,7 @@ const ImageRevealSection: React.FC<Props> = ({
           `}
           className="relative flex-grow-0 flex-shrink-0 mx-8"
         >
-          <Box className="w-1/2 relative">
+          <Box className="w-full md:w-1/2 relative">
             <header className="flex justify-start items-center w-full mb-5">
               {iconUrl && (
                 <span className="w-8 h-8 mr-2">

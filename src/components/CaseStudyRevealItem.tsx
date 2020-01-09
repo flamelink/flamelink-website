@@ -30,7 +30,7 @@ const ImageContainer = styled(Box)<{
   ['data-image-position']: Props['imagePosition']
 }>`
   position: absolute;
-  display: inline-block;
+  display: ${props =>  get(props, 'theme.device.sizes.mdUp', false) ? 'inline-block' : 'none'};
   z-index: 20;
   width: 55.5556%;
   border-radius: 0.25rem;
@@ -41,8 +41,7 @@ const ImageContainer = styled(Box)<{
     height: calc(100% + 0rem + 0rem) !important;
   `}
   ${props => props['data-image-position']}: -1rem;
-  ${props =>
-    props['data-in-viewport']
+  ${props => props['data-in-viewport'] || get(props, 'theme.device.prefersReducedMotion', false)
       ? css`
           transition: transform 250ms ease-out;
           transform: translateX(0%);
@@ -119,14 +118,14 @@ const CaseStudyRevealItem: React.FC<Props> = ({
             overflow-x-hidden
             overflow-y-visible
             relative
-            py-32
+            py-4 md:py-32
             bg-white
           `}
         `}
       >
         <SectionContainer
-          css={css`
-            ${containerInViewport
+          css={props => console.log({ props}) || css`
+            ${containerInViewport || get(props, 'theme.device.prefersReducedMotion', false)
               ? css`
                   transition: opacity 350ms linear, transform 250ms ease-out;
                   opacity: 1;
