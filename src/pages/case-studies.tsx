@@ -91,7 +91,11 @@ export const query = graphql`
             imageYOverlap
             imagePosition
             heading
-            content
+            content {
+              childMarkdownRemark {
+                html
+              }
+            }
             icon {
               url
             }

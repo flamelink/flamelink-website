@@ -45,7 +45,11 @@ exports.createPages = async function({ actions, graphql }) {
               imagePosition
               imageYOverlap
               heading
-              content
+              content {
+                childMarkdownRemark {
+                  html
+                }
+              }
               icon {
                 url
               }
