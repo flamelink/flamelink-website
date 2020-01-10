@@ -95,11 +95,16 @@ function HomePage({ data }) {
               {get(pageData, 'firebaseSection.personas', []).map(persona => (
                 <li
                   key={persona.title}
-                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 rounded py-6 px-8 md:py-10 md:px-12 mb-4 md:mb-0"
+                  className="flex flex-col justify-start items-center flex-shrink-0 flex-grow-0 border-2 border-gray-400 rounded py-6 md:py-10 px-8 lg:px-12 mb-4 md:mb-0"
                   css={props => css`
                     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
 
                     @media screen and (min-width: ${props.screens.md}) {
+                      margin-left: 1rem;
+                      margin-right: 1rem;
+                    }
+
+                    @media screen and (min-width: ${props.screens.lg}) {
                       margin-left: 1.875rem;
                       margin-right: 1.875rem;
                     }
@@ -127,6 +132,7 @@ function HomePage({ data }) {
                     css={css`
                       ${tw`flex flex-col justify-start items-center leading-normal`}
 
+                      min-width: 10.625rem;
                       margin: 0.625rem 0 1.25rem;
                       flex-grow: 1;
                     `}
