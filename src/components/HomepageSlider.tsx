@@ -5,6 +5,7 @@ import { Group } from 'reakit/Group'
 import { useRoverState, Rover } from 'reakit/Rover'
 import get from 'lodash/get'
 import { css, SerializedStyles } from '@emotion/core'
+import { IoIosPlay as PlayIcon } from 'react-icons/io'
 import ReactHoverObserver from 'react-hover-observer'
 import tw from 'tailwind.macro'
 import BackgroundImage from 'gatsby-background-image'
@@ -263,6 +264,7 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                                     variant={cta.buttonType}
                                     color="secondary"
                                     className="mb-4 md:mr-4"
+                                    icon={<PlayIcon />}
                                     tabIndex={active === index - 1 ? 0 : -1}
                                   >
                                     {cta.text}
