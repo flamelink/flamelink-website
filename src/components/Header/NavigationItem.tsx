@@ -19,7 +19,12 @@ export type CmsNavItem = {
   flamelink_children: CmsNavItem[]
 }
 
-const NavLink = styled.button<{ as?: unknown; to?: string }>`
+const NavLink = styled.button<{
+  as?: unknown
+  to?: string
+  activeClassName?: string
+  partiallyActive?: boolean
+}>`
   ${tw`
     block md:inline-block
     m-0
@@ -43,6 +48,16 @@ const NavLink = styled.button<{ as?: unknown; to?: string }>`
 
   &[aria-expanded='true'] {
     ${tw`bg-gray-500 hover:text-white hover:underline`}
+  }
+
+  &.active {
+    text-decoration: underline;
+    text-decoration-skip: object;
+    text-decoration-skip-ink: auto;
+    text-underline-position: under;
+    /* Only Firefox support for now */
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35rem;
   }
 `
 
@@ -90,7 +105,13 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
   }
 
   return (
-    <NavLink key={key} as={Link} to={item.url}>
+    <NavLink
+      key={key}
+      as={Link}
+      to={item.url}
+      activeClassName="active"
+      partiallyActive
+    >
       {item.title}
     </NavLink>
   )
