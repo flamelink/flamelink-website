@@ -164,7 +164,7 @@ const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
               <BackgroundImage
                 key={slideIndex}
                 Tag="section"
-                className="w-screen pt-20 pb-20"
+                className="w-screen pt-20 pb-20 flex-grow"
                 fluid={get(
                   slide,
                   'backgroundImage[0].localFile.childImageSharp.fluid'
@@ -172,13 +172,18 @@ const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
                 backgroundColor={get(slide, 'brandColour', '#ff6633')}
               >
                 <Box
-                  className="flex flex-col justify-start items-center"
+                  className="flex flex-col justify-start items-center h-full"
                   css={css`
                     transition: all 350ms ease-out;
                     opacity: ${active === slideIndex - 1 ? 1 : 0};
                   `}
                 >
-                  <SectionContainer>
+                  <SectionContainer
+                    css={css`
+                      justify-content: space-between;
+                      min-height: 100%;
+                    `}
+                  >
                     <SectionTitle
                       css={css`
                         ${tw`text-white leading-none`}
@@ -247,7 +252,7 @@ const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
                                   <p className="text-sm sm:text-base leading-normal px-4 sm:px-6 md:px-8 mb-8 sm:mb-10">
                                     {slide.excerpt}
                                   </p>
-                                  <Box>
+                                  <Box className="flex justify-center items-center">
                                     <Link
                                       tabIndex={
                                         active === slideIndex - 1 ? 0 : -1
