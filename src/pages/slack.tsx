@@ -4,6 +4,7 @@ import { css } from '@emotion/core'
 import Img from 'gatsby-image'
 import { string, object } from 'yup'
 import set from 'lodash/set'
+import { Box } from 'reakit/Box'
 import {
   unstable_useFormState as useFormState,
   unstable_Form as Form,
@@ -163,12 +164,9 @@ function SlackPage() {
           background-size: cover;
         `}
       >
-        <Link
-          to="/"
-          className="w-full max-w-lg md:max-w-md lg:max-w-sm h-auto block mx-auto mb-8"
-        >
+        <Box className="w-full max-w-lg md:max-w-md lg:max-w-sm h-auto block mx-auto mb-8">
           <Img fluid={slackImage.childImageSharp.fluid} alt={slackImage.name} />
-        </Link>
+        </Box>
         <h1 className="text-white text-center text-3xl sm:text-4xl md:text-5xl leading-none font-thin mb-10">
           {title}
         </h1>
