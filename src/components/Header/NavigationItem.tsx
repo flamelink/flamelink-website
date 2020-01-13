@@ -54,9 +54,8 @@ const NavLink = styled.button<{
     text-decoration: underline;
     text-decoration-skip: object;
     text-decoration-skip-ink: auto;
-    text-underline-position: under;
     /* Only Firefox support for now */
-    text-decoration-thickness: 2px;
+    text-decoration-thickness: 1px;
     text-underline-offset: 0.35rem;
   }
 `
