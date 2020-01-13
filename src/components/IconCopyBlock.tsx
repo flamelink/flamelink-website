@@ -21,24 +21,36 @@ const IconCopyBlock: React.FC<IconCopyBlockProps> = ({
       css={props => css`
         ${tw`text-center flex flex-col items-center justify-start`}
 
-        ${wider
-          ? css`
-              margin: 0 1.5rem 2.5rem;
-              max-width: 19.0625rem;
-            `
-          : css`
-              margin: 0 1rem 2.5rem;
-              max-width: 15.9375rem;
-            `}
+        h3 {
+          overflow-wrap: break-word;
+        }
+
+        ${
+          wider
+            ? css`
+                margin: 0 1.5rem 2.5rem;
+                max-width: 19.0625rem;
+              `
+            : css`
+                margin: 0 1rem 2.5rem;
+                max-width: 15.9375rem;
+
+                h3 {
+                  max-width: 12rem;
+                }
+              `
+        }
 
         /* Full width for small screens */
-        ${get(props, 'device.size') === 'xs' 
-          ? css`
-            min-width: 100%; 
-            max-width: 100%;
-            padding: 0 1.5rem;
-          ` 
-          : ''}
+        ${
+          get(props, 'device.size') === 'xs'
+            ? css`
+                min-width: 100%;
+                max-width: 100%;
+                padding: 0 1.5rem;
+              `
+            : ''
+        }
       `}
     >
       {iconUrl ? (

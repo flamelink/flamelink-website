@@ -16,7 +16,7 @@
   "scripts": {
     "clear-cache": "rimraf .cache",
     "build": "gatsby build",
-    "dev": "yarn clear-cache && gatsby develop",
+    "dev": "yarn clear-cache && gatsby develop -H 0.0.0.0 -p 8000",
     "debug": "node --nolazy --inspect-brk node_modules/gatsby/dist/bin/gatsby develop",
     "type-check": "tsc",
     "lint": "eslint --ext tsx 'src/**/*.tsx' --ext ts 'functions/src/**/*.ts' --ignore-path .eslintignore . --cache",

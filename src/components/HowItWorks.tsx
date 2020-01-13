@@ -23,10 +23,6 @@ const HowItWorks = ({ data }) => {
                   css={props => css`
                     max-width: 15rem;
 
-                    @media screen and (min-width: 768px) {
-                      max-width: 100%;
-                    }
-
                     &:last-child {
                       margin-bottom: 0;
                     }
@@ -34,7 +30,8 @@ const HowItWorks = ({ data }) => {
                     transition: all 200ms ease-out;
                     transition-delay: ${100 * stepIndex}ms;
 
-                    ${isIntersecting || get(props, 'device.prefersReducedMotion', false)
+                    ${isIntersecting ||
+                    get(props, 'device.prefersReducedMotion', false)
                       ? css`
                           opacity: 1;
                           transform: translate(0px, 0px);
