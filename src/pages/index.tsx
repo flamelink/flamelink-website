@@ -215,7 +215,7 @@ function HomePage({ data }) {
               ${tw`block w-full`}
             `}
           >
-            <ul className="flex justify-between items-center flex-no-wrap overflow-x-scroll">
+            <ul className="flex justify-between items-center flex-no-wrap">
               {get(pageData, 'affiliatesSection.affiliates', []).map(
                 affiliate => (
                   <li
