@@ -3,29 +3,50 @@ import { Button as BaseButton } from 'reakit/Button'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 
-interface ButtonProps {
+type ButtonProps = {
   variant?: 'text' | 'contained' | 'outlined'
   color?: 'primary' | 'secondary'
+  icon?: React.ReactNode
   [key: string]: unknown
 }
 
+type StyledButtonProps = {
+  hasIcon: boolean
+  theme: any
+}
+
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant, color, ...props }, ref) => {
-    const baseStyles = () => css`
-      text-transform: uppercase;
-      transition: all 250ms ease-in-out;
-      padding: 0.875rem 1.5rem;
-      line-height: 1;
-      font-weight: 500;
-      display: inline-block;
-    `
+  ({ variant, color, icon, children, ...props }, ref) => {
+    const baseStyles = (props: StyledButtonProps) =>
+      css`
+        text-transform: uppercase;
+        transition: all 250ms ease-in-out;
+        padding: 0.875rem 1.5rem;
+        line-height: 1;
+        font-weight: 500;
+        display: inline-block;
+
+        ${props.hasIcon &&
+          css`
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+              margin-left: 0.5rem;
+              font-size: 1rem;
+              line-height: 1;
+              transform: scale(1.5);
+            }
+          `}
+      `
 
     let btnStyles
 
     switch (variant) {
       case 'text': {
         if (color === 'primary') {
-          btnStyles = p => css`
+          btnStyles = (p: StyledButtonProps) => css`
             color: ${p.theme.colors.brand};
 
             :hover {
@@ -34,7 +55,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             }
           `
         } else if (color === 'secondary') {
-          btnStyles = p => css`
+          btnStyles = (p: StyledButtonProps) => css`
             color: ${p.theme.colors.white};
 
             :hover {
@@ -48,7 +69,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
       case 'contained': {
         if (color === 'primary') {
-          btnStyles = p => css`
+          btnStyles = (p: StyledButtonProps) => css`
             border-width: 2px;
             border-color: ${p.theme.colors.brand};
             background-color: ${p.theme.colors.brand};
@@ -61,7 +82,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             }
           `
         } else if (color === 'secondary') {
-          btnStyles = p => css`
+          btnStyles = (p: StyledButtonProps) => css`
             border-width: 2px;
             border-color: ${p.theme.colors.white};
             background-color: ${p.theme.colors.white};
@@ -79,7 +100,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
       case 'outlined': {
         if (color === 'primary') {
-          btnStyles = p => css`
+          btnStyles = (p: StyledButtonProps) => css`
             border-width: 2px;
             border-color: ${p.theme.colors.brand};
             color: ${p.theme.colors.brand};
@@ -91,7 +112,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             }
           `
         } else if (color === 'secondary') {
-          btnStyles = p => css`
+          btnStyles = (p: StyledButtonProps) => css`
             border-width: 2px;
             border-color: ${p.theme.colors.white};
             color: ${p.theme.colors.white};
@@ -115,7 +136,18 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ${btnStyles}
     `
 
-    return <Btn ref={ref} {...props} />
+    return (
+      <Btn ref={ref} hasIcon={Boolean(icon)} {...props}>
+        {icon ? (
+          <>
+            <span>{children}</span>
+            {icon}
+          </>
+        ) : (
+          children
+        )}
+      </Btn>
+    )
   }
 )
 
