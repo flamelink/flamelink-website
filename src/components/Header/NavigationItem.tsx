@@ -17,6 +17,7 @@ export type CmsNavItem = {
   url: string
   newWindow: boolean
   flamelink_children: CmsNavItem[]
+  changeCount?: number
 }
 
 const NavLink = styled.button<{
@@ -77,6 +78,7 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
     return (
       <Box key={key} className="inline-block">
         <DropDownMenu
+          key={item.changeCount || 0}
           aria-label={`${item.title} menu`}
           disclosure={<NavLink as={BaseButton}>{item.title}</NavLink>}
           items={menuItems}
