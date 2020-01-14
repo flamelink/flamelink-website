@@ -142,6 +142,24 @@ module.exports = {
         purgeOnly: ['src/styles/globals.css']
       }
     },
-    'gatsby-plugin-offline'
+    {
+      resolve: 'gatsby-plugin-offline',
+      options: [
+        {
+          precachePages: [
+            '/features',
+            '/business',
+            '/content',
+            '/tech',
+            '/pricing',
+            '/case-studies',
+            '/case-studies/*',
+            '/slack',
+            '/security'
+          ],
+          appendScript: require.resolve('./src/custom-sw-code.js')
+        }
+      ]
+    }
   ]
 }
