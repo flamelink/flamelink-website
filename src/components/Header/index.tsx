@@ -12,6 +12,7 @@ import get from 'lodash/get'
 import Logo from '../Logo'
 import NavigationItem, { CmsNavItem } from './NavigationItem'
 import Modal from '../Modal'
+import { usePrevious } from '../../hooks/use-previous'
 
 const MainHeader = styled.header<{ sticky: boolean }>`
   ${tw`top-0 w-screen z-30`}
@@ -105,6 +106,17 @@ function Header() {
     150
   )
 
+  const previousStickyNav = usePrevious(stickyNav)
+
+  // Hack: we pass the change count through to nav items, so that any drop-downs can be forced to re-render
+  const [stickyChangeCount, setStickyChangeCount] = React.useState(0)
+
+  React.useEffect(() => {
+    if (previousStickyNav !== stickyNav) {
+      setStickyChangeCount(stickyChangeCount + 1)
+    }
+  }, [previousStickyNav, stickyNav, stickyChangeCount])
+
   return (
     <MainHeader sticky={stickyNav}>
       <Box
@@ -150,7 +162,13 @@ function Header() {
           className="hidden md:visible md:block flex flex-row justify-start items-center w-auto p-0 mt-0"
           aria-label="menu"
         >
-          {navItems.map(NavigationItem)}
+          {navItems.map(navItem => (
+            <NavigationItem
+              key={navItem.uuid}
+              {...navItem}
+              changeCount={stickyChangeCount}
+            />
+          ))}
         </nav>
       </Box>
     </MainHeader>

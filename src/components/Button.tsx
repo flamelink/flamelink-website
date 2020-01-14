@@ -11,7 +11,7 @@ type ButtonProps = {
 }
 
 type StyledButtonProps = {
-  hasIcon: boolean
+  ['data-has-icon']: boolean
   theme: any
 }
 
@@ -26,7 +26,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         font-weight: 500;
         display: inline-block;
 
-        ${props.hasIcon &&
+        ${props['data-has-icon'] &&
           css`
             display: flex;
             align-items: center;
@@ -137,7 +137,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     `
 
     return (
-      <Btn ref={ref} hasIcon={Boolean(icon)} {...props}>
+      <Btn ref={ref} data-has-icon={Boolean(icon)} {...props}>
         {icon ? (
           <>
             <span>{children}</span>
