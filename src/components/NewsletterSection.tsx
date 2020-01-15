@@ -48,6 +48,7 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
   return (
     <VisibilityObserver threshold={0.45} once>
       {({ isIntersecting }: VisibilityObserverPayload) => (
+        <>
         <Section
           className="bg-gray-100"
           css={css`
@@ -115,6 +116,7 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
               )}
             </SectionContainer>
           </Box>
+        </Section>
           <Envelope
             css={props => css`
               width: 0%;
@@ -256,7 +258,7 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
           >
             <Img fluid={newsletterEnvelope.childImageSharp.fluid} />
           </Envelope>
-        </Section>
+          </>
       )}
     </VisibilityObserver>
   )
