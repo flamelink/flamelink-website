@@ -123,6 +123,7 @@ module.exports = {
         path: path.join(__dirname, 'src', 'images')
       }
     },
+    'gatsby-plugin-remove-trailing-slashes',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
