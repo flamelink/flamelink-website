@@ -35,11 +35,12 @@ jobs:
       - name: Install dependencies
         run: yarn install --production=false --frozen-lockfile
 
+      # TODO: change FLAMELINK_ENV to production once data is ready
       - name: Build static files (Production)
         if: github.ref == 'refs/heads/master'
         run: yarn build
         env:
-          FLAMELINK_ENV: production
+          FLAMELINK_ENV: staging
           SITE_URL: https://flamelink.io
           FIREBASE_CONFIG_PK: ${{ secrets.FIREBASE_CONFIG_PK }}
           GATSBY_FIREBASE_CONFIG_API_KEY: ${{ secrets.GATSBY_FIREBASE_CONFIG_API_KEY }}
