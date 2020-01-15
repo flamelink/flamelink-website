@@ -24,6 +24,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         padding: 0.875rem 1.5rem;
         line-height: 1;
         font-weight: 500;
+        text-align: center;
         display: inline-block;
 
         ${props['data-has-icon'] &&
