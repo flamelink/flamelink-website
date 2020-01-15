@@ -1,4 +1,4 @@
-# Flamelink.io Website
+# Official Flamelink.io Website
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
@@ -10,10 +10,16 @@ Install Dependencies:
 yarn
 ```
 
-Build stylesheet from Tailwind config and run the project in development mode:
+Build and run the project in development mode:
 
 ```sh
 yarn dev
+```
+
+To test IE11 on your local machine or in `development` mode, run:
+
+```sh
+BROWSERSLIST_ENV=localIe11 yarn dev
 ```
 
 ## Format and lint
@@ -23,11 +29,14 @@ yarn dev
 
 ## Build your site
 
-Use `yarn build` to build your site for production.
+Use `yarn build` to build the site for production.
 
 ## Deploy
 
-TODO: add info
+This repo auto-deploys to the staging and production environments when Pull Requests are merged into either the `develop` or `master` branches. Take a look at `.github/workflows` directory for Github Actions responsible for deployments.
+
+Staging: https://flamelink-staging.web.app
+Production: https://flamelink.io
 
 ## Resources
 
