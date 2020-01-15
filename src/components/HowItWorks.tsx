@@ -16,7 +16,7 @@ const HowItWorks = ({ data }) => {
           <SectionContainer>
             <SectionTitle>{title || ''}</SectionTitle>
             <Box className="flex-initial w-full -mt-4 md:mt-0 mx-4">
-              <ol className="flex flex-col md:flex-row justify-center items-stretch md:text-center max-w-full">
+              <ol className="flex flex-col md:flex-row justify-center items-center md:items-stretch md:text-center max-w-full">
                 {(steps || []).map((step, stepIndex) => (
                   <li
                     key={step.uniqueKey}

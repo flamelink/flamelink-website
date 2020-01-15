@@ -48,7 +48,7 @@ const NavLink = styled.button<{
   }
 
   &[aria-expanded='true'] {
-    ${tw`bg-gray-500 hover:text-white hover:underline`}
+    ${tw`bg-brand-dark md:bg-gray-500 hover:text-white hover:underline`}
   }
 
   &.active {
@@ -64,7 +64,7 @@ const NavLink = styled.button<{
 const NavMenuItem = styled.a<{ as?: unknown }>`
   transition: all 300ms ease-out;
 
-  ${tw`block py-1 px-4 no-underline hover:underline font-normal text-white text-base`}
+  ${tw`block py-2 md:py-1 px-4 no-underline hover:underline font-normal text-white text-base`}
 `
 
 const NavigationItem: React.FC<CmsNavItem> = item => {
@@ -83,7 +83,7 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
           disclosure={<NavLink as={BaseButton}>{item.title}</NavLink>}
           items={menuItems}
           css={css`
-            ${tw`bg-gray-500 text-white py-1 lg:py-3 mt-2`}
+            ${tw`bg-brand-dark md:bg-gray-500 text-white py-1 lg:py-3 mt-2`}
           `}
         />
       </Box>
@@ -97,7 +97,7 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
         variant="contained"
         color="secondary"
         href={item.url}
-        className="ml-4 mt-4 md:mt-0 inline-block"
+        className="md:ml-4 mt-4 md:mt-0 inline-block"
         {...(item.newWindow ? { as: ExternalLink } : {})}
       >
         {item.title}
