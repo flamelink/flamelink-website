@@ -5,7 +5,7 @@ import { useMediaQuery } from './media-queries'
 // @ts-ignore
 import tailwindConfig from '../../tailwind.config'
 
-const twConfig = resolveConfig(tailwindConfig)
+export const twConfig = resolveConfig(tailwindConfig)
 
 export const useTheme = () => {
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')

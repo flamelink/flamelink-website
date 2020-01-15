@@ -152,10 +152,10 @@ function PricingPage({ data }) {
         <Section className="bg-white">
           <SectionContainer
             css={css`
-              ${tw`leading-normal text-body font-normal text-center max-w-3xl`}
+              ${tw`leading-normal text-body font-normal text-center`}
             `}
           >
-            {excerpt}
+            <Box className="max-w-3xl">{excerpt}</Box>
           </SectionContainer>
         </Section>
         <Section className="bg-gray-100">

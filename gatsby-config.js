@@ -36,6 +36,31 @@ module.exports = {
     siteUrl: SITE_URL
   },
   plugins: [
+    // To test IE 11 in dev-mode
+    ...(process.env.BROWSERSLIST_ENV === 'localIe11'
+      ? [
+          {
+            resolve: 'gatsby-plugin-polyfill-io',
+            options: {
+              features: ['Array.prototype.map', 'fetch', 'EventSource']
+            }
+          },
+          {
+            resolve: 'gatsby-plugin-compile-es6-packages',
+            options: {
+              modules: [
+                'react-schemaorg',
+                'react-spring',
+                'tailwind.macro',
+                'tailwindcss',
+                'reakit',
+                'reakit-system',
+                'gatsby-plugin-layout'
+              ]
+            }
+          }
+        ]
+      : []),
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-typescript',
     'gatsby-plugin-emotion',
