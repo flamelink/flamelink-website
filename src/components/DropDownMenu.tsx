@@ -1,6 +1,8 @@
 import React from 'react'
 import { useMenuState, Menu, MenuItem, MenuDisclosure } from 'reakit/Menu'
 import { useSpring, animated } from 'react-spring'
+import { useMediaQuery } from '../hooks/media-queries'
+import { twConfig } from '../hooks/theme'
 
 interface Props {
   disclosure: React.ReactElement
@@ -8,8 +10,10 @@ interface Props {
 }
 
 const DropDownMenu: React.FC<Props> = ({ disclosure, items, ...props }) => {
+  const isDesktop = useMediaQuery(`(min-width: ${twConfig.theme.screens.md})`)
   const menu = useMenuState({
     orientation: 'vertical',
+    placement: isDesktop ? 'auto-start' : 'bottom',
     unstable_animated: true
   })
   const { opacity, scale } = useSpring({

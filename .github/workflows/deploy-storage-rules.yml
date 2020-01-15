@@ -1,0 +1,27 @@
+name: Deploy Storage Rules
+
+on:
+  push:
+    paths:
+      - 'storage.rules'
+    branches:
+      - master
+
+env:
+  NODE_ENV: production
+
+jobs:
+  deploy_storage_rules:
+    name: Deploy Storage Rules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+
+      - name: Deploy the Storage Rules to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only storage
+        env:
+          PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

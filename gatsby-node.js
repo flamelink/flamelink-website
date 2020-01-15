@@ -34,7 +34,9 @@ exports.createPages = async function({ actions, graphql }) {
   // Individual Case Study pages
   const { data: csData } = await graphql(`
     query CaseStudiesQuery {
-      allFlamelinkCaseStudiesContent(filter: {_fl_meta_: {status: {eq: "publish"}}}) {
+      allFlamelinkCaseStudiesContent(
+        filter: { _fl_meta_: { status: { eq: "publish" } } }
+      ) {
         edges {
           node {
             title
@@ -172,4 +174,24 @@ exports.createPages = async function({ actions, graphql }) {
       }
     })
   })
+}
+
+// Support IE11 when running gatsby develop
+exports.onCreateWebpackConfig = function onCreateWebpackConfig({
+  actions,
+  stage,
+  loaders
+}) {
+  if (stage === 'develop') {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /react-hot-loader/,
+            use: [loaders.js()]
+          }
+        ]
+      }
+    })
+  }
 }

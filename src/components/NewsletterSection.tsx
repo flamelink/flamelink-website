@@ -46,82 +46,85 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
   const form = useNewsletterForm()
 
   return (
-    <VisibilityObserver threshold={0.45} once>
+    <VisibilityObserver threshold={0.45} once className="relative">
       {({ isIntersecting }: VisibilityObserverPayload) => (
-        <Section
-          className="bg-gray-100"
-          css={css`
-            ${tw`relative overflow-visible sm:pt-23 sm:pb-25`}
-          `}
-        >
-          <Box
+        <>
+          <Section
+            className="bg-gray-100"
             css={css`
-              ${tw`z-10 max-w-2xl w-full`}
+              ${tw`relative overflow-visible sm:pt-23 sm:pb-25`}
             `}
           >
-            <SectionContainer>
-              <SectionTitle
-                css={css`
-                  ${tw`text-brand mb-9`}
-                `}
-              >
-                {get(data, 'title', '')}
-              </SectionTitle>
-              <Form {...form} className="w-full mb-10">
-                <FormLabel
-                  {...form}
-                  name="email"
-                  className="relative block mx-auto w-full"
+            <Box
+              css={css`
+                ${tw`z-10 max-w-2xl w-full`}
+              `}
+            >
+              <SectionContainer>
+                <SectionTitle
+                  css={css`
+                    ${tw`text-brand mb-9`}
+                  `}
                 >
-                  <FormInput
+                  {get(data, 'title', '')}
+                </SectionTitle>
+                <Form {...form} className="w-full mb-10">
+                  <FormLabel
                     {...form}
                     name="email"
-                    type="email"
-                    placeholder={get(data, 'placeholderText', '')}
-                    aria-label="email address for newsletter"
-                    className="py-4 px-5 sm:py-5 sm:px-8 w-full text-3xl sm:text-4xl placeholder-gray-400 border border-gray-100 focus:border-brand outline-none"
-                    css={css`
-                      & ~ button:focus {
-                        outline: 0;
-                      }
-                    `}
-                  />
-                  <FormSubmitButton
-                    {...form}
-                    className="absolute inset-y-0 right-0 top-0 mr-5 opacity-50 hover:opacity-100 outline-none focus:opacity-100 focus:text-brand-dark"
+                    className="relative block mx-auto w-full"
                   >
-                    <ArrowRight
+                    <FormInput
+                      {...form}
+                      name="email"
+                      type="email"
+                      placeholder={get(data, 'placeholderText', '')}
+                      aria-label="email address for newsletter"
+                      className="py-4 px-5 sm:py-5 sm:px-8 w-full text-3xl sm:text-4xl placeholder-gray-400 border border-gray-100 focus:border-brand outline-none"
                       css={css`
-                        height: 1.125rem;
+                        & ~ button:focus {
+                          outline: 0;
+                        }
                       `}
                     />
-                  </FormSubmitButton>
-                </FormLabel>
-                <FormMessage
-                  {...form}
-                  name="email"
-                  className="text-red-600 text-xs mt-2 absolute"
-                />
-              </Form>
-              {form.submitSucceed ? (
-                <p className="text-center leading-normal flex justify-start items-center">
-                  <SuccessIcon className="mr-2 text-green-600 text-lg" /> Thanks
-                  for signing up to our newsletter!
-                </p>
-              ) : (
-                <p className="text-center leading-normal">
-                  {get(data, 'excerpt', '')}
-                </p>
-              )}
-            </SectionContainer>
-          </Box>
+                    <FormSubmitButton
+                      {...form}
+                      className="absolute inset-y-0 right-0 top-0 mr-5 opacity-50 hover:opacity-100 outline-none focus:opacity-100 focus:text-brand-dark"
+                    >
+                      <ArrowRight
+                        css={css`
+                          height: 1.125rem;
+                        `}
+                      />
+                    </FormSubmitButton>
+                  </FormLabel>
+                  <FormMessage
+                    {...form}
+                    name="email"
+                    className="text-red-600 text-xs mt-2 absolute"
+                  />
+                </Form>
+                {form.submitSucceed ? (
+                  <p className="text-center leading-normal flex justify-start items-center">
+                    <SuccessIcon className="mr-2 text-green-600 text-lg" />{' '}
+                    Thanks for signing up to our newsletter!
+                  </p>
+                ) : (
+                  <p className="text-center leading-normal">
+                    {get(data, 'excerpt', '')}
+                  </p>
+                )}
+              </SectionContainer>
+            </Box>
+          </Section>
           <Envelope
             css={props => css`
               width: 0%;
               transition: ${isIntersecting
                 ? 'all 350ms ease-out'
                 : 'all 190ms ease-in'};
-              transform: ${isIntersecting || get(props, 'device.prefersReducedMotion', false)
+              transform: ${isIntersecting ||
+              get(props, 'device.prefersReducedMotion', false)
                 ? 'translateX(0%)'
                 : 'translateX(100%)'};
 
@@ -256,7 +259,7 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
           >
             <Img fluid={newsletterEnvelope.childImageSharp.fluid} />
           </Envelope>
-        </Section>
+        </>
       )}
     </VisibilityObserver>
   )

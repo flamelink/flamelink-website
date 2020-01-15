@@ -167,11 +167,11 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                       slide,
                       'image[0].localFile.childImageSharp.fluid'
                     )}
-                    css={css`
-                      background-position: top center;
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                    `}
+                    style={{
+                      backgroundPosition: 'top center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'cover'
+                    }}
                   >
                     <Box
                       css={css`
@@ -281,6 +281,12 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                                 as={Link}
                                 to={cta.action}
                                 className="mb-4 md:mr-4"
+                                css={props => css`
+                                  ${!props.device.sizes.smUp &&
+                                    css`
+                                      min-width: 10.75rem;
+                                    `}
+                                `}
                                 tabIndex={active === index - 1 ? 0 : -1}
                               >
                                 {cta.text}

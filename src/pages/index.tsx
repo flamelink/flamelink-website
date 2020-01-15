@@ -11,7 +11,7 @@ import ExternalLink from '../components/ExternalLink'
 import InterfacesSlider from '../components/InterfacesSlider'
 import HomepageSlider from '../components/HomepageSlider'
 import CaseStudiesSlider from '../components/CaseStudiesSlider'
-import TestimonialsSlider from '../components/TestimonialsSlider'
+// import TestimonialsSlider from '../components/TestimonialsSlider'
 import NewsletterSection from '../components/NewsletterSection'
 import HowItWorks from '../components/HowItWorks'
 import IconCopyBlocks from '../components/IconCopyBlocks'
@@ -178,6 +178,7 @@ function HomePage({ data }) {
                   iconUrl: get(feature, 'icon[0].url')
                 })
               )}
+              className="max-w-full"
               wider
             />
             <Button
@@ -193,7 +194,7 @@ function HomePage({ data }) {
         </Section>
 
         {/* TESTIMONIALS SECTION */}
-        <Section className="bg-gray-100">
+        {/* <Section className="bg-gray-100">
           <SectionContainer>
             <SectionTitle>
               {get(pageData, 'testimonialsSection.title', '')}
@@ -206,7 +207,10 @@ function HomePage({ data }) {
               )}
             />
           </SectionContainer>
-        </Section>
+        </Section> */}
+
+        {/* NEWSLETTER SECTION */}
+        <NewsletterSection data={get(pageData, 'newsletterSection', {})} />
 
         {/* AFFILIATES SECTION */}
         <Section className="bg-white">
@@ -263,7 +267,7 @@ function HomePage({ data }) {
         </Section>
 
         {/* NEWSLETTER SECTION */}
-        <NewsletterSection data={get(pageData, 'newsletterSection', {})} />
+        {/* <NewsletterSection data={get(pageData, 'newsletterSection', {})} /> */}
       </main>
     </>
   )

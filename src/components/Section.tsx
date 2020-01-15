@@ -36,7 +36,7 @@ const UnstyledSection: React.FC<{
 
 export const Section = styled(UnstyledSection)`
   ${tw`
-    w-full
+    w-full max-w-full
     h-auto
     flex flex-col
     justify-start
@@ -52,6 +52,7 @@ export const Section = styled(UnstyledSection)`
 export const SectionContainer = tw.div`
   flex
   flex-col
+  flex-initial
   justify-start
   items-center
   max-w-6xl

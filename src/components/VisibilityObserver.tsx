@@ -81,12 +81,13 @@ export const useVisibilityObserver = ({
   return payload
 }
 
-const VisibilityObserver: React.FC<Props> = ({
+const VisibilityObserver: React.FC<Props & { className?: string }> = ({
   root,
   rootMargin,
   threshold,
   once,
-  children
+  children,
+  className = ''
 }) => {
   const ref = React.useRef<HTMLDivElement>(null!)
   const payload = useVisibilityObserver({
@@ -109,7 +110,11 @@ const VisibilityObserver: React.FC<Props> = ({
     node = React.cloneElement(children as any, payload)
   }
 
-  return <div ref={ref}>{node}</div>
+  return (
+    <div ref={ref} className={className}>
+      {node}
+    </div>
+  )
 }
 
 VisibilityObserver.defaultProps = {

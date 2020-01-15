@@ -4,8 +4,12 @@ import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
-import { Section, SectionContainer, SectionTitle } from '../components/Section'
-import TestimonialsSlider from '../components/TestimonialsSlider'
+import {
+  Section,
+  SectionContainer
+  // SectionTitle
+} from '../components/Section'
+// import TestimonialsSlider from '../components/TestimonialsSlider'
 import ContactUsSection from '../components/ContactUsSection'
 import ImageRevealSection from '../components/ImageRevealSection'
 import IconCopyBlocks from '../components/IconCopyBlocks'
@@ -16,8 +20,8 @@ function BusinessPage({ data }) {
     pageTitle,
     overviewSection,
     featuresSection,
-    caseStudiesSection,
-    testimonialsSection
+    caseStudiesSection
+    // testimonialsSection
   } = get(data, 'flamelinkBusinessPersonaPageContent', {})
 
   return (
@@ -61,14 +65,14 @@ function BusinessPage({ data }) {
           caseStudies={caseStudiesSection.caseStudies}
         />
 
-        <Section className="bg-gray-100">
+        {/* <Section className="bg-gray-100">
           <SectionContainer>
             <SectionTitle>{testimonialsSection.title}</SectionTitle>
             <TestimonialsSlider
               testimonials={get(testimonialsSection, 'testimonials', [])}
             />
           </SectionContainer>
-        </Section>
+        </Section> */}
         <ContactUsSection />
       </main>
     </>
