@@ -1,0 +1,27 @@
+name: Deploy Firestore Rules
+
+on:
+  push:
+    paths:
+      - 'firestore.rules'
+    branches:
+      - master
+
+env:
+  NODE_ENV: production
+
+jobs:
+  deploy_firestore_rules:
+    name: Deploy Firestore Rules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+
+      - name: Deploy the Firestore Rules to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only firestore:rules
+        env:
+          PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
