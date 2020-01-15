@@ -27,10 +27,10 @@ jobs:
         uses: actions/cache@v1
         with:
           path: functions/node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.OS }}-functions-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.OS }}-build-${{ env.cache-name }}-
-            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-functions-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-functions-build-
             ${{ runner.OS }}-
 
       - name: Install dependencies
