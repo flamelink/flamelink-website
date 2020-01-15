@@ -10,7 +10,7 @@ import {
   VisibilityObserverPayload
 } from './VisibilityObserver'
 import { SectionContainer, SectionTitle } from './Section'
-import {PageContent} from './PageContent'
+import { PageContent } from './PageContent'
 
 type childMarkdownRemark = {
   html: string
@@ -36,7 +36,8 @@ const ImageContainer = styled(Box)<{
   ['data-image-y-overlap']: Props['imageYOverlap']
 }>`
   position: absolute;
-  display: ${props =>  get(props, 'theme.device.sizes.mdUp', false) ? 'inline-block' : 'none'};
+  display: ${props =>
+    get(props, 'theme.device.sizes.mdUp', false) ? 'inline-block' : 'none'};
   z-index: 20;
   width: 42.15277778%;
   border-radius: 0.25rem;
@@ -51,7 +52,8 @@ const ImageContainer = styled(Box)<{
   `}
   ${props => props['data-image-position']}: -1rem;
   ${props =>
-    props['data-in-viewport'] || get(props, 'theme.device.prefersReducedMotion', false)
+    props['data-in-viewport'] ||
+    get(props, 'theme.device.prefersReducedMotion', false)
       ? css`
           transition: transform 250ms ease-out;
           transform: translateX(0%);
@@ -73,8 +75,10 @@ const StyledBackgroundImage = styled(BackgroundImage)<{
   background-size: cover !important;
   ${props =>
     css`
-      background-position: top
-        ${props['data-image-position'] === 'right' ? 'left' : 'right'} !important;
+      background-position-y: top !important;
+      background-position-x: ${props['data-image-position'] === 'right'
+        ? 'left'
+        : 'right'} !important;
     `}
 `
 
@@ -135,7 +139,8 @@ const ImageRevealSection: React.FC<Props> = ({
       >
         <SectionContainer
           css={props => css`
-            ${containerInViewport || get(props, 'device.prefersReducedMotion', false)
+            ${containerInViewport ||
+            get(props, 'device.prefersReducedMotion', false)
               ? css`
                   transition: opacity 350ms linear, transform 250ms ease-out;
                   opacity: 1;
@@ -182,14 +187,11 @@ const ImageRevealSection: React.FC<Props> = ({
               </SectionTitle>
             </header>
             <PageContent
-            css={css`
-            ${tw`mx-0 sm:mx-0`}`}
+              css={css`
+                ${tw`mx-0 sm:mx-0`}
+              `}
               dangerouslySetInnerHTML={{
-                __html: get(
-                  content,
-                  'childMarkdownRemark.html',
-                  content
-                )
+                __html: get(content, 'childMarkdownRemark.html', content)
               }}
             />
           </Box>
