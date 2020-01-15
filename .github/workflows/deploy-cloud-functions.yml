@@ -5,7 +5,7 @@ on:
     paths:
       - 'functions/**'
     branches:
-      - branch_name_that_currently_does_not_exist_but_will_change_to_master
+      - master
 
 env:
   NODE_ENV: production

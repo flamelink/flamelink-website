@@ -5,6 +5,7 @@
     "cacheable",
     "creatable",
     "firestarter",
+    "firestore",
     "flamelink",
     "idempotency",
     "mailchimp",
