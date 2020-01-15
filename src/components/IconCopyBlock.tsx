@@ -19,7 +19,7 @@ const IconCopyBlock: React.FC<IconCopyBlockProps> = ({
   return (
     <li
       css={props => css`
-        ${tw`text-center flex flex-col items-center justify-start`}
+        ${tw`text-center flex flex-col flex-initial items-center justify-start`}
 
         h3 {
           overflow-wrap: break-word;
