@@ -167,11 +167,11 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                       slide,
                       'image[0].localFile.childImageSharp.fluid'
                     )}
-                    css={css`
-                      background-position: top center;
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                    `}
+                    style={{
+                      backgroundPosition: 'top center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'cover'
+                    }}
                   >
                     <Box
                       css={css`

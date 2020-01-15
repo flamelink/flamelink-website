@@ -71,15 +71,6 @@ const StyledBackgroundImage = styled(BackgroundImage)<{
 }>`
   height: 100%;
   width: 100%;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  ${props =>
-    css`
-      background-position-y: top !important;
-      background-position-x: ${props['data-image-position'] === 'right'
-        ? 'left'
-        : 'right'} !important;
-    `}
 `
 
 const ImageRevealSection: React.FC<Props> = ({
@@ -116,7 +107,13 @@ const ImageRevealSection: React.FC<Props> = ({
         >
           <StyledBackgroundImage
             fluid={fluidImage.childImageSharp.fluid}
-            data-image-position={imagePosition}
+            style={{
+              backgroundPosition: `top ${
+                imagePosition === 'right' ? 'left' : 'right'
+              }`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover'
+            }}
           />
         </ImageContainer>
       )}

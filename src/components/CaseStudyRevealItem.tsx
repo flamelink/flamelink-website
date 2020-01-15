@@ -57,18 +57,9 @@ const ImageContainer = styled(Box)<{
         `}
 `
 
-const StyledBackgroundImage = styled(BackgroundImage)<{
-  ['data-image-position']: Props['imagePosition']
-}>`
+const StyledBackgroundImage = styled(BackgroundImage)`
   height: 100%;
   width: 100%;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  ${props =>
-    css`
-      background-position: top
-        ${props['data-image-position'] === 'right' ? 'left' : 'right'} !important;
-    `}
 `
 
 const CaseStudyRevealItem: React.FC<Props> = ({
@@ -106,7 +97,13 @@ const CaseStudyRevealItem: React.FC<Props> = ({
         >
           <StyledBackgroundImage
             fluid={mainImage[0].localFile.childImageSharp.fluid}
-            data-image-position={imagePosition}
+            style={{
+              backgroundPosition: `top ${
+                imagePosition === 'right' ? 'left' : 'right'
+              }`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover'
+            }}
           />
         </ImageContainer>
       )}
