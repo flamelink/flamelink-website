@@ -1,4 +1,5 @@
 import React from 'react'
+import { Box } from 'reakit/Box'
 import IconCopyBlock, { IconCopyBlockProps } from './IconCopyBlock'
 
 type Props = {
@@ -13,13 +14,13 @@ const IconCopyBlocks: React.FC<Props> = ({ blocks, wider, className }) => {
   }
 
   return (
-    <ul
-      className={`flex flex-wrap flex-initial flex-shrink-0 justify-center align-start -mx-5 ${className}`}
-    >
-      {blocks.map((block, index) => (
-        <IconCopyBlock key={index} {...block} wider={wider} />
-      ))}
-    </ul>
+    <Box className={`flex-initial -mx-5 max-w-full ${className}`}>
+      <ul className="flex flex-wrap justify-center align-start w-full">
+        {blocks.map((block, index) => (
+          <IconCopyBlock key={index} {...block} wider={wider} />
+        ))}
+      </ul>
+    </Box>
   )
 }
 
