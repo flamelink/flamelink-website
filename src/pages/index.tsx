@@ -178,6 +178,7 @@ function HomePage({ data }) {
                   iconUrl: get(feature, 'icon[0].url')
                 })
               )}
+              className="max-w-full"
               wider
             />
             <Button

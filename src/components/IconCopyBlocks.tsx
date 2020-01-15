@@ -14,7 +14,7 @@ const IconCopyBlocks: React.FC<Props> = ({ blocks, wider, className }) => {
 
   return (
     <ul
-      className={`flex flex-wrap flex-grow-0 flex-shrink-0 justify-center align-start -mx-5 ${className}`}
+      className={`flex flex-wrap flex-initial flex-shrink-0 justify-center align-start -mx-5 ${className}`}
     >
       {blocks.map((block, index) => (
         <IconCopyBlock key={index} {...block} wider={wider} />
