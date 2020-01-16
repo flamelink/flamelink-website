@@ -42,6 +42,11 @@ const IconCopyBlock: React.FC<IconCopyBlockProps> = ({
               `
         }
 
+        ${!excerpt &&
+          css`
+            max-width: 10.1rem;
+          `}
+
         /* Full width for small screens */
         ${
           get(props, 'device.size') === 'xs'
