@@ -117,11 +117,11 @@ function Footer() {
 
   return (
     <footer
-      className="bg-gray-800"
+      className="bg-gray-800 relative"
       css={
         isVisible
           ? css`
-              transition: opacity 1000ms ease-out;
+              transition: opacity 500ms ease-out 1000ms;
               opacity: 1;
             `
           : css`
@@ -282,7 +282,7 @@ function Footer() {
           </NavLink>
         </Column>
       </FooterNav>
-      <StripedToe />
+      <StripedToe style={{ display: isVisible ? 'block' : 'none' }} />
     </footer>
   )
 }
