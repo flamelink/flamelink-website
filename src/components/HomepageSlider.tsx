@@ -248,7 +248,7 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                             {slide.title2}
                           </span>
                         </h1>
-                        <p className="text-white text-base sm:text-lg mb-8 max-w-full md:max-w-md">
+                        <p className="text-white text-base sm:text-lg mb-8 max-w-sm md:max-w-md">
                           {slide.excerpt}
                         </p>
                         <Group className="flex flex-col md:flex-row flex-no-wrap justify-start items-start">
@@ -282,7 +282,7 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                                 to={cta.action}
                                 className="mb-4 md:mr-4"
                                 css={props => css`
-                                  ${!props.device.sizes.smUp &&
+                                  ${!props.device.sizes.mdUp &&
                                     css`
                                       min-width: 10.75rem;
                                     `}
