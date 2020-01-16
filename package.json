@@ -3,6 +3,7 @@
   "description": "Official website for flamelink.io",
   "version": "3.0.0",
   "author": "JP Erasmus <jp@flamelink.io>",
+  "private": true,
   "keywords": [
     "flamelink",
     "firebase",
