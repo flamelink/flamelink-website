@@ -42,9 +42,9 @@ export const contactUsSubmission = functions.firestore.document('contactUs/{docI
   <p>Thanks! We received your message. The team will contact you soon.</p>
   <p>Below is a copy of your message:</p>
   <div>
-  <strong>Name:</strong> ${contact.name}<br/>
-  <strong>Email:</strong> ${contact.email}<br/>
-  <strong>Message:</strong> ${contact.message}<br/>
+    <strong>Name:</strong> ${contact.name}<br/>
+    <strong>Email:</strong> ${contact.email}<br/>
+    <strong>Message:</strong> ${contact.message}<br/>
   </div>
   `
 
