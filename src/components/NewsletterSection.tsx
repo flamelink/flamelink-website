@@ -193,7 +193,7 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
               }
 
               @media screen and (min-width: 1440px) {
-                width: 37%;
+                width: 39%;
               }
 
               @media screen and (min-width: 1505px) {
