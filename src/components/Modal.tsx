@@ -91,8 +91,8 @@ const Modal: React.FC<Props> = ({
                 height: calc(100vh - 4rem);
 
                 @media screen and (min-width: 768px) {
-                  width: 50vw;
-                  height: 50vh;
+                  width: 90vw;
+                  height: 90vh;
                 }
               `}
         `}

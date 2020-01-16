@@ -271,7 +271,9 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                                   </Button>
                                 }
                               >
-                                <DemoVideo />
+                                {({ dialog }) => (
+                                  <DemoVideo visible={dialog.visible} />
+                                )}
                               </Modal>
                             ) : (
                               <Button
