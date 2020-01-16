@@ -39,13 +39,13 @@ export const contactUsSubmission = functions.firestore.document('contactUs/{docI
   const contact = snapshot.data() as EmailContact
 
   const userEmailBody = `
-  <p>Thanks! We received your message. A human will contact you soon.</p>
+  <p>Thanks! We received your message. The team will contact you soon.</p>
   <p>Below is a copy of your message:</p>
-  <pre>
-    Name: ${contact.name}
-    Email: ${contact.email}
-    Message: ${contact.message}
-  </pre>
+  <div>
+  <strong>Name:</strong> ${contact.name}<br/>
+  <strong>Email:</strong> ${contact.email}<br/>
+  <strong>Message:</strong> ${contact.message}<br/>
+  </div>
   `
 
   return Promise.all([
