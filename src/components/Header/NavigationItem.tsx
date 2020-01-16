@@ -108,8 +108,8 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
   return (
     <NavLink
       key={key}
-      as={Link}
-      to={item.url}
+      as={item.newWindow ? ExternalLink : Link}
+      {...(item.newWindow ? { href: item.url } : { to: item.url })}
       activeClassName="active"
       partiallyActive
     >
