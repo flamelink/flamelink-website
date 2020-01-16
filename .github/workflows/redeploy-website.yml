@@ -1,0 +1,106 @@
+name: Redeploy Website on Content Change
+
+on:
+  repository_dispatch:
+    types: [content-change]
+
+env:
+  NODE_ENV: production
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.branch }}
+
+      - name: Setup Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install dependencies
+        run: yarn install --production=false --frozen-lockfile
+
+      - name: Build static files (Production)
+        if: github.event.client_payload.branch == 'master'
+        run: yarn build
+        env:
+          FLAMELINK_ENV: production
+          SITE_URL: https://flamelink.io
+          FIREBASE_CONFIG_PK: ${{ secrets.FIREBASE_CONFIG_PK }}
+          GATSBY_FIREBASE_CONFIG_API_KEY: ${{ secrets.GATSBY_FIREBASE_CONFIG_API_KEY }}
+          GATSBY_FIREBASE_CONFIG_AUTH_DOMAIN: ${{ secrets.GATSBY_FIREBASE_CONFIG_AUTH_DOMAIN }}
+          GATSBY_FIREBASE_CONFIG_DATABASE_URL: ${{ secrets.GATSBY_FIREBASE_CONFIG_DATABASE_URL }}
+          GATSBY_FIREBASE_CONFIG_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_PROJECT_ID }}
+          GATSBY_FIREBASE_CONFIG_STORAGE_BUCKET: ${{ secrets.GATSBY_FIREBASE_CONFIG_STORAGE_BUCKET }}
+          GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID }}
+          GATSBY_FIREBASE_CONFIG_APP_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_APP_ID }}
+          GOOGLE_ANALYTICS_TRACKING_ID: ${{ secrets.GOOGLE_ANALYTICS_TRACKING_ID }}
+          GATSBY_SENTRY_DSN: ${{ secrets.GATSBY_SENTRY_DSN }}
+
+      - name: Build static files (Staging)
+        if: github.event.client_payload.branch == 'develop'
+        run: yarn build
+        env:
+          FLAMELINK_ENV: staging
+          SITE_URL: https://flamelink-staging.web.app
+          FIREBASE_CONFIG_PK: ${{ secrets.FIREBASE_CONFIG_PK }}
+          GATSBY_FIREBASE_CONFIG_API_KEY: ${{ secrets.GATSBY_FIREBASE_CONFIG_API_KEY }}
+          GATSBY_FIREBASE_CONFIG_AUTH_DOMAIN: ${{ secrets.GATSBY_FIREBASE_CONFIG_AUTH_DOMAIN }}
+          GATSBY_FIREBASE_CONFIG_DATABASE_URL: ${{ secrets.GATSBY_FIREBASE_CONFIG_DATABASE_URL }}
+          GATSBY_FIREBASE_CONFIG_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_PROJECT_ID }}
+          GATSBY_FIREBASE_CONFIG_STORAGE_BUCKET: ${{ secrets.GATSBY_FIREBASE_CONFIG_STORAGE_BUCKET }}
+          GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID }}
+          GATSBY_FIREBASE_CONFIG_APP_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_APP_ID }}
+          GATSBY_SENTRY_DSN: ${{ secrets.GATSBY_SENTRY_DSN }}
+
+      - name: Archive Build Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: public
+          path: public
+
+  deploy:
+    name: Redeploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: public
+
+      - name: Deploy to Firebase Hosting (Production)
+        if: github.event.client_payload.branch == 'master'
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:production
+        env:
+          PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Deploy to Firebase Hosting (Staging)
+        if: github.event.client_payload.branch == 'develop'
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:staging
+        env:
+          PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
