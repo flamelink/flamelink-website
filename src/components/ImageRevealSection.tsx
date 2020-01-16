@@ -66,9 +66,7 @@ const ImageContainer = styled(Box)<{
         `}
 `
 
-const StyledBackgroundImage = styled(BackgroundImage)<{
-  ['data-image-position']: Props['imagePosition']
-}>`
+const StyledBackgroundImage = styled(BackgroundImage)`
   height: 100%;
   width: 100%;
 `
@@ -104,6 +102,7 @@ const ImageRevealSection: React.FC<Props> = ({
           data-in-viewport={containerInViewport}
           data-image-position={imagePosition}
           data-image-y-overlap={imageYOverlap}
+          className="shadow"
         >
           <StyledBackgroundImage
             fluid={fluidImage.childImageSharp.fluid}
