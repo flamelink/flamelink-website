@@ -92,7 +92,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting:jan-2020
+          args: deploy --only hosting:production
         env:
           PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

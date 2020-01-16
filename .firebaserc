@@ -10,9 +10,6 @@
         ],
         "production": [
           "flamelink-website"
-        ],
-        "jan-2020": [
-          "flamelink-website-jan-2020"
         ]
       }
     }
