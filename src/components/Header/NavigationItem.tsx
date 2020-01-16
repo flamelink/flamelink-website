@@ -43,7 +43,7 @@ const NavLink = styled.button<{
 
   padding: 0.875rem 0.6rem;
 
-  @media (min-width: 769px) {
+  @media (min-width: 840px) {
     padding: 0.875rem 1rem;
   }
 
@@ -108,8 +108,8 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
   return (
     <NavLink
       key={key}
-      as={Link}
-      to={item.url}
+      as={item.newWindow ? ExternalLink : Link}
+      {...(item.newWindow ? { href: item.url } : { to: item.url })}
       activeClassName="active"
       partiallyActive
     >
