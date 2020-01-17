@@ -260,6 +260,12 @@ function Footer() {
           <NavLink as={ExternalLink} href={FLAMELINK_REGISTRATION_LINK}>
             Register Today
           </NavLink>
+          <NavLink
+            as={ExternalLink}
+            href="mailto:solarflare@flamelink.io?subject=Solar%20Flare%20Enquiry"
+          >
+            Enterprise Enquiries
+          </NavLink>
         </Column>
 
         <Column
