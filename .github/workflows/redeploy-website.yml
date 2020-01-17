@@ -2,20 +2,21 @@ name: Redeploy Website on Content Change
 
 on:
   repository_dispatch:
-    types: [content-change]
+    types: [rebuild]
 
 env:
   NODE_ENV: production
 
 jobs:
   build:
-    name: Build
+    name: Rebuild
     runs-on: ubuntu-latest
     steps:
       - name: Slack Notification - Start
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#28a745'
           SLACK_ICON: ':robot_face:'
           SLACK_MESSAGE: 'Rebuild starting for *${{ github.event.client_payload.branch }}* branch...'
           SLACK_TITLE: Website Content Change
@@ -128,7 +129,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
       - name: Slack Notification - Failure
-        if: success()
+        if: failure()
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
