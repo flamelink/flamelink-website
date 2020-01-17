@@ -234,7 +234,7 @@ function PricingPage({ data }) {
                           href={
                             plan.priceMonthly
                               ? `https://app.flamelink.io/?utm_source=website&utm_medium=pricecard&utm_campaign=${plan.name}`
-                              : 'mailto:solarflare@flamelink.io?subject=Solar%20Flare%20Query'
+                              : 'mailto:solarflare@flamelink.io?subject=Solar%20Flare%20Enquiry'
                           }
                         >
                           {plan.ctaText}
