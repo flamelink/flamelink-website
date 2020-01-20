@@ -17,6 +17,7 @@ import { FaSmile as SuccessIcon } from 'react-icons/fa'
 import AppProviders from '../components/AppProviders'
 import SEO from '../components/SEO'
 import Button from '../components/Button'
+import { SlackPageQueriesQuery } from '../../types/graphql-types'
 
 const schema = object().shape({
   name: string()
@@ -122,7 +123,7 @@ function SlackPage() {
       emailFieldLabel,
       ctaText
     }
-  } = useStaticQuery(graphql`
+  }: SlackPageQueriesQuery = useStaticQuery(graphql`
     query SlackPageQueries {
       flamelinkSlackPageContent {
         title

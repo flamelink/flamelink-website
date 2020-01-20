@@ -9,8 +9,9 @@ import ContactUsSection from '../components/ContactUsSection'
 import ImageRevealSection from '../components/ImageRevealSection'
 import IconCopyBlocks from '../components/IconCopyBlocks'
 import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
+import { ContentPersonaPageQueryQuery } from '../../types/graphql-types'
 
-function ContentPage({ data }) {
+function ContentPage({ data }: { data: ContentPersonaPageQueryQuery }) {
   const {
     pageTitle,
     overviewSection,
