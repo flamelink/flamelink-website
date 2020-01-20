@@ -16,8 +16,9 @@ import NewsletterSection from '../components/NewsletterSection'
 import HowItWorks from '../components/HowItWorks'
 import IconCopyBlocks from '../components/IconCopyBlocks'
 import { PageContent } from '../components/PageContent'
+import { HomePageQueryQuery } from '../../types/graphql-types'
 
-function HomePage({ data }) {
+function HomePage({ data }: { data: HomePageQueryQuery }) {
   const pageData = get(data, 'flamelinkHomePageContent')
 
   if (!pageData) {

@@ -9,8 +9,9 @@ import PageBanner from '../components/PageBanner'
 import ContactUsSection from '../components/ContactUsSection'
 import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
 import IconCopyBlocks from '../components/IconCopyBlocks'
+import { CaseStudiesPageQueryQuery } from '../../types/graphql-types'
 
-function CaseStudiesPage({ data }) {
+function CaseStudiesPage({ data }: { data: CaseStudiesPageQueryQuery }) {
   const caseStudies = React.useMemo(() => {
     return get(data, 'caseStudies.edges', []).map(edge => edge.node)
   }, [data])
@@ -80,7 +81,9 @@ export const query = graphql`
         }
       }
     }
-    caseStudies: allFlamelinkCaseStudiesContent(filter: {_fl_meta_: {status: {eq: "publish"}}}) {
+    caseStudies: allFlamelinkCaseStudiesContent(
+      filter: { _fl_meta_: { status: { eq: "publish" } } }
+    ) {
       edges {
         node {
           title

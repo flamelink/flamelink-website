@@ -17,6 +17,7 @@ import ExternalLink from '../components/ExternalLink'
 import ToggleButtons from '../components/ToggleButtons'
 import Button from '../components/Button'
 import CheckMarkIcon from '../icons/CheckMark'
+import { PricingPageQueryQuery } from '../../types/graphql-types'
 
 type PricingPlan = {
   name: string
@@ -47,7 +48,7 @@ const PricingPlanCard = styled.li`
   }
 `
 
-function PricingPage({ data }) {
+function PricingPage({ data }: { data: PricingPageQueryQuery }) {
   const {
     pageTitle,
     excerpt,

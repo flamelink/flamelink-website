@@ -123,6 +123,18 @@ module.exports = {
         path: path.join(__dirname, 'src', 'images')
       }
     },
+    {
+      resolve: 'gatsby-plugin-graphql-codegen',
+      options: {
+        fileName: 'types/graphql-types.ts',
+        documentPaths: [
+          './src/**/*.{ts,tsx}',
+          './.cache/fragments/*.js',
+          './node_modules/gatsby-*/**/*.js'
+        ],
+        codegenDelay: 1000
+      }
+    },
     'gatsby-plugin-remove-trailing-slashes',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
