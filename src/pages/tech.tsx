@@ -12,8 +12,9 @@ import ContactUsSection from '../components/ContactUsSection'
 import ImageRevealSection from '../components/ImageRevealSection'
 import IconCopyBlocks from '../components/IconCopyBlocks'
 import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
+import { TechPersonaPageQueryQuery } from '../../types/graphql-types'
 
-function TechPage({ data }) {
+function TechPage({ data }: { data: TechPersonaPageQueryQuery }) {
   const {
     pageTitle,
     overviewSection,

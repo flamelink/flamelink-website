@@ -8,6 +8,7 @@ import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import InterfacesSlider from '../components/InterfacesSlider'
 import IconCopyBlocks from '../components/IconCopyBlocks'
 import ContactUsSection from '../components/ContactUsSection'
+import { FeaturesPageQueryQuery } from '../../types/graphql-types'
 
 const getBlockData = features => {
   return features.map(feature => ({
@@ -17,7 +18,7 @@ const getBlockData = features => {
   }))
 }
 
-function FeaturesPage({ data }) {
+function FeaturesPage({ data }: { data: FeaturesPageQueryQuery }) {
   const pageData = get(data, 'flamelinkFeaturesPageContent', {})
 
   return (
