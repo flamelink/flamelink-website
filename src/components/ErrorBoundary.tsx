@@ -3,6 +3,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import { ExtendedError } from '@sentry/types'
 import { css } from '@emotion/core'
 import Button from './Button'
+import SEO from './SEO'
 
 type Props = {}
 
@@ -35,38 +36,45 @@ class ErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <StaticQuery
-          query={graphql`
-            query {
-              bgPattern: file(name: { eq: "background" }) {
-                publicURL
-              }
-            }
-          `}
-          render={data => (
-            <main
-              className="flex flex-col justify-center bg-brand items-center h-screen w-screen text-white font-thin"
-              css={css`
-                width: 100%;
-                background-image: url(${data.bgPattern.publicURL});
-                background-position: top center;
-                background-repeat: no-repeat;
-                background-size: cover;
-              `}
-            >
-              <p className="mb-8">An unexpected error occurred. Please tell us about it.</p>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() =>
-                  window.Sentry.showReportDialog({ eventId: this.state.eventId })
+        <>
+          <SEO keywords={['flamelink']} title="Error Occurred" url="" />
+          <StaticQuery
+            query={graphql`
+              query {
+                bgPattern: file(name: { eq: "background" }) {
+                  publicURL
                 }
+              }
+            `}
+            render={data => (
+              <main
+                className="flex flex-col justify-center bg-brand items-center h-screen w-screen text-white font-thin"
+                css={css`
+                  width: 100%;
+                  background-image: url(${data.bgPattern.publicURL});
+                  background-position: top center;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                `}
               >
-                Report feedback
-              </Button>
-            </main>
-          )}
-        />
+                <p className="mb-8">
+                  An unexpected error occurred. Please tell us about it.
+                </p>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() =>
+                    window.Sentry.showReportDialog({
+                      eventId: this.state.eventId
+                    })
+                  }
+                >
+                  Report feedback
+                </Button>
+              </main>
+            )}
+          />
+        </>
       )
     }
 
