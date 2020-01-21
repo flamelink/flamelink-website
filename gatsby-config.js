@@ -61,7 +61,7 @@ module.exports = {
           }
         ]
       : []),
-    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-typescript',
     'gatsby-plugin-emotion',
     ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID
