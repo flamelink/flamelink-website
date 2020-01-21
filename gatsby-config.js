@@ -61,7 +61,22 @@ module.exports = {
           }
         ]
       : []),
-    'gatsby-plugin-react-helmet',
+    ...(isDev
+      ? [
+          {
+            resolve: 'gatsby-plugin-graphql-codegen',
+            options: {
+              fileName: 'types/graphql-types.ts',
+              documentPaths: [
+                './src/**/*.{ts,tsx}',
+                './.cache/fragments/*.js',
+                './node_modules/gatsby-*/**/*.js'
+              ],
+              codegenDelay: 1000
+            }
+          }
+        ]
+      : []),
     'gatsby-plugin-typescript',
     'gatsby-plugin-emotion',
     ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID
@@ -80,7 +95,6 @@ module.exports = {
           }
         ]
       : []),
-    'gatsby-plugin-layout',
     {
       resolve: 'gatsby-transformer-remark',
       options: {
@@ -94,6 +108,13 @@ module.exports = {
         gfm: true,
         // Plugins configs
         plugins: []
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-nprogress',
+      options: {
+        color: '#ff6633',
+        showSpinner: false
       }
     },
     {
@@ -123,27 +144,77 @@ module.exports = {
         path: path.join(__dirname, 'src', 'images')
       }
     },
-    {
-      resolve: 'gatsby-plugin-graphql-codegen',
-      options: {
-        fileName: 'types/graphql-types.ts',
-        documentPaths: [
-          './src/**/*.{ts,tsx}',
-          './.cache/fragments/*.js',
-          './node_modules/gatsby-*/**/*.js'
-        ],
-        codegenDelay: 1000
-      }
-    },
     'gatsby-plugin-remove-trailing-slashes',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
-    {
-      resolve: 'gatsby-plugin-sitemap',
-      options: {
-        exclude: []
-      }
-    },
+    // TODO: Implement RSS feed once blog is ready
+    // {
+    //   resolve: `gatsby-plugin-feed`,
+    //   options: {
+    //     feeds: [
+    //       {
+    //         title: `GatsbyJS`,
+    //         query: `
+    //           {
+    //             allMdx(
+    //               sort: { order: DESC, fields: [frontmatter___date] }
+    //               limit: 10,
+    //               filter: {
+    //                 frontmatter: { draft: { ne: true } }
+    //                 fileAbsolutePath: { regex: "/docs.blog/" }
+    //               }
+    //             ) {
+    //               edges {
+    //                 node {
+    //                   excerpt
+    //                   html
+    //                   frontmatter {
+    //                     title
+    //                     date
+    //                     excerpt
+    //                     author {
+    //                       id
+    //                     }
+    //                   }
+    //                   fields {
+    //                     slug
+    //                   }
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         `,
+    //         output: `/blog/rss.xml`,
+    //         setup: ({
+    //           query: {
+    //             site: { siteMetadata },
+    //           },
+    //         }) => {
+    //           return {
+    //             title: siteMetadata.title,
+    //             description: siteMetadata.description,
+    //             feed_url: siteMetadata.siteUrl + `/blog/rss.xml`,
+    //             site_url: siteMetadata.siteUrl,
+    //             generator: `GatsbyJS`,
+    //           }
+    //         },
+    //         serialize: ({ query: { site, allMdx } }) =>
+    //           allMdx.edges.map(({ node }) => {
+    //             return {
+    //               title: node.frontmatter.title,
+    //               description: node.frontmatter.excerpt || node.excerpt,
+    //               url: site.siteMetadata.siteUrl + node.fields.slug,
+    //               guid: site.siteMetadata.siteUrl + node.fields.slug,
+    //               custom_elements: [{ "content:encoded": node.html }],
+    //               author: node.frontmatter.author.id,
+    //             }
+    //           }),
+    //       },
+    //     ],
+    //   },
+    // },
+    'gatsby-plugin-layout',
+    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
@@ -160,6 +231,7 @@ module.exports = {
         }
       }
     },
+    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {

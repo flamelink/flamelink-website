@@ -1,5 +1,5 @@
 import React from 'react'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 import take from 'lodash/take'
 import { useStaticQuery, graphql } from 'gatsby'
 
@@ -153,6 +153,7 @@ const SEO: React.FC<Props> = ({
       meta={metaTags}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title} | ${site.siteMetadata.tagline}`}
+      defer={false}
     >
       {children}
     </Helmet>
