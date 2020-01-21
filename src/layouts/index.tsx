@@ -49,7 +49,11 @@ const Layout: React.FC<LayoutProps> = ({ location, children }) => {
               }}
             >
               <Header />
-              <TransitionViews>{children}</TransitionViews>
+              {typeof window === 'undefined' ? (
+                children
+              ) : (
+                <TransitionViews>{children}</TransitionViews>
+              )}
               <Footer />
             </TransitionProvider>
           </Box>
