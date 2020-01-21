@@ -150,11 +150,13 @@ const SEO: React.FC<Props> = ({
       htmlAttributes={{
         lang
       }}
-      meta={metaTags}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title} | ${site.siteMetadata.tagline}`}
       defer={false}
     >
+      {metaTags.map((metaTag, idx) => (
+        <meta key={idx} {...metaTag} />
+      ))}
       {children}
     </Helmet>
   )
