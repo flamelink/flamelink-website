@@ -134,6 +134,19 @@ const SEO: React.FC<Props> = ({
         content: metaImage
       }
     )
+  } else {
+    const metaImage = `${site.siteMetadata.siteUrl}/flamelink-social-share.png`
+
+    metaTags.push(
+      {
+        property: 'og:image',
+        content: metaImage
+      },
+      {
+        name: 'twitter:image',
+        content: metaImage
+      }
+    )
   }
 
   if (typeof url === 'string') {
