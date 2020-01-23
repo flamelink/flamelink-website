@@ -151,6 +151,18 @@ jobs:
           PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
+      - name: Slack Notification - Deployment Success
+        if: success()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#28a745'
+          SLACK_ICON: ':robot_face:'
+          SLACK_MESSAGE: 'Deployment succeeded for *${{ github.ref }}* branch'
+          SLACK_TITLE: Website Deployment Success
+          SLACK_USERNAME: GithubBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
       - name: Slack Notification - Deployment Failure
         if: failure()
         uses: rtCamp/action-slack-notify@master
