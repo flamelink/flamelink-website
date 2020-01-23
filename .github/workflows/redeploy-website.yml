@@ -10,12 +10,7 @@ jobs:
     name: Rebuild
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub event data
-        env:
-          GITHUB_EVENT_DATA: ${{ toJson(github.event) }}
-        run: echo "$GITHUB_EVENT_DATA"
-
-      - name: Slack Notification - Start
+      - name: Slack Notification - Rebuild Start
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
@@ -88,6 +83,30 @@ jobs:
           name: public
           path: public
 
+      - name: Slack Notification - Rebuild Failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#d73a49'
+          SLACK_ICON: ':robot_face:'
+          SLACK_MESSAGE: 'Rebuild failed for *${{ github.event.deployment.ref }}* branch'
+          SLACK_TITLE: Website Content Change Failure
+          SLACK_USERNAME: GithubBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: Slack Notification - Rebuild Cancelled
+        if: cancelled()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#e36209'
+          SLACK_ICON: ':robot_face:'
+          SLACK_MESSAGE: 'Rebuild cancelled for *${{ github.event.deployment.ref }}* branch'
+          SLACK_TITLE: Website Content Change Cancelled
+          SLACK_USERNAME: GithubBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
   deploy:
     name: Redeploy
     needs: build
@@ -126,7 +145,7 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
           SLACK_COLOR: '#28a745'
           SLACK_ICON: ':robot_face:'
-          SLACK_MESSAGE: 'Rebuild success for *${{ github.event.deployment.ref }}* branch!'
+          SLACK_MESSAGE: 'Re-deployment succeeded for *${{ github.event.deployment.ref }}* branch!'
           SLACK_TITLE: Website Content Change Success
           SLACK_USERNAME: GithubBot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -138,7 +157,7 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
           SLACK_COLOR: '#d73a49'
           SLACK_ICON: ':robot_face:'
-          SLACK_MESSAGE: 'Rebuild failed for *${{ github.event.deployment.ref }}* branch'
+          SLACK_MESSAGE: 'Re-deployment failed for *${{ github.event.deployment.ref }}* branch'
           SLACK_TITLE: Website Content Change Failure
           SLACK_USERNAME: GithubBot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -150,7 +169,7 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
           SLACK_COLOR: '#e36209'
           SLACK_ICON: ':robot_face:'
-          SLACK_MESSAGE: 'Rebuild cancelled for *${{ github.event.deployment.ref }}* branch'
+          SLACK_MESSAGE: 'Re-deployment cancelled for *${{ github.event.deployment.ref }}* branch'
           SLACK_TITLE: Website Content Change Cancelled
           SLACK_USERNAME: GithubBot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

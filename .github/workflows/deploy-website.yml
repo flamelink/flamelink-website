@@ -14,6 +14,17 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Slack Notification - Build Starting
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#28a745'
+          SLACK_ICON: ':robot_face:'
+          SLACK_MESSAGE: 'Build starting for *${{ github.ref }}* branch...'
+          SLACK_TITLE: Website Build
+          SLACK_USERNAME: GithubBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
       - name: Checkout Repo
         uses: actions/checkout@v2
 
@@ -74,11 +85,46 @@ jobs:
           name: public
           path: public
 
+      - name: Slack Notification - Build Failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#d73a49'
+          SLACK_ICON: ':robot_face:'
+          SLACK_MESSAGE: 'Build failed for *${{ github.ref }}* branch'
+          SLACK_TITLE: Website Build Failure
+          SLACK_USERNAME: GithubBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: Slack Notification - Build Cancelled
+        if: cancelled()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#e36209'
+          SLACK_ICON: ':robot_face:'
+          SLACK_MESSAGE: 'Build cancelled for *${{ github.ref }}* branch'
+          SLACK_TITLE: Website Build Cancelled
+          SLACK_USERNAME: GithubBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
   deploy:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Slack Notification - Deployment Starting
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#28a745'
+          SLACK_ICON: ':robot_face:'
+          SLACK_MESSAGE: 'Deployment starting for *${{ github.ref }}* branch...'
+          SLACK_TITLE: Website Deployment
+          SLACK_USERNAME: GithubBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
       - name: Checkout Repo
         uses: actions/checkout@master
 
@@ -104,3 +150,27 @@ jobs:
         env:
           PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Slack Notification - Deployment Failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#d73a49'
+          SLACK_ICON: ':robot_face:'
+          SLACK_MESSAGE: 'Deployment failed for *${{ github.ref }}* branch'
+          SLACK_TITLE: Website Deployment Failure
+          SLACK_USERNAME: GithubBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: Slack Notification - Deployment Cancelled
+        if: cancelled()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
+          SLACK_COLOR: '#e36209'
+          SLACK_ICON: ':robot_face:'
+          SLACK_MESSAGE: 'Deployment cancelled for *${{ github.ref }}* branch'
+          SLACK_TITLE: Website Deployment Cancelled
+          SLACK_USERNAME: GithubBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
