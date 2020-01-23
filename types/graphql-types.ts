@@ -41093,12 +41093,6 @@ export type BusinessPersonaPageQueryQuery = { flamelinkBusinessPersonaPageConten
         Pick<FlamelinkBusinessPersonaPageContentFieldCaseStudiesSectionCaseStudies, 'title' | 'slug' | 'excerpt' | 'brandColour'>
         & { logo: Maybe<Array<Maybe<{ localFile: Maybe<{ childImageSharp: Maybe<{ fluid: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> }> }>>>, backgroundImage: Maybe<Array<Maybe<{ localFile: Maybe<{ childImageSharp: Maybe<{ fluid: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> }> }>>>, mainImage: Maybe<Array<Maybe<{ localFile: Maybe<{ childImageSharp: Maybe<{ fluid: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> }> }>>> }
       )>>> }
-    )>, testimonialsSection: Maybe<(
-      Pick<FlamelinkBusinessPersonaPageContentFieldTestimonialsSection, 'title'>
-      & { testimonials: Maybe<Array<Maybe<(
-        Pick<FlamelinkBusinessPersonaPageContentFieldTestimonialsSectionTestimonials, 'name' | 'jobTitle' | 'quote'>
-        & { avatar: Maybe<Array<Maybe<{ localFile: Maybe<{ childImageSharp: Maybe<{ fluid: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> }> }>>> }
-      )>>> }
     )> }
   )> };
 
