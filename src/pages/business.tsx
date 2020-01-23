@@ -146,23 +146,23 @@ export const query = graphql`
           }
         }
       }
-      testimonialsSection {
-        title
-        testimonials {
-          avatar {
-            localFile {
-              childImageSharp {
-                fluid(maxWidth: 120) {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
-              }
-            }
-          }
-          name
-          jobTitle
-          quote
-        }
-      }
+      # testimonialsSection {
+      #   title
+      #   testimonials {
+      #     avatar {
+      #       localFile {
+      #         childImageSharp {
+      #           fluid(maxWidth: 120) {
+      #             ...GatsbyImageSharpFluid_withWebp
+      #           }
+      #         }
+      #       }
+      #     }
+      #     name
+      #     jobTitle
+      #     quote
+      #   }
+      # }
     }
   }
 `
