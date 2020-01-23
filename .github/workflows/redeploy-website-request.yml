@@ -1,6 +1,8 @@
 name: Redeploy Website on Content Change
 
-on: ['deployment']
+on:
+  repository_dispatch:
+    types: [rebuild]
 
 env:
   NODE_ENV: production
@@ -21,7 +23,7 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
           SLACK_COLOR: '#28a745'
           SLACK_ICON: ':robot_face:'
-          SLACK_MESSAGE: 'Rebuild starting for *${{ github.event.deployment.ref }}* branch...'
+          SLACK_MESSAGE: 'Rebuild starting for *${{ github.event.client_payload.branch }}* branch...'
           SLACK_TITLE: Website Content Change
           SLACK_USERNAME: GithubBot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -29,7 +31,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.deployment.ref }}
+          ref: ${{ github.event.client_payload.branch }}
 
       - name: Setup Node.js version
         uses: actions/setup-node@v1
@@ -50,7 +52,7 @@ jobs:
         run: yarn install --production=false --frozen-lockfile
 
       - name: Build static files (Production)
-        if: github.event.deployment.ref == 'master'
+        if: github.event.client_payload.branch == 'master'
         run: yarn build
         env:
           FLAMELINK_ENV: production
@@ -67,7 +69,7 @@ jobs:
           GATSBY_SENTRY_DSN: ${{ secrets.GATSBY_SENTRY_DSN }}
 
       - name: Build static files (Staging)
-        if: github.event.deployment.ref == 'develop'
+        if: github.event.client_payload.branch == 'develop'
         run: yarn build
         env:
           FLAMELINK_ENV: staging
@@ -102,7 +104,7 @@ jobs:
           name: public
 
       - name: Deploy to Firebase Hosting (Production)
-        if: github.event.deployment.ref == 'master'
+        if: github.event.client_payload.branch == 'master'
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:production
@@ -111,7 +113,7 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Deploy to Firebase Hosting (Staging)
-        if: github.event.deployment.ref == 'develop'
+        if: github.event.client_payload.branch == 'develop'
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:staging
@@ -126,7 +128,7 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
           SLACK_COLOR: '#28a745'
           SLACK_ICON: ':robot_face:'
-          SLACK_MESSAGE: 'Rebuild success for *${{ github.event.deployment.ref }}* branch!'
+          SLACK_MESSAGE: 'Rebuild success for *${{ github.event.client_payload.branch }}* branch!'
           SLACK_TITLE: Website Content Change Success
           SLACK_USERNAME: GithubBot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -138,7 +140,7 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
           SLACK_COLOR: '#d73a49'
           SLACK_ICON: ':robot_face:'
-          SLACK_MESSAGE: 'Rebuild failed for *${{ github.event.deployment.ref }}* branch'
+          SLACK_MESSAGE: 'Rebuild failed for *${{ github.event.client_payload.branch }}* branch'
           SLACK_TITLE: Website Content Change Failure
           SLACK_USERNAME: GithubBot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -150,7 +152,7 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFICATION_CHANNEL }}
           SLACK_COLOR: '#e36209'
           SLACK_ICON: ':robot_face:'
-          SLACK_MESSAGE: 'Rebuild cancelled for *${{ github.event.deployment.ref }}* branch'
+          SLACK_MESSAGE: 'Rebuild cancelled for *${{ github.event.client_payload.branch }}* branch'
           SLACK_TITLE: Website Content Change Cancelled
           SLACK_USERNAME: GithubBot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
