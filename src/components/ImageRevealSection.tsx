@@ -102,7 +102,6 @@ const ImageRevealSection: React.FC<Props> = ({
           data-in-viewport={containerInViewport}
           data-image-position={imagePosition}
           data-image-y-overlap={imageYOverlap}
-          className="shadow"
         >
           <StyledBackgroundImage
             fluid={fluidImage.childImageSharp.fluid}
