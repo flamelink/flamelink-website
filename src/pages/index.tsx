@@ -11,7 +11,7 @@ import ExternalLink from '../components/ExternalLink'
 import InterfacesSlider from '../components/InterfacesSlider'
 import HomepageSlider from '../components/HomepageSlider'
 import CaseStudiesSlider from '../components/CaseStudiesSlider'
-// import TestimonialsSlider from '../components/TestimonialsSlider'
+import TestimonialsSlider from '../components/TestimonialsSlider'
 import NewsletterSection from '../components/NewsletterSection'
 import HowItWorks from '../components/HowItWorks'
 import IconCopyBlocks from '../components/IconCopyBlocks'
@@ -195,7 +195,7 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
         </Section>
 
         {/* TESTIMONIALS SECTION */}
-        {/* <Section className="bg-gray-100">
+        <Section className="bg-gray-100">
           <SectionContainer>
             <SectionTitle>
               {get(pageData, 'testimonialsSection.title', '')}
@@ -208,10 +208,7 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
               )}
             />
           </SectionContainer>
-        </Section> */}
-
-        {/* NEWSLETTER SECTION */}
-        <NewsletterSection data={get(pageData, 'newsletterSection', {})} />
+        </Section>
 
         {/* AFFILIATES SECTION */}
         <Section className="bg-white">
@@ -268,7 +265,7 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
         </Section>
 
         {/* NEWSLETTER SECTION */}
-        {/* <NewsletterSection data={get(pageData, 'newsletterSection', {})} /> */}
+        <NewsletterSection data={get(pageData, 'newsletterSection', {})} />
       </main>
     </>
   )
