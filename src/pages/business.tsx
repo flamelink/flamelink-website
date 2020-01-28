@@ -4,12 +4,8 @@ import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
-import {
-  Section,
-  SectionContainer
-  // SectionTitle
-} from '../components/Section'
-// import TestimonialsSlider from '../components/TestimonialsSlider'
+import { Section, SectionContainer, SectionTitle } from '../components/Section'
+import TestimonialsSlider from '../components/TestimonialsSlider'
 import ContactUsSection from '../components/ContactUsSection'
 import ImageRevealSection from '../components/ImageRevealSection'
 import IconCopyBlocks from '../components/IconCopyBlocks'
@@ -21,8 +17,8 @@ function BusinessPage({ data }: { data: BusinessPersonaPageQueryQuery }) {
     pageTitle,
     overviewSection,
     featuresSection,
-    caseStudiesSection
-    // testimonialsSection
+    caseStudiesSection,
+    testimonialsSection
   } = get(data, 'flamelinkBusinessPersonaPageContent', {})
 
   return (
@@ -66,14 +62,14 @@ function BusinessPage({ data }: { data: BusinessPersonaPageQueryQuery }) {
           caseStudies={caseStudiesSection.caseStudies}
         />
 
-        {/* <Section className="bg-gray-100">
+        <Section className="bg-gray-100">
           <SectionContainer>
             <SectionTitle>{testimonialsSection.title}</SectionTitle>
             <TestimonialsSlider
               testimonials={get(testimonialsSection, 'testimonials', [])}
             />
           </SectionContainer>
-        </Section> */}
+        </Section>
         <ContactUsSection />
       </main>
     </>
@@ -146,23 +142,23 @@ export const query = graphql`
           }
         }
       }
-      # testimonialsSection {
-      #   title
-      #   testimonials {
-      #     avatar {
-      #       localFile {
-      #         childImageSharp {
-      #           fluid(maxWidth: 120) {
-      #             ...GatsbyImageSharpFluid_withWebp
-      #           }
-      #         }
-      #       }
-      #     }
-      #     name
-      #     jobTitle
-      #     quote
-      #   }
-      # }
+      testimonialsSection {
+        title
+        testimonials {
+          avatar {
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 120) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
+          name
+          jobTitle
+          quote
+        }
+      }
     }
   }
 `

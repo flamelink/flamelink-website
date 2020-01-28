@@ -41,7 +41,7 @@ const Avatar = ({ localFile }: { localFile: LocalFile }) => {
     >
       <span
         css={css`
-          ${tw`w-34 h-34 inline-block rounded-full border-white bg-white`}
+          ${tw`w-34 h-34 inline-block rounded-full border-white bg-white overflow-hidden`}
           border-width: 1rem;
         `}
       >
