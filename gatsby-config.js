@@ -2,7 +2,8 @@ const path = require('path')
 
 const isDev = process.env.NODE_ENV !== 'production'
 
-if (isDev) {
+// Don't load local env vars when run on CI
+if (!process.env.GITHUB_ACTION) {
   require('dotenv').config()
 }
 
@@ -231,7 +232,6 @@ module.exports = {
         }
       }
     },
-    // 'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
