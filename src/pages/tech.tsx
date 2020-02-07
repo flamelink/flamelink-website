@@ -101,12 +101,14 @@ function TechPage({ data }: { data: TechPersonaPageQueryQuery }) {
                         <Img
                           fluid={pkg.logo[0].localFile.childImageSharp.fluid}
                           title={pkg.name}
+                          alt={pkg.name}
                         />
                       </ExternalLink>
                     ) : (
                       <Img
                         fluid={pkg.logo[0].localFile.childImageSharp.fluid}
                         title={pkg.name}
+                        alt={pkg.name}
                       />
                     ))}
                 </li>

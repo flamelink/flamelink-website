@@ -243,6 +243,7 @@ const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
                                           slide.logo[0].localFile
                                             .childImageSharp.fluid
                                         }
+                                        alt=""
                                       />
                                     </span>
                                   )}

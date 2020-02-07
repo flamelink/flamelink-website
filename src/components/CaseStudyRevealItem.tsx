@@ -157,7 +157,7 @@ const CaseStudyRevealItem: React.FC<Props> = ({
             <header className="flex justify-start items-center w-full mb-8">
               {get(logo, '[0].localFile.childImageSharp.fluid') ? (
                 <span className="block w-1/2 mb-0">
-                  <Img fluid={logo[0].localFile.childImageSharp.fluid} />
+                  <Img fluid={logo[0].localFile.childImageSharp.fluid} alt="" />
                 </span>
               ) : (
                 <SectionTitle

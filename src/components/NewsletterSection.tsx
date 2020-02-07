@@ -257,7 +257,10 @@ const NewsletterSection: React.FC<Props> = ({ data }) => {
               }
             `}
           >
-            <Img fluid={newsletterEnvelope.childImageSharp.fluid} />
+            <Img
+              fluid={newsletterEnvelope.childImageSharp.fluid}
+              alt="Newsletter Envelope"
+            />
           </Envelope>
         </>
       )}

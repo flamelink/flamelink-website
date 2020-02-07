@@ -77,6 +77,7 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
                     pageData,
                     'firebaseSection.image[0].localFile.childImageSharp.fluid'
                   )}
+                  alt="Google Cloud Platform + Firebase + Flamelink"
                 />
               </span>
             )}
@@ -247,6 +248,7 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
                               affiliate.logo[0].localFile.childImageSharp.fluid
                             }
                             title={affiliate.name}
+                            alt={affiliate.name}
                           />
                         </ExternalLink>
                       ) : (
@@ -254,6 +256,7 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
                           fluid={
                             affiliate.logo[0].localFile.childImageSharp.fluid
                           }
+                          alt={affiliate.name}
                           title={affiliate.name}
                         />
                       ))}

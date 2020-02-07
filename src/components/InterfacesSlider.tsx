@@ -142,7 +142,9 @@ const InterfacesSlider: React.FC = () => {
         ))}
         {slides.map(slide => (
           <Slide key={slide.slideId} htmlFor={slide.inputId} id={slide.slideId}>
-            {slide.image ? <Img fluid={slide.image} /> : null}
+            {slide.image ? (
+              <Img fluid={slide.image} alt="Flamelink interface" />
+            ) : null}
           </Slide>
         ))}
       </Slider>
