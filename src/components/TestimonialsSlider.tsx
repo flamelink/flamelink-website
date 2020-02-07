@@ -30,7 +30,13 @@ type Props = {
   testimonials: Testimonial[]
 }
 
-const Avatar = ({ localFile }: { localFile: LocalFile }) => {
+const Avatar = ({
+  localFile,
+  name
+}: {
+  localFile: LocalFile
+  name: string
+}) => {
   return (
     <Box
       css={css`
@@ -46,7 +52,7 @@ const Avatar = ({ localFile }: { localFile: LocalFile }) => {
         `}
       >
         {get(localFile, 'childImageSharp.fluid') && (
-          <Img fluid={localFile.childImageSharp.fluid} />
+          <Img fluid={localFile.childImageSharp.fluid} alt={`${name} avatar`} />
         )}
       </span>
     </Box>
@@ -192,7 +198,10 @@ const TestimonialsSlider: React.FC<Props> = ({ testimonials }) => {
                         `}
                       >
                         {get(slide, 'avatar[0].localFile') && (
-                          <Avatar localFile={slide.avatar[0].localFile} />
+                          <Avatar
+                            localFile={slide.avatar[0].localFile}
+                            name={slide.name}
+                          />
                         )}
                         <Box
                           css={css`
