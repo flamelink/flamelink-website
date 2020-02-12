@@ -57,7 +57,7 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
     termsSection
   } = get(data, 'flamelinkPricingPageContent', {})
 
-  const [selectedOption, setSelectedOption] = React.useState('Individuals')
+  const [selectedOption, setSelectedOption] = React.useState('Business')
 
   const transitions = useTransition(selectedOption, item => item, {
     from: {
