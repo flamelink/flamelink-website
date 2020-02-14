@@ -111,5 +111,5 @@ export const slackInvite = functions.firestore.document('slackInvites/{docId}').
     return
   }
 
-  console.error(`Slack invite failed: ${name} - ${email}`);
+  console.error(`Slack invite failed: ${name} - ${email} - ${JSON.stringify(json)}`);
 })
