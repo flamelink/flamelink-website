@@ -3,7 +3,14 @@ import fetch from 'node-fetch';
 import * as sendGrid from '@sendgrid/mail'
 import { MailData } from '@sendgrid/helpers/classes/mail';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
-import { MAILCHIMP_NEWSLETTER_LIST_ID, MAILCHIMP_AUTH_TOKEN, MAILCHIMP_API_BASE_URL, SENDGRID_API_KEY, FLAMELINK_SUPPORT_EMAIL } from './constants';
+import {
+  MAILCHIMP_NEWSLETTER_LIST_ID,
+  MAILCHIMP_AUTH_TOKEN,
+  MAILCHIMP_API_BASE_URL,
+  SENDGRID_API_KEY,
+  FLAMELINK_SUPPORT_EMAIL,
+  SLACK_LEGACY_TOKEN
+} from './constants';
 
 
 async function sendEmail(message: MailData): Promise<void> {
@@ -77,4 +84,32 @@ export const newsletterSignUp = functions.firestore.document('newsletter/{docId}
         throw new Error(`Newsletter subscription failed: ${json.title}`);
       }
     })
+})
+
+export const slackInvite = functions.firestore.document('slackInvites/{docId}').onCreate(async (snapshot: DocumentSnapshot) => {
+  const { email, name = '' }: { email?: string; name?: string } = snapshot.data() || {};
+
+  if (!email) return;
+
+  const url = `https://slack.com/api/users.admin.invite?token=${encodeURIComponent(
+    SLACK_LEGACY_TOKEN
+  )}&email=${encodeURIComponent(
+    email
+  )}&first_name=${encodeURIComponent(name)}&resend=true`
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    }
+  })
+
+  const json = await response.json()
+
+  if (json.ok) {
+    console.log(`Slack invite success: ${name} - ${email}`);
+    return
+  }
+
+  console.error(`Slack invite failed: ${name} - ${email}`);
 })
