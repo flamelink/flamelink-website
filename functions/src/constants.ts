@@ -11,4 +11,7 @@ export const MAILCHIMP_API_BASE_URL = get(config, 'mailchimp.api_base_url', proc
 // SendGrid
 export const SENDGRID_API_KEY = get(config, 'sendgrid.api_key', process.env.SENDGRID_API_KEY)
 
+// Slack
+export const SLACK_LEGACY_TOKEN = get(config, 'slack.legacy_token', process.env.SLACK_LEGACY_TOKEN)
+
 export const FLAMELINK_SUPPORT_EMAIL = 'support@flamelink.io'

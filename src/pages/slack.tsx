@@ -18,6 +18,7 @@ import AppProviders from '../components/AppProviders'
 import SEO from '../components/SEO'
 import Button from '../components/Button'
 import { SlackPageQueriesQuery } from '../../types/graphql-types'
+import { getFirebaseApp } from '../utils/firebase'
 
 const schema = object().shape({
   name: string()
@@ -48,68 +49,27 @@ function SlackPage() {
         }
       ),
     onSubmit: async user => {
-      const token =
-        'xoxp-208585875490-265304393957-264650997009-d6db6f74da57665c006c72c428b60746'
+      try {
+        const firebaseApp = await getFirebaseApp()
 
-      const url = `https://slack.com/api/users.admin.invite?token=${encodeURIComponent(
-        token
-      )}&email=${encodeURIComponent(
-        user.email
-      )}&first_name=${encodeURIComponent(user.name)}&resend=true`
+        await firebaseApp
+          .firestore()
+          .collection('slackInvites')
+          .add({
+            ...user,
+            created: Date.now()
+          })
 
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-        }
-      })
+        console.log(
+          '[FLAMELINK]: Successfully submitted slack invite form',
+          user
+        )
+      } catch (error) {
+        console.error(error)
 
-      const json = await response.json()
-
-      if (json.ok) {
-        return
+        // eslint-disable-next-line no-throw-literal
+        throw { email: error.message }
       }
-
-      let errorMessage = 'Something went wrong with the invitation.'
-
-      switch (json.error) {
-        case 'already_in_team': {
-          errorMessage = 'You are already part of our Slack workspace'
-          break
-        }
-
-        case 'already_in_team_invited_user': {
-          errorMessage = 'You have already been invited to our Slack workspace'
-          break
-        }
-
-        case 'invalid_email': {
-          errorMessage = 'Slack says your email is invalid'
-          break
-        }
-
-        case 'invite_limit_reached': {
-          errorMessage =
-            'We\'ve reached our invite limit. Please contact us on support@flamelink.io'
-          break
-        }
-
-        case 'sent_recently': {
-          errorMessage = 'Check your inbox. You\'ve been invited recently'
-          break
-        }
-
-        case 'user_disabled': {
-          errorMessage = 'Your user account has been deactivated'
-          break
-        }
-
-        default:
-          break
-      }
-
-      // eslint-disable-next-line no-throw-literal
-      throw { email: errorMessage }
     }
   })
 
