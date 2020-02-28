@@ -1,8 +1,10 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
+import reduce from 'lodash/reduce'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
+import { flamelinkApp } from '../utils/flamelink'
 import SEO from '../components/SEO'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import PageBanner from '../components/PageBanner'
@@ -11,16 +13,70 @@ import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
 import IconCopyBlocks from '../components/IconCopyBlocks'
 import { CaseStudiesPageQueryQuery } from '../../types/graphql-types'
 
+let caseStudiesPageSubscription: any
+let caseStudiesSubscription: any
+
 function CaseStudiesPage({ data }: { data: CaseStudiesPageQueryQuery }) {
-  const caseStudies = React.useMemo(() => {
+  const [realtimeContent, setRealtimeContent] = React.useState()
+  const [realtimeCaseStudies, setRealtimeCaseStudies] = React.useState()
+
+  if (!caseStudiesPageSubscription) {
+    console.log('Subscription created for caseStudiesPage')
+    caseStudiesPageSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'caseStudiesPage',
+      populate: true,
+      callback(error: any, result: Object) {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving all the caseStudiesPage content. Details:',
+            error
+          )
+        }
+        setRealtimeContent({ realtime: true, ...result })
+      }
+    })
+  }
+
+  if (!caseStudiesSubscription) {
+    console.log('Subscription created for caseStudies')
+    caseStudiesSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'caseStudies',
+      populate: true,
+      callback: async (error: any, result: Object) => {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving caseStudies content. Details:',
+            error
+          )
+        }
+
+        setRealtimeCaseStudies({
+          realtime: true,
+          caseStudies: reduce(
+            result,
+            (arr: any[], c) => {
+              if (get(c, '_fl_meta_.status') === 'publish') {
+                arr.push(c)
+              }
+              return arr
+            },
+            []
+          )
+        })
+      }
+    })
+  }
+
+  const pageData =
+    realtimeContent || get(data, 'flamelinkCaseStudiesPageContent', {})
+
+  const serverCaseStudies = React.useMemo(() => {
     return get(data, 'caseStudies.edges', []).map(edge => edge.node)
   }, [data])
 
-  const { pageTitle, excerpt, useCasesSection } = get(
-    data,
-    'flamelinkCaseStudiesPageContent',
-    {}
-  )
+  const caseStudies = get(realtimeCaseStudies, 'caseStudies', serverCaseStudies)
+
+  const { realtime, pageTitle, excerpt, useCasesSection } = pageData
 
   return (
     <>
@@ -57,7 +113,10 @@ function CaseStudiesPage({ data }: { data: CaseStudiesPageQueryQuery }) {
             />
           </SectionContainer>
         </Section>
-        <CaseStudiesRevealSection caseStudies={caseStudies} />
+        <CaseStudiesRevealSection
+          realtime={realtime}
+          caseStudies={caseStudies}
+        />
         <ContactUsSection />
       </main>
     </>

@@ -4,6 +4,7 @@ import get from 'lodash/get'
 import Img from 'gatsby-image'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
+import { flamelinkApp } from '../utils/flamelink'
 import SEO from '../components/SEO'
 import ExternalLink from '../components/ExternalLink'
 import PageBanner from '../components/PageBanner'
@@ -14,14 +15,69 @@ import IconCopyBlocks from '../components/IconCopyBlocks'
 import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
 import { TechPersonaPageQueryQuery } from '../../types/graphql-types'
 
+let techPersonaPageSubscription: any
+let caseStudiesSubscription: any
+
 function TechPage({ data }: { data: TechPersonaPageQueryQuery }) {
+  const [realtimeContent, setRealtimeContent] = React.useState()
+
+  if (!techPersonaPageSubscription) {
+    console.log('Subscription created for techPersonaPage')
+    techPersonaPageSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'techPersonaPage',
+      populate: true,
+      callback(error: any, result: Object) {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving all the techPersonaPage content. Details:',
+            error
+          )
+        }
+        setRealtimeContent({ realtime: true, ...result })
+
+      }
+    })
+  }
+
+  if (!caseStudiesSubscription) {
+    console.log('Subscription created for caseStudies')
+    caseStudiesSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'caseStudies',
+      populdate: true,
+      callback: async (error: any, result: Object) => {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving caseStudies content. Details:',
+            error
+          )
+        }
+        try {
+          const pageContent = await flamelinkApp.content.get({
+            schemaKey: 'techPersonaPage',
+            populate: true
+          })
+          setRealtimeContent({ realtime: true, ...pageContent })
+        } catch (e) {
+          return console.error(
+            'Something went wrong while retrieving all the techPersonaPage content. Details:',
+            error
+          )
+        }
+      }
+    })
+  }
+
+  const pageData =
+    realtimeContent || get(data, 'flamelinkTechPersonaPageContent', {})
+
   const {
+    realtime,
     pageTitle,
     overviewSection,
     featuresSection,
     caseStudiesSection,
     packagesSection
-  } = get(data, 'flamelinkTechPersonaPageContent', {})
+  } = pageData
 
   return (
     <>
@@ -46,11 +102,13 @@ function TechPage({ data }: { data: TechPersonaPageQueryQuery }) {
       >
         <PageBanner title={pageTitle} />
         <ImageRevealSection
+          realtime={realtime}
           bg="white"
           heading={overviewSection.title}
           content={overviewSection.excerpt}
           imagePosition={overviewSection.imagePosition}
           imageYOverlap={overviewSection.imageYOverlap}
+          imageSrc={get(overviewSection, 'image[0].url')}
           fluidImage={get(overviewSection, 'image[0].localFile')}
         />
         <Section className="bg-gray-100">
@@ -68,6 +126,7 @@ function TechPage({ data }: { data: TechPersonaPageQueryQuery }) {
           </SectionContainer>
         </Section>
         <CaseStudiesRevealSection
+          realtime={realtime}
           title={caseStudiesSection.title}
           caseStudies={caseStudiesSection.caseStudies}
         />
@@ -95,19 +154,33 @@ function TechPage({ data }: { data: TechPersonaPageQueryQuery }) {
                     }
                   `}
                 >
-                  {get(pkg, 'logo[0].localFile.childImageSharp.fluid') &&
+                  {get(
+                    pkg,
+                    'logo[0].localFile.childImageSharp.fluid',
+                    get(pkg, 'logo[0].url')
+                  ) &&
                     (pkg.link ? (
                       <ExternalLink href={pkg.link}>
-                        <Img
-                          fluid={pkg.logo[0].localFile.childImageSharp.fluid}
-                          title={pkg.name}
-                        />
+                        {realtime ? (
+                          <img src={pkg.logo[0].url} alt={pkg.name} />
+                        ) : (
+                          <Img
+                            fluid={pkg.logo[0].localFile.childImageSharp.fluid}
+                            title={pkg.name}
+                          />
+                        )}
                       </ExternalLink>
                     ) : (
-                      <Img
-                        fluid={pkg.logo[0].localFile.childImageSharp.fluid}
-                        title={pkg.name}
-                      />
+                      <>
+                        {realtime ? (
+                          <img src={pkg.logo[0].url} alt={pkg.name} />
+                        ) : (
+                          <Img
+                            fluid={pkg.logo[0].localFile.childImageSharp.fluid}
+                            title={pkg.name}
+                          />
+                        )}
+                      </>
                     ))}
                 </li>
               ))}

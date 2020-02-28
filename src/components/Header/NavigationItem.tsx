@@ -12,7 +12,7 @@ import DropDownMenu from '../DropDownMenu'
 
 export type CmsNavItem = {
   cssClass: string
-  flamelink_id: string
+  flamelink_id: string | number
   title: string
   url: string
   newWindow: boolean

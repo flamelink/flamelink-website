@@ -5,9 +5,14 @@ import CaseStudyRevealItem from './CaseStudyRevealItem'
 type Props = {
   title?: string
   caseStudies: any[] // TODO: fix
+  realtime?: boolean
 }
 
-const CaseStudiesRevealSection: React.FC<Props> = ({ title, caseStudies }) => {
+const CaseStudiesRevealSection: React.FC<Props> = ({
+  title,
+  caseStudies,
+  realtime
+}) => {
   return (
     <Section className="bg-white">
       {title ? (
@@ -18,6 +23,7 @@ const CaseStudiesRevealSection: React.FC<Props> = ({ title, caseStudies }) => {
       <ul className="w-full h-auto">
         {caseStudies.map((caseStudy, index) => (
           <CaseStudyRevealItem
+            realtime={realtime}
             {...caseStudy}
             key={index}
             imagePosition={index % 2 === 0 ? 'left' : 'right'}

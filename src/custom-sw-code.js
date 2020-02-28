@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 // Cache SVG's loaded from Firebase storage bucket and not served via Gatsby itself
 workbox.routing.registerRoute(
-  /^https:\/\/storage\.googleapis\.com\/flamelink-website\.appspot\.com\/flamelink\/media\/.*\.svg.*/,
+  /^https:\/\/storage\.googleapis\.com\/flamelink-demo\.appspot\.com\/flamelink\/media\/.*\.svg.*/,
   new workbox.strategies.StaleWhileRevalidate()
 )
 

@@ -5,10 +5,12 @@ import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
 import { useTransition, animated } from 'react-spring'
 import { Box } from 'reakit/Box'
+import Markdown from 'markdown-to-jsx'
 import get from 'lodash/get'
 import { AiOutlineWarning as WarningIcon } from 'react-icons/ai'
 import { JsonLd } from 'react-schemaorg'
 import { WebApplication } from 'schema-dts'
+import { flamelinkApp } from '../utils/flamelink'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { PageContent } from '../components/PageContent'
@@ -48,14 +50,68 @@ const PricingPlanCard = styled.li`
   }
 `
 
+let pricingPageSubscription: any
+let pricingPlansSubscription: any
+
 function PricingPage({ data }: { data: PricingPageQueryQuery }) {
+  const [realtimeContent, setRealtimeContent] = React.useState()
+
+  if (!pricingPageSubscription) {
+    console.log('Subscription created for pricingPage')
+    pricingPageSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'pricingPage',
+      populate: true,
+      callback(error: any, result: Object) {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving all the pricingPage content. Details:',
+            error
+          )
+        }
+        setRealtimeContent({ realtime: true, ...result })
+
+      }
+    })
+  }
+
+  if (!pricingPlansSubscription) {
+    console.log('Subscription created for pricingPlans')
+    pricingPlansSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'pricingPlans',
+      callback: async (error: any, result: Object) => {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving pricingPlans content. Details:',
+            error
+          )
+        }
+        try {
+          const pageContent = await flamelinkApp.content.get({
+            schemaKey: 'pricingPage',
+            populate: true
+          })
+          setRealtimeContent({ realtime: true, ...pageContent })
+        } catch (e) {
+          return console.error(
+            'Something went wrong while retrieving all the pricingPage content. Details:',
+            error
+          )
+        }
+      }
+    })
+  }
+
+  const pageData =
+    realtimeContent || get(data, 'flamelinkPricingPageContent', {})
+
   const {
+    realtime,
     pageTitle,
     excerpt,
     plansSection,
     standardFeaturesSection,
     termsSection
-  } = get(data, 'flamelinkPricingPageContent', {})
+  } = pageData
 
   const [selectedOption, setSelectedOption] = React.useState('Individuals')
 
@@ -306,14 +362,21 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
                   ${tw`font-medium block mb-4 hover:underline hover:text-white hover:opacity-75`}
                 }
               `}
-              dangerouslySetInnerHTML={{
-                __html: get(
-                  termsSection,
-                  'content.childMarkdownRemark.html',
-                  ''
-                )
-              }}
-            />
+              dangerouslySetInnerHTML={
+                !realtime
+                  ? {
+                      __html: get(
+                        termsSection,
+                        'content.childMarkdownRemark.html'
+                      )
+                    }
+                  : undefined
+              }
+            >
+              {realtime && (
+                <Markdown>{get(termsSection, 'content', '')}</Markdown>
+              )}
+            </PageContent>
           </SectionContainer>
         </Section>
       </main>

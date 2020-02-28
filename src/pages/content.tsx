@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import { css } from '@emotion/core'
+import { flamelinkApp } from '../utils/flamelink'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer } from '../components/Section'
@@ -11,13 +12,67 @@ import IconCopyBlocks from '../components/IconCopyBlocks'
 import CaseStudiesRevealSection from '../components/CaseStudiesRevealSection'
 import { ContentPersonaPageQueryQuery } from '../../types/graphql-types'
 
+let contentPersonaPageSubscription: any
+let caseStudiesSubscription: any
+
 function ContentPage({ data }: { data: ContentPersonaPageQueryQuery }) {
+  const [realtimeContent, setRealtimeContent] = React.useState()
+
+  if (!contentPersonaPageSubscription) {
+    console.log('Subscription created for contentPersonaPage')
+    contentPersonaPageSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'contentPersonaPage',
+      populate: true,
+      callback(error: any, result: Object) {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving all the contentPersonaPage content. Details:',
+            error
+          )
+        }
+        setRealtimeContent({ realtime: true, ...result })
+      }
+    })
+  }
+
+  if (!caseStudiesSubscription) {
+    console.log('Subscription created for caseStudies')
+    caseStudiesSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'caseStudies',
+      populdate: true,
+      callback: async (error: any, result: Object) => {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving caseStudies content. Details:',
+            error
+          )
+        }
+        try {
+          const pageContent = await flamelinkApp.content.get({
+            schemaKey: 'contentPersonaPage',
+            populate: true
+          })
+          setRealtimeContent({ realtime: true, ...pageContent })
+        } catch (e) {
+          return console.error(
+            'Something went wrong while retrieving all the contentPersonaPage content. Details:',
+            error
+          )
+        }
+      }
+    })
+  }
+
+  const pageData =
+    realtimeContent || get(data, 'flamelinkContentPersonaPageContent', {})
+
   const {
+    realtime,
     pageTitle,
     overviewSection,
     featuresSection,
     caseStudiesSection
-  } = get(data, 'flamelinkContentPersonaPageContent', {})
+  } = pageData
 
   return (
     <>
@@ -34,11 +89,13 @@ function ContentPage({ data }: { data: ContentPersonaPageQueryQuery }) {
       >
         <PageBanner title={pageTitle} />
         <ImageRevealSection
+          realtime={realtime}
           bg="white"
           heading={overviewSection.title}
           content={overviewSection.excerpt}
           imagePosition={overviewSection.imagePosition}
           imageYOverlap={overviewSection.imageYOverlap}
+          imageSrc={get(overviewSection, 'image[0].url')}
           fluidImage={get(overviewSection, 'image[0].localFile')}
         />
         <Section className="bg-gray-100">
@@ -56,6 +113,7 @@ function ContentPage({ data }: { data: ContentPersonaPageQueryQuery }) {
           </SectionContainer>
         </Section>
         <CaseStudiesRevealSection
+          realtime={realtime}
           title={caseStudiesSection.title}
           caseStudies={caseStudiesSection.caseStudies}
         />

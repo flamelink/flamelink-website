@@ -34,6 +34,7 @@ type Banner = {
 
 type Props = {
   banners: Banner[]
+  realtime?: boolean
 }
 
 const Dots: React.FC<{
@@ -127,7 +128,7 @@ const SliderArrow: React.FC<SliderArrowProps> = ({
   )
 }
 
-const HomepageSlider: React.FC<Props> = ({ banners }) => {
+const HomepageSlider: React.FC<Props> = ({ banners, realtime }) => {
   return (
     <ReactHoverObserver hoverDelayInMs={300} hoverOffDelayInMs={300}>
       {({ isHovering }: { isHovering: boolean }) => (
@@ -158,168 +159,193 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                   scroll-snap-align: start;
                 `}
               >
-                {(slides as Banner[]).map((slide, index) => (
-                  <BackgroundImage
-                    key={index}
-                    Tag="div"
-                    className="w-screen bg-brand pt-20 pb-20 w-full relative"
-                    fluid={get(
-                      slide,
-                      'image[0].localFile.childImageSharp.fluid'
-                    )}
-                    style={{
-                      backgroundPosition: 'top center',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'cover'
-                    }}
-                  >
-                    <Box
-                      css={css`
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        z-index: 0;
-                        opacity: 0.875;
-                        background: rgb(224, 87, 41);
-                        background: linear-gradient(
-                          90deg,
-                          rgba(224, 87, 41, 1) 10%,
-                          rgba(255, 102, 51, 1) 75%
-                        );
-                        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e05729",endColorstr="#ff6633",GradientType=1);
-                      `}
-                    ></Box>
-                    <Box
-                      className="flex flex-col flex-1 justify-center items-stretch max-w-6xl mx-auto px-4 md:px-8 w-full h-full relative"
-                      css={css`
-                        padding-top: 9rem;
-                        padding-bottom: 9rem;
-                        z-index: 1;
-                      `}
-                    >
-                      <SliderArrow
-                        onClick={prev}
-                        ariaLabel="previous slide"
-                        onActiveSlide={active === index - 1}
-                        icon={<ArrowLeftIcon />}
-                        extraCss={css`
-                          left: -4rem;
-                          transform: ${active === index - 1
-                            ? 'translateX(0)'
-                            : 'translateX(2rem)'};
-                        `}
-                      />
+                {(slides as Banner[]).map((slide, index) => {
+                  const slideImage = get(
+                    slide,
+                    realtime
+                      ? 'image[0].url'
+                      : 'image[0].localFile.childImageSharp.fluid'
+                  )
+
+                  const bannerInner = (
+                    <>
                       <Box
-                        css={
-                          active === index - 1
-                            ? css`
-                                transition: transform 150ms ease-out,
-                                  opacity 350ms ease-out;
-                                opacity: 1;
-                                transform: translate(0%);
-                              `
-                            : css`
-                                transition: transform 50ms ease-in,
-                                  opacity 150ms ease-in;
-                                opacity: 0;
-                                transform: translate(0%, 15%);
+                        css={css`
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          width: 100%;
+                          height: 100%;
+                          z-index: 0;
+                          opacity: 0.875;
+                          background: rgb(224, 87, 41);
+                          background: linear-gradient(
+                            90deg,
+                            rgba(224, 87, 41, 1) 10%,
+                            rgba(255, 102, 51, 1) 75%
+                          );
+                          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e05729",endColorstr="#ff6633",GradientType=1);
+                        `}
+                      ></Box>
+                      <Box
+                        className="flex flex-col flex-1 justify-center items-stretch max-w-6xl mx-auto px-4 md:px-8 w-full h-full relative"
+                        css={css`
+                          padding-top: 9rem;
+                          padding-bottom: 9rem;
+                          z-index: 1;
+                        `}
+                      >
+                        <SliderArrow
+                          onClick={prev}
+                          ariaLabel="previous slide"
+                          onActiveSlide={active === index - 1}
+                          icon={<ArrowLeftIcon />}
+                          extraCss={css`
+                            left: -4rem;
+                            transform: ${active === index - 1
+                              ? 'translateX(0)'
+                              : 'translateX(2rem)'};
+                          `}
+                        />
+                        <Box
+                          css={
+                            active === index - 1
+                              ? css`
+                                  transition: transform 150ms ease-out,
+                                    opacity 350ms ease-out;
+                                  opacity: 1;
+                                  transform: translate(0%);
+                                `
+                              : css`
+                                  transition: transform 50ms ease-in,
+                                    opacity 150ms ease-in;
+                                  opacity: 0;
+                                  transform: translate(0%, 15%);
+
+                                  @media (min-width: 768px) {
+                                    transform: translate(-10%);
+                                  }
+                                `
+                          }
+                        >
+                          <h1 className="flex flex-col justify-start items-start text-white font-normal leading-none text-3xl sm:text-4xl md:text-5xl mb-4 md:mb-8">
+                            <span>{slide.title1}</span>
+                            <span
+                              className="uppercase"
+                              css={css`
+                                font-size: 2.5rem;
+                                word-break: break-all;
 
                                 @media (min-width: 768px) {
-                                  transform: translate(-10%);
+                                  font-size: 3.125rem;
                                 }
-                              `
-                        }
-                      >
-                        <h1 className="flex flex-col justify-start items-start text-white font-normal leading-none text-3xl sm:text-4xl md:text-5xl mb-4 md:mb-8">
-                          <span>{slide.title1}</span>
-                          <span
-                            className="uppercase"
-                            css={css`
-                              font-size: 2.5rem;
-                              word-break: break-all;
-
-                              @media (min-width: 768px) {
-                                font-size: 3.125rem;
-                              }
-                            `}
-                          >
-                            {slide.title2}
-                          </span>
-                        </h1>
-                        <p className="text-white text-base sm:text-lg mb-8 max-w-sm md:max-w-md">
-                          {slide.excerpt}
-                        </p>
-                        <Group className="flex flex-col md:flex-row flex-no-wrap justify-start items-start">
-                          {slide.ctas.map((cta, ctaIndex) =>
-                            cta.action === 'demo-video' ? (
-                              <Modal
-                                key={ctaIndex}
-                                aria-label="play demo video"
-                                className="bg-white"
-                                tabIndex={-1}
-                                disclosure={
-                                  <Button
-                                    variant={cta.buttonType}
-                                    color="secondary"
-                                    className="mb-4 md:mr-4"
-                                    icon={<PlayIcon />}
-                                    tabIndex={active === index - 1 ? 0 : -1}
-                                  >
-                                    {cta.text}
-                                  </Button>
-                                }
-                              >
-                                {({ dialog }) => (
-                                  <DemoVideo visible={dialog.visible} />
-                                )}
-                              </Modal>
-                            ) : (
-                              <Button
-                                key={ctaIndex}
-                                variant={cta.buttonType}
-                                color="secondary"
-                                as={Link}
-                                to={cta.action}
-                                className="mb-4 md:mr-4"
-                                css={props => css`
-                                  ${!props.device.sizes.mdUp &&
-                                    css`
-                                      min-width: 10.75rem;
-                                    `}
-                                `}
-                                tabIndex={active === index - 1 ? 0 : -1}
-                              >
-                                {cta.text}
-                              </Button>
-                            )
-                          )}
-                        </Group>
+                              `}
+                            >
+                              {slide.title2}
+                            </span>
+                          </h1>
+                          <p className="text-white text-base sm:text-lg mb-8 max-w-sm md:max-w-md">
+                            {slide.excerpt}
+                          </p>
+                          <Group className="flex flex-col md:flex-row flex-no-wrap justify-start items-start">
+                            {slide.ctas.map((cta, ctaIndex) =>
+                              cta.action === 'demo-video' ? (
+                                <Modal
+                                  key={ctaIndex}
+                                  aria-label="play demo video"
+                                  className="bg-white"
+                                  tabIndex={-1}
+                                  disclosure={
+                                    <Button
+                                      variant={cta.buttonType}
+                                      color="secondary"
+                                      className="mb-4 md:mr-4"
+                                      icon={<PlayIcon />}
+                                      tabIndex={active === index - 1 ? 0 : -1}
+                                    >
+                                      {cta.text}
+                                    </Button>
+                                  }
+                                >
+                                  {({ dialog }) => (
+                                    <DemoVideo visible={dialog.visible} />
+                                  )}
+                                </Modal>
+                              ) : (
+                                <Button
+                                  key={ctaIndex}
+                                  variant={cta.buttonType}
+                                  color="secondary"
+                                  as={Link}
+                                  to={cta.action}
+                                  className="mb-4 md:mr-4"
+                                  css={props => css`
+                                    ${!props.device.sizes.mdUp &&
+                                      css`
+                                        min-width: 10.75rem;
+                                      `}
+                                  `}
+                                  tabIndex={active === index - 1 ? 0 : -1}
+                                >
+                                  {cta.text}
+                                </Button>
+                              )
+                            )}
+                          </Group>
+                        </Box>
+                        <SliderArrow
+                          onClick={next}
+                          ariaLabel="next slide"
+                          onActiveSlide={active === index - 1}
+                          icon={<ArrowRightIcon />}
+                          extraCss={css`
+                            right: -4rem;
+                            transform: ${active === index - 1
+                              ? 'translateX(0)'
+                              : 'translateX(-2rem)'};
+                          `}
+                        />
                       </Box>
-                      <SliderArrow
-                        onClick={next}
-                        ariaLabel="next slide"
-                        onActiveSlide={active === index - 1}
-                        icon={<ArrowRightIcon />}
-                        extraCss={css`
-                          right: -4rem;
-                          transform: ${active === index - 1
-                            ? 'translateX(0)'
-                            : 'translateX(-2rem)'};
-                        `}
-                      />
-                    </Box>
-                    {originalSlides.length > 1 && (
-                      <Dots
-                        slides={originalSlides}
-                        setActive={setActive}
-                        active={active}
-                        onActiveSlide={active === index - 1}
-                      />
-                    )}
-                  </BackgroundImage>
-                ))}
+                      {originalSlides.length > 1 && (
+                        <Dots
+                          slides={originalSlides}
+                          setActive={setActive}
+                          active={active}
+                          onActiveSlide={active === index - 1}
+                        />
+                      )}
+                    </>
+                  )
+
+                  return realtime ? (
+                    <div
+                      key={index}
+                      className="w-screen bg-brand pt-20 pb-20 w-full relative"
+                      css={css`
+                      background-position: top center;
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-image: url("${slideImage}");
+                    `}
+                    >
+                      {bannerInner}
+                    </div>
+                  ) : (
+                    <BackgroundImage
+                      key={index}
+                      Tag="div"
+                      className="w-screen bg-brand pt-20 pb-20 w-full relative"
+                      fluid={slideImage}
+                      style={{
+                        backgroundPosition: 'top center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover'
+                      }}
+                    >
+                      {bannerInner}
+                    </BackgroundImage>
+                  )
+                })}
               </Box>
             )}
           </Carousel>

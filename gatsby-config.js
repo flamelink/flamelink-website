@@ -1,12 +1,12 @@
 const path = require('path')
 
-const isDev = process.env.NODE_ENV !== 'production'
+const isDev = true || process.env.NODE_ENV !== 'production'
 
 if (isDev) {
   require('dotenv').config()
 }
 
-const SITE_URL = process.env.SITE_URL || 'https://flamelink-staging.web.app'
+const SITE_URL = process.env.SITE_URL || 'https://flamelink-demo.web.app'
 const FLAMELINK_ENVIRONMENT = process.env.FLAMELINK_ENV || 'staging'
 
 const parseNewLines = function(key) {
@@ -20,7 +20,8 @@ module.exports = {
     title: 'Flamelink',
     tagline: 'A Firebase CMS',
     description:
-      'Flamelink.io is an easy to use, content centric CMS that integrates with Google\'s Firebase to build Mobile and Web Apps, Digital Campaigns, and Websites.',
+      // eslint-disable-next-line quotes
+      "Flamelink.io is an easy to use, content centric CMS that integrates with Google's Firebase to build Mobile and Web Apps, Digital Campaigns, and Websites.",
     socialLinks: {
       facebook: 'https://www.facebook.com/FlamelinkCMS/',
       twitter: 'https://twitter.com/flamelinkcms',
@@ -100,12 +101,12 @@ module.exports = {
       resolve: 'gatsby-source-flamelink',
       options: {
         firebaseConfig: {
-          projectId: 'flamelink-website',
+          projectId: 'flamelink-demo',
           privateKey,
           clientEmail:
-            'firebase-adminsdk-w2zzo@flamelink-website.iam.gserviceaccount.com',
-          databaseURL: 'https://flamelink-website.firebaseio.com',
-          storageBucket: 'flamelink-website.appspot.com'
+            'firebase-adminsdk-482wg@flamelink-demo.iam.gserviceaccount.com',
+          databaseURL: 'https://flamelink-demo.firebaseio.com',
+          storageBucket: 'flamelink-demo.appspot.com'
         },
         dbType: 'cf',
         environment: FLAMELINK_ENVIRONMENT,

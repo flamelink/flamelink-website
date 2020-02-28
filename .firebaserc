@@ -1,15 +1,15 @@
 {
   "projects": {
-    "default": "flamelink-website"
+    "default": "flamelink-demo"
   },
   "targets": {
-    "flamelink-website": {
+    "flamelink-demo": {
       "hosting": {
         "staging": [
-          "flamelink-staging"
+          "flamelink-demo"
         ],
         "production": [
-          "flamelink-website"
+          "flamelink-demo"
         ]
       }
     }

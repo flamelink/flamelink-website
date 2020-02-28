@@ -39,6 +39,7 @@ type SectionData = {
 
 type Props = {
   data: SectionData
+  realtime?: boolean
 }
 
 const Dots: React.FC<{
@@ -131,7 +132,7 @@ const SliderArrow: React.FC<SliderArrowProps> = ({
   )
 }
 
-const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
+const CaseStudiesSlider: React.FC<Props> = ({ data, realtime }) => {
   const { title, caseStudies } = data
 
   return (
@@ -160,17 +161,14 @@ const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
               scroll-snap-align: start;
             `}
           >
-            {(slides as CaseStudy[]).map((slide, slideIndex) => (
-              <BackgroundImage
-                key={slideIndex}
-                Tag="section"
-                className="w-screen pt-20 pb-20 flex-grow"
-                fluid={get(
-                  slide,
-                  'backgroundImage[0].localFile.childImageSharp.fluid'
-                )}
-                backgroundColor={get(slide, 'brandColour', '#ff6633')}
-              >
+            {(slides as CaseStudy[]).map((slide, slideIndex) => {
+              const slideImage = get(
+                slide,
+                realtime
+                  ? 'backgroundImage[0].url'
+                  : 'backgroundImage[0].localFile.childImageSharp.fluid'
+              )
+              const slideInner = (
                 <Box
                   className="flex flex-col justify-start items-center h-full"
                   css={css`
@@ -313,8 +311,34 @@ const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
                     )}
                   </SectionContainer>
                 </Box>
-              </BackgroundImage>
-            ))}
+              )
+
+              return realtime ? (
+                <section
+                  key={slideIndex}
+                  className="w-screen pt-20 pb-20 flex-grow"
+                  css={css`
+                    background-color: ${get(slide, 'brandColour', '#ff6633')};
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-image: url("${slideImage}");
+                  `}
+                >
+                  {slideInner}
+                </section>
+              ) : (
+                <BackgroundImage
+                  key={slideIndex}
+                  Tag="section"
+                  className="w-screen pt-20 pb-20 flex-grow"
+                  fluid={slideImage}
+                  backgroundColor={get(slide, 'brandColour', '#ff6633')}
+                >
+                  {slideInner}
+                </BackgroundImage>
+              )
+            })}
           </Box>
         )}
       </Carousel>

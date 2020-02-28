@@ -23,6 +23,7 @@ type Props = {
   mainImage?: any // TODO: fix
   backgroundImage?: any // TODO: fix
   brandColour: string
+  realtime?: boolean
 }
 
 const ImageContainer = styled(Box)<{
@@ -63,6 +64,7 @@ const StyledBackgroundImage = styled(BackgroundImage)`
 `
 
 const CaseStudyRevealItem: React.FC<Props> = ({
+  realtime,
   slug,
   title,
   excerpt,
@@ -90,21 +92,41 @@ const CaseStudyRevealItem: React.FC<Props> = ({
         scroll-snap-align: start;
       `}
     >
-      {get(mainImage, '[0].localFile.childImageSharp.fluid') && (
+      {get(
+        mainImage,
+        '[0].localFile.childImageSharp.fluid',
+        get(mainImage, '[0].url')
+      ) && (
         <ImageContainer
           data-in-viewport={containerInViewport}
           data-image-position={imagePosition}
         >
-          <StyledBackgroundImage
-            fluid={mainImage[0].localFile.childImageSharp.fluid}
-            style={{
-              backgroundPosition: `top ${
-                imagePosition === 'right' ? 'left' : 'right'
-              }`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover'
-            }}
-          />
+          {realtime ? (
+            <div
+              id="asd"
+              css={css`
+                    width: 100%;
+                    height: 100%;
+                    background-image: url("${get(mainImage, '[0].url')}");
+                    background-position: top ${
+                      imagePosition === 'right' ? 'left' : 'right'
+                    };
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                  `}
+            />
+          ) : (
+            <StyledBackgroundImage
+              fluid={mainImage[0].localFile.childImageSharp.fluid}
+              style={{
+                backgroundPosition: `top ${
+                  imagePosition === 'right' ? 'left' : 'right'
+                }`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover'
+              }}
+            />
+          )}
         </ImageContainer>
       )}
       <Box
@@ -155,9 +177,17 @@ const CaseStudyRevealItem: React.FC<Props> = ({
         >
           <Box className="max-w-sm relative shadow bg-white rounded p-10">
             <header className="flex justify-start items-center w-full mb-8">
-              {get(logo, '[0].localFile.childImageSharp.fluid') ? (
+              {get(
+                logo,
+                '[0].localFile.childImageSharp.fluid',
+                get(logo, '[0].url')
+              ) ? (
                 <span className="block w-1/2 mb-0">
-                  <Img fluid={logo[0].localFile.childImageSharp.fluid} />
+                  {realtime ? (
+                    <img src={logo[0].url} alt={title} />
+                  ) : (
+                    <Img fluid={logo[0].localFile.childImageSharp.fluid} />
+                  )}
                 </span>
               ) : (
                 <SectionTitle

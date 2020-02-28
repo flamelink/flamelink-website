@@ -1,4 +1,4 @@
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: process.env.GATSBY_FIREBASE_CONFIG_API_KEY,
   authDomain: process.env.GATSBY_FIREBASE_CONFIG_AUTH_DOMAIN,
   databaseURL: process.env.GATSBY_FIREBASE_CONFIG_DATABASE_URL,

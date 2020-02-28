@@ -6,6 +6,8 @@ import { Box } from 'reakit/Box'
 import { DialogStateReturn } from 'reakit/ts'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
+import { flamelinkApp } from '../../utils/flamelink'
+import { refitKeys } from '../../utils/rename-object-keys'
 import tw from 'tailwind.macro'
 import { MdMenu as MenuIcon, MdClose as CloseIcon } from 'react-icons/md'
 import get from 'lodash/get'
@@ -35,8 +37,38 @@ const HomeLink = styled(Link)`
   ${tw`no-underline text-white`}
 `
 
+let headerMenuSubscription: any
+const keyMap = {
+  id: 'flamelink_id',
+  children: 'flamelink_children'
+}
+
 function Header() {
   const [stickyNav, setStickyNav] = React.useState(false)
+  const [realtimeContent, setRealtimeContent] = React.useState()
+
+  if (!headerMenuSubscription) {
+    console.log('Subscription created for headerMenu')
+    headerMenuSubscription = flamelinkApp.nav.subscribe({
+      navigationKey: 'headerMenu',
+      structure: 'tree',
+      callback(error: any, result: Object) {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving all the techPersonaPage content. Details:',
+            error
+          )
+        }
+        setRealtimeContent({
+          realtime: true,
+          navItems: get(result, 'items', []).map((item: object) =>
+            refitKeys(item, keyMap)
+          ),
+          original: get(result, 'items')
+        })
+      }
+    })
+  }
 
   const { site, allFlamelinkHeaderMenuNavigation } = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -79,9 +111,9 @@ function Header() {
   `)
 
   const navItems: CmsNavItem[] = get(
-    allFlamelinkHeaderMenuNavigation,
-    'edges.0.node.items',
-    []
+    realtimeContent,
+    'navItems',
+    get(allFlamelinkHeaderMenuNavigation, 'edges.0.node.items', [])
   )
 
   useScrollPosition(

@@ -1,9 +1,11 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
+import Markdown from 'markdown-to-jsx'
 import get from 'lodash/get'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
+import { flamelinkApp } from '../utils/flamelink'
 import SEO from '../components/SEO'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import Button from '../components/Button'
@@ -18,8 +20,29 @@ import IconCopyBlocks from '../components/IconCopyBlocks'
 import { PageContent } from '../components/PageContent'
 import { HomePageQueryQuery } from '../../types/graphql-types'
 
+let homePageSubscription: any
+
 function HomePage({ data }: { data: HomePageQueryQuery }) {
-  const pageData = get(data, 'flamelinkHomePageContent')
+  const [realtimeContent, setRealtimeContent] = React.useState()
+
+  if (!homePageSubscription) {
+    console.log('Subscription created for homePage')
+    homePageSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'homePage',
+      populate: true,
+      callback(error: any, result: Object) {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving all the content. Details:',
+            error
+          )
+        }
+        setRealtimeContent({ realtime: true, ...result })
+      }
+    })
+  }
+
+  const pageData = realtimeContent || get(data, 'flamelinkHomePageContent')
 
   if (!pageData) {
     return (
@@ -55,7 +78,10 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
           scroll-snap-type: x proximity;
         `}
       >
-        <HomepageSlider banners={get(pageData, 'banner', [])} />
+        <HomepageSlider
+          realtime={pageData.realtime}
+          banners={get(pageData, 'banner', [])}
+        />
 
         {/* FIREBASE + GCP SECTION */}
         <Section className="bg-white">
@@ -69,29 +95,47 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
             </SectionTitle>
             {get(
               pageData,
-              'firebaseSection.image[0].localFile.childImageSharp.fluid'
+              'firebaseSection.image[0].localFile.childImageSharp.fluid',
+              get(pageData, 'firebaseSection.image[0].url')
             ) && (
               <span className="block w-1/2 sm:w-64 md:w-1/3 lg:w-1/4 max-w-full mx-auto mb-10">
-                <Img
-                  fluid={get(
-                    pageData,
-                    'firebaseSection.image[0].localFile.childImageSharp.fluid'
-                  )}
-                />
+                {pageData.realtime ? (
+                  <img
+                    src={get(pageData, 'firebaseSection.image[0].url')}
+                    alt={get(pageData, 'firebaseSection.title', '')}
+                  />
+                ) : (
+                  <Img
+                    fluid={get(
+                      pageData,
+                      'firebaseSection.image[0].localFile.childImageSharp.fluid'
+                    )}
+                  />
+                )}
               </span>
             )}
             <PageContent
               css={css`
                 ${tw`text-center text-base md:text-lg max-w-5xl mb-8 md:mb-16`}
               `}
-              dangerouslySetInnerHTML={{
-                __html: get(
-                  pageData,
-                  'firebaseSection.excerpt.childMarkdownRemark.html',
-                  ''
-                )
-              }}
-            />
+              dangerouslySetInnerHTML={
+                !pageData.realtime
+                  ? {
+                      __html: get(
+                        pageData,
+                        'firebaseSection.excerpt.childMarkdownRemark.html',
+                        ''
+                      )
+                    }
+                  : undefined
+              }
+            >
+              {pageData.realtime && (
+                <Markdown>
+                  {get(pageData, 'firebaseSection.excerpt', '')}
+                </Markdown>
+              )}
+            </PageContent>
             <ul className="flex flex-col md:flex-row justify-center items-stretch text-center">
               {get(pageData, 'firebaseSection.personas', []).map(persona => (
                 <li
@@ -163,7 +207,10 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
         <HowItWorks data={get(pageData, 'howItWorksSection', {})} />
 
         {/* CASE STUDIES SECTION */}
-        <CaseStudiesSlider data={get(pageData, 'caseStudiesSection', {})} />
+        <CaseStudiesSlider
+          realtime={get(pageData, 'realtime')}
+          data={get(pageData, 'caseStudiesSection', {})}
+        />
 
         {/* KEY FEATURES SECTION */}
         <Section className="bg-white">
@@ -239,10 +286,11 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
                       }
                     `}
                   >
-                    {get(
-                      affiliate,
-                      'logo[0].localFile.childImageSharp.fluid'
-                    ) &&
+                    {pageData.realtime &&
+                      get(
+                        affiliate,
+                        'logo[0].localFile.childImageSharp.fluid'
+                      ) &&
                       (affiliate.website ? (
                         <ExternalLink href={affiliate.website}>
                           <Img
@@ -259,6 +307,19 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
                           }
                           title={affiliate.name}
                         />
+                      ))}
+
+                    {pageData.realtime &&
+                      get(affiliate, 'logo[0].url') &&
+                      (affiliate.website ? (
+                        <ExternalLink href={affiliate.website}>
+                          <img
+                            src={affiliate.logo[0].url}
+                            alt={affiliate.name}
+                          />
+                        </ExternalLink>
+                      ) : (
+                        <img src={affiliate.logo[0].url} alt={affiliate.name} />
                       ))}
                   </li>
                 )

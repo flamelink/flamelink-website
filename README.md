@@ -1,4 +1,4 @@
-# Official Flamelink.io Website
+# Official Flamelink.io demo
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
@@ -47,14 +47,14 @@ Production: https://flamelink.io
 
 ## License
 
-[MIT](https://github.com/flamelink/flamelink-website/blob/master/LICENSE.md)
+[MIT](https://github.com/flamelink/flamelink-demo/blob/master/LICENSE.md)
 
 ## How you can help
 
 Enjoying Flamelink.io and want to help? You can:
 
-- [Create an issue](https://github.com/flamelink/flamelink-website/issues/new) with some constructive criticism
-- [Submit a pull request](https://github.com/flamelink/flamelink-website/compare) with some improvements to the project
+- [Create an issue](https://github.com/flamelink/flamelink-demo/issues/new) with some constructive criticism
+- [Submit a pull request](https://github.com/flamelink/flamelink-demo/compare) with some improvements to the project
 
 ## Contributors
 

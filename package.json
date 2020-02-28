@@ -1,6 +1,6 @@
 {
-  "name": "flamelink-website",
-  "description": "Official website for flamelink.io",
+  "name": "flamelink-demo",
+  "description": "Official demo for flamelink.io",
   "version": "3.0.0",
   "author": "JP Erasmus <jp@flamelink.io>",
   "private": true,
@@ -56,6 +56,8 @@
     "@sentry/types": "5.11.0",
     "emotion-theming": "10.0.27",
     "firebase": "7.6.2",
+    "flamelink": "^1.0.0-alpha.28",
+    "flamelink-react-hooks": "^2.0.0",
     "gatsby": "2.18.22",
     "gatsby-background-image": "0.9.12",
     "gatsby-image": "2.2.38",
@@ -80,6 +82,7 @@
     "graphql": "14.5.8",
     "intersection-observer": "0.7.0",
     "lodash": "4.17.15",
+    "markdown-to-jsx": "^6.10.3",
     "postcss-import": "12.0.1",
     "prop-types": "15.7.2",
     "react": "16.11.0",
@@ -100,6 +103,7 @@
     "@firebase/app-types": "0.5.0",
     "@firebase/util": "0.2.37",
     "@types/jest": "24.0.25",
+    "@types/markdown-to-jsx": "^6.9.1",
     "@types/node": "12.12.7",
     "@types/react": "16.9.17",
     "@types/react-dom": "16.9.4",
@@ -134,9 +138,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jperasmus/flamelink-website"
+    "url": "https://github.com/jperasmus/flamelink-demo"
   },
   "bugs": {
-    "url": "https://github.com/jperasmus/flamelink-website/issues"
+    "url": "https://github.com/jperasmus/flamelink-demo/issues"
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import get from 'lodash/get'
 import { graphql } from 'gatsby'
 import { css } from '@emotion/core'
+import { flamelinkApp } from '../utils/flamelink'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
@@ -18,8 +19,59 @@ const getBlockData = features => {
   }))
 }
 
+let featuresPageSubscription: any
+let featuresSubscription: any
+
 function FeaturesPage({ data }: { data: FeaturesPageQueryQuery }) {
-  const pageData = get(data, 'flamelinkFeaturesPageContent', {})
+  const [realtimeContent, setRealtimeContent] = React.useState()
+
+  if (!featuresPageSubscription) {
+    console.log('Subscription created for featuresPage')
+    featuresPageSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'featuresPage',
+      populate: true,
+      callback(error: any, result: Object) {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving all the featuresPage content. Details:',
+            error
+          )
+        }
+        setRealtimeContent({ realtime: true, ...result })
+
+      }
+    })
+  }
+
+  if (!featuresSubscription) {
+    console.log('Subscription created for features')
+    featuresSubscription = flamelinkApp.content.subscribe({
+      schemaKey: 'features',
+      callback: async (error: any, result: Object) => {
+        if (error) {
+          return console.error(
+            'Something went wrong while retrieving features content. Details:',
+            error
+          )
+        }
+        try {
+          const pageContent = await flamelinkApp.content.get({
+            schemaKey: 'featuresPage',
+            populate: true
+          })
+          setRealtimeContent({ realtime: true, ...pageContent })
+        } catch (e) {
+          return console.error(
+            'Something went wrong while retrieving all the featuresPage content. Details:',
+            error
+          )
+        }
+      }
+    })
+  }
+
+  const pageData =
+    realtimeContent || get(data, 'flamelinkFeaturesPageContent', {})
 
   return (
     <>

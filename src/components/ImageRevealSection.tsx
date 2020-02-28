@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box } from 'reakit/Box'
 import { css } from '@emotion/core'
+import Markdown from 'markdown-to-jsx'
 import get from 'lodash/get'
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
@@ -21,12 +22,14 @@ type HtmlContent = {
 }
 
 type Props = {
+  realtime?: boolean
   iconUrl?: string
   heading: string
   content: string | HtmlContent
   bg: 'white' | 'gray'
   imagePosition?: 'left' | 'right'
   imageYOverlap?: string
+  imageSrc?: string
   fluidImage?: any // TODO: fix
 }
 
@@ -72,11 +75,13 @@ const StyledBackgroundImage = styled(BackgroundImage)`
 `
 
 const ImageRevealSection: React.FC<Props> = ({
+  realtime,
   iconUrl,
   heading,
   content,
   bg,
   fluidImage,
+  imageSrc,
   imagePosition,
   imageYOverlap
 }) => {
@@ -97,23 +102,39 @@ const ImageRevealSection: React.FC<Props> = ({
         scroll-snap-align: start;
       `}
     >
-      {get(fluidImage, 'childImageSharp.fluid') && (
+      {get(fluidImage, 'childImageSharp.fluid', imageSrc) && (
         <ImageContainer
           data-in-viewport={containerInViewport}
           data-image-position={imagePosition}
           data-image-y-overlap={imageYOverlap}
-          className="shadow"
+          // className="shadow"
         >
-          <StyledBackgroundImage
-            fluid={fluidImage.childImageSharp.fluid}
-            style={{
-              backgroundPosition: `top ${
-                imagePosition === 'right' ? 'left' : 'right'
-              }`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover'
-            }}
-          />
+          {realtime ? (
+            <div
+              css={css`
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url("${imageSrc}");
+                    background-position: top ${
+                      imagePosition === 'right' ? 'left' : 'right'
+                    };
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                  `}
+            />
+          ) : (
+            <StyledBackgroundImage
+              fluid={fluidImage.childImageSharp.fluid}
+              style={{
+                backgroundPosition: `top ${
+                  imagePosition === 'right' ? 'left' : 'right'
+                }`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover'
+              }}
+            />
+          )}
         </ImageContainer>
       )}
       <section
@@ -149,7 +170,7 @@ const ImageRevealSection: React.FC<Props> = ({
                     ${imagePosition === 'right' ? '-10%' : '10%'}
                   );
                 `}
-            ${fluidImage && imagePosition === 'left'
+            ${(fluidImage || imageSrc) && imagePosition === 'left'
               ? css`
                   flex-direction: row;
                   justify-content: flex-end;
@@ -186,10 +207,16 @@ const ImageRevealSection: React.FC<Props> = ({
               css={css`
                 ${tw`mx-0 sm:mx-0`}
               `}
-              dangerouslySetInnerHTML={{
-                __html: get(content, 'childMarkdownRemark.html', content)
-              }}
-            />
+              dangerouslySetInnerHTML={
+                !realtime
+                  ? {
+                      __html: get(content, 'childMarkdownRemark.html', content)
+                    }
+                  : undefined
+              }
+            >
+              {realtime && <Markdown>{content || ''}</Markdown>}
+            </PageContent>
           </Box>
         </SectionContainer>
       </section>
