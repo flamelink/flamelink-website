@@ -26,7 +26,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
 
       - name: Setup Node.js version
         uses: actions/setup-node@v1

@@ -174,6 +174,59 @@ exports.createPages = async function({ actions, graphql }) {
       }
     })
   })
+
+  // Individual Landing pages
+  const { data: landingPages } = await graphql(`
+    query LandingPagesQuery {
+      allFlamelinkLandingPagesContent(
+        filter: { _fl_meta_: { status: { eq: "publish" } } }
+      ) {
+        edges {
+          node {
+            id
+            title
+            slug
+            flamelink_locale
+            content {
+              childMarkdownRemark {
+                html
+              }
+            }
+            seo {
+              title
+              description
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  landingPages.allFlamelinkLandingPagesContent.edges.forEach(landingPage => {
+    const {
+      slug,
+      flamelink_locale: locale,
+      title,
+      content: {
+        childMarkdownRemark: { html }
+      },
+      seo
+    } = landingPage.node
+
+    const fullSlug = `/${slug}`
+
+    actions.createPage({
+      path: fullSlug,
+      component: require.resolve('./src/templates/landing-page.tsx'),
+      context: {
+        title,
+        slug: fullSlug,
+        html,
+        seo,
+        locale
+      }
+    })
+  })
 }
 
 // Support IE11 when running gatsby develop
