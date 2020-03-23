@@ -192,6 +192,27 @@ exports.createPages = async function({ actions, graphql }) {
                 html
               }
             }
+            backgroundImage {
+              url
+              localFile {
+                childImageSharp {
+                  fluid(maxWidth: 1920, quality: 80) {
+                    base64
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                }
+              }
+            }
             seo {
               title
               description
@@ -207,6 +228,7 @@ exports.createPages = async function({ actions, graphql }) {
       slug,
       flamelink_locale: locale,
       title,
+      backgroundImage,
       content: {
         childMarkdownRemark: { html }
       },
@@ -222,6 +244,7 @@ exports.createPages = async function({ actions, graphql }) {
         title,
         slug: fullSlug,
         html,
+        backgroundImage,
         seo,
         locale
       }
