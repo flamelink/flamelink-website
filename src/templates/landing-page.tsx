@@ -1,6 +1,7 @@
 import React from 'react'
 import BackgroundImage from 'gatsby-background-image'
 import get from 'lodash/get'
+import trim from 'lodash/trim'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { PageContent } from '../components/PageContent'
@@ -23,8 +24,8 @@ type PageProps = {
 const LandingPage: React.FC<PageProps> = ({ pageContext }) => (
   <>
     <SEO
-      keywords={['flamelink', pageContext.title]}
-      title={get(pageContext, 'seo.title', get(pageContext, 'title', ''))}
+      keywords={get(pageContext, 'seo.keywords') || ['flamelink', pageContext.title]}
+      title={get(pageContext, 'seo.title') || get(pageContext, 'title', '')}
       description={get(pageContext, 'seo.description', '')}
       url={get(pageContext, 'slug', '')}
       image={get(
