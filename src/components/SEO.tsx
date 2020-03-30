@@ -2,6 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import take from 'lodash/take'
 import isString from 'lodash/isString'
+import trim from 'lodash/trim'
 import { useStaticQuery, graphql } from 'gatsby'
 
 type MetaEntry =

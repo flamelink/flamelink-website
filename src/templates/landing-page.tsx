@@ -1,7 +1,6 @@
 import React from 'react'
 import BackgroundImage from 'gatsby-background-image'
 import get from 'lodash/get'
-import trim from 'lodash/trim'
 import SEO from '../components/SEO'
 import PageBanner from '../components/PageBanner'
 import { PageContent } from '../components/PageContent'
