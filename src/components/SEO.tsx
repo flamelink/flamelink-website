@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import take from 'lodash/take'
+import isString from 'lodash/isString'
 import { useStaticQuery, graphql } from 'gatsby'
 
 type MetaEntry =
@@ -19,7 +20,7 @@ type Props = {
   image?: string
   url?: string
   meta?: MetaEntry[]
-  keywords?: string[]
+  keywords?: string[] | string
   title: string
   children?: React.ReactNode
 }
@@ -65,8 +66,18 @@ const SEO: React.FC<Props> = ({
     300
   ).join('')
 
+  const metaKeywords = isString(keywords) ? keywords.split(',').map(trim) : keywords;
+
   const metaTags = meta
     .concat([
+      {
+        name: 'robots',
+        content: 'index, follow'
+      },
+      {
+        name: 'language',
+        content: 'English'
+      },
       {
         name: 'description',
         content: metaDescription
@@ -111,10 +122,10 @@ const SEO: React.FC<Props> = ({
       }
     ])
     .concat(
-      keywords && keywords.length > 0
+      metaKeywords && metaKeywords.length > 0
         ? {
             name: 'keywords',
-            content: keywords.join(', ')
+            content: metaKeywords.join(', ')
           }
         : []
     )

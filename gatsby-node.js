@@ -215,6 +215,7 @@ exports.createPages = async function({ actions, graphql }) {
             }
             seo {
               title
+              keywords
               description
             }
           }
