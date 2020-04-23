@@ -22,6 +22,7 @@ declare module '*.gif'
 declare module '*.svg'
 
 declare module 'react-hover-observer'
+declare module 'react-typeform-embed'
 
 declare module 'tailwind.macro'
 
