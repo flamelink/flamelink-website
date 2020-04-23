@@ -271,4 +271,18 @@ exports.onCreateWebpackConfig = function onCreateWebpackConfig({
       }
     })
   }
+
+  // Fix Typeform for production builds
+  if (stage === 'build-html') {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /@typeform/,
+            use: loaders.null()
+          }
+        ]
+      }
+    })
+  }
 }
