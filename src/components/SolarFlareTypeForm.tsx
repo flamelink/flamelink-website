@@ -1,17 +1,16 @@
 import React from 'react'
 import { ReactTypeformEmbed } from 'react-typeform-embed'
-import Button from './Button'
 
 const URL = process.env.GATSBY_TYPEFORM_SOLAR_FLARE_URL
 
 type SolarFlareTypeFormProps = {
-  buttonText: string
-  buttonClassName: string
+  disclosure: JSX.Element
+  popup: boolean
 }
 
 const SolarFlareTypeForm = ({
-  buttonText = 'Contact Us',
-  buttonClassName = ''
+  disclosure,
+  popup = true
 }: SolarFlareTypeFormProps): JSX.Element => {
   const typeformRef = React.useRef()
 
@@ -22,23 +21,18 @@ const SolarFlareTypeForm = ({
   return (
     <>
       <ReactTypeformEmbed
-        popup
-        autoOpen={false}
+        popup={popup}
+        autoOpen={!popup}
         url={URL}
         hideHeaders
         hideFooter
-        buttonText="Go!"
-        style={{ display: 'none' }}
+        buttonText="Start"
+        style={popup ? { display: 'none' } : { height: '100vh' }}
         ref={typeformRef}
       />
-      <Button
-        variant="contained"
-        color="primary"
-        className={buttonClassName}
-        onClick={openForm}
-      >
-        {buttonText}
-      </Button>
+      {React.cloneElement(disclosure, {
+        onClick: openForm
+      })}
     </>
   )
 }
