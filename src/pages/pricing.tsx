@@ -230,8 +230,15 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
                       <Box>
                         {!plan.priceMonthly ? (
                           <SolarFlareTypeForm
-                            buttonText={plan.ctaText}
-                            buttonClassName={plan.smallPrint ? 'mb-3' : 'mb-12'}
+                            disclosure={
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                className={plan.smallPrint ? 'mb-3' : 'mb-12'}
+                              >
+                                {plan.ctaText}
+                              </Button>
+                            }
                           />
                         ) : (
                           <Button
