@@ -15,6 +15,7 @@ import {
 import { useTransitionStore } from 'gatsby-plugin-transitions'
 import ExternalLink from './ExternalLink'
 import Logo from './Logo'
+import SolarFlareTypeForm from './SolarFlareTypeForm'
 import FacebookIcon from '../icons/Facebook'
 import TwitterIcon from '../icons/Twitter'
 import YouTubeIcon from '../icons/YouTube'
@@ -260,12 +261,9 @@ function Footer() {
           <NavLink as={ExternalLink} href={FLAMELINK_REGISTRATION_LINK}>
             Register Today
           </NavLink>
-          <NavLink
-            as={ExternalLink}
-            href="mailto:solarflare@flamelink.io?subject=Solar%20Flare%20Enquiry"
-          >
-            Enterprise Enquiries
-          </NavLink>
+          <SolarFlareTypeForm
+            disclosure={<NavLink as="button">Enterprise Enquiries</NavLink>}
+          />
         </Column>
 
         <Column

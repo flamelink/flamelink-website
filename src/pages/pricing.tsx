@@ -16,6 +16,7 @@ import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import ExternalLink from '../components/ExternalLink'
 import ToggleButtons from '../components/ToggleButtons'
 import Button from '../components/Button'
+import SolarFlareTypeForm from '../components/SolarFlareTypeForm'
 import CheckMarkIcon from '../icons/CheckMark'
 import { PricingPageQueryQuery } from '../../types/graphql-types'
 
@@ -227,19 +228,29 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
                         </span>
                       </Box>
                       <Box>
-                        <Button
-                          variant={plan.priceMonthly ? 'outlined' : 'contained'}
-                          color="primary"
-                          className={plan.smallPrint ? 'mb-3' : 'mb-12'}
-                          as={ExternalLink}
-                          href={
-                            plan.priceMonthly
-                              ? `https://app.flamelink.io/?utm_source=website&utm_medium=pricecard&utm_campaign=${plan.name}`
-                              : 'mailto:solarflare@flamelink.io?subject=Solar%20Flare%20Enquiry'
-                          }
-                        >
-                          {plan.ctaText}
-                        </Button>
+                        {!plan.priceMonthly ? (
+                          <SolarFlareTypeForm
+                            disclosure={
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                className={plan.smallPrint ? 'mb-3' : 'mb-12'}
+                              >
+                                {plan.ctaText}
+                              </Button>
+                            }
+                          />
+                        ) : (
+                          <Button
+                            variant="outlined"
+                            color="primary"
+                            className={plan.smallPrint ? 'mb-3' : 'mb-12'}
+                            as={ExternalLink}
+                            href={`https://app.flamelink.io/?utm_source=website&utm_medium=pricecard&utm_campaign=${plan.name}`}
+                          >
+                            {plan.ctaText}
+                          </Button>
+                        )}
                       </Box>
                       {plan.smallPrint && (
                         <small className="leading-snug italic mb-4 inline-block">
