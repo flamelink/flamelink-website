@@ -83,7 +83,7 @@ jobs:
           GATSBY_SENTRY_DSN: ${{ secrets.GATSBY_SENTRY_DSN }}
 
       - name: Archive Build Artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: public
           path: public
@@ -132,9 +132,10 @@ jobs:
         uses: actions/checkout@master
 
       - name: Download Build Artifact
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v2
         with:
           name: public
+          path: public
 
       - name: Deploy to Firebase Hosting (Production)
         if: github.ref == 'refs/heads/master'

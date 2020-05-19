@@ -61,6 +61,7 @@ jobs:
           GOOGLE_ANALYTICS_TRACKING_ID: ${{ secrets.GOOGLE_ANALYTICS_TRACKING_ID }}
           GATSBY_SENTRY_DSN: ${{ secrets.GATSBY_SENTRY_DSN }}
           GATSBY_TYPEFORM_SOLAR_FLARE_URL: ${{ secrets.GATSBY_TYPEFORM_SOLAR_FLARE_URL }}
+          LINKEDIN_PARTNER_ID: ${{ secrets.LINKEDIN_PARTNER_ID }}
 
       - name: Build static files (Staging)
         if: github.event.deployment.ref == 'develop'
@@ -80,7 +81,7 @@ jobs:
           GATSBY_TYPEFORM_SOLAR_FLARE_URL: ${{ secrets.GATSBY_TYPEFORM_SOLAR_FLARE_URL }}
 
       - name: Archive Build Artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: public
           path: public
@@ -118,9 +119,10 @@ jobs:
         uses: actions/checkout@master
 
       - name: Download Build Artifact
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v2
         with:
           name: public
+          path: public
 
       - name: Deploy to Firebase Hosting (Production)
         if: github.event.deployment.ref == 'master'
