@@ -63,6 +63,7 @@ jobs:
           GOOGLE_ANALYTICS_TRACKING_ID: ${{ secrets.GOOGLE_ANALYTICS_TRACKING_ID }}
           GATSBY_TYPEFORM_SOLAR_FLARE_URL: ${{ secrets.GATSBY_TYPEFORM_SOLAR_FLARE_URL }}
           GATSBY_SENTRY_DSN: ${{ secrets.GATSBY_SENTRY_DSN }}
+          LINKEDIN_PARTNER_ID: ${{ secrets.LINKEDIN_PARTNER_ID }}
 
       - name: Build static files (Staging)
         if: github.ref == 'refs/heads/develop'
