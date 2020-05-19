@@ -96,6 +96,16 @@ module.exports = {
           }
         ]
       : []),
+    ...(process.env.LINKEDIN_PARTNER_ID
+      ? [
+          {
+            resolve: 'gatsby-plugin-linkedin-insight',
+            options: {
+              partnerId: process.env.LINKEDIN_PARTNER_ID,
+            }
+          }
+        ]
+      : []),
     {
       resolve: 'gatsby-transformer-remark',
       options: {
