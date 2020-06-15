@@ -436,21 +436,11 @@ export const query = graphql`
             key
             value
             link
+            bold
           }
         }
         recommendedPlan {
           name
-          tagline
-          currency
-          priceMonthly
-          priceAnnually
-          ctaText
-          smallPrint
-          features {
-            key
-            value
-            link
-          }
         }
         recommendPlanText
         enterprisePlan {
@@ -465,6 +455,7 @@ export const query = graphql`
             key
             value
             link
+            bold
           }
         }
         freePlan {
@@ -479,6 +470,7 @@ export const query = graphql`
             key
             value
             link
+            bold
           }
         }
       }

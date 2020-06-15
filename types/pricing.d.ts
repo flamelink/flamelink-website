@@ -2,6 +2,7 @@ export type PlanFeature = {
   key: string
   value: string
   link: string
+  bold: boolean
 }
 
 export type PricingPlan = {
