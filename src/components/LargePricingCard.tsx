@@ -60,7 +60,9 @@ const LargePricingCard = ({
           <span
             css={css`
               position: relative;
-              font-size: 5rem;
+              font-size: ${Number.isNaN(parseInt(plan.priceMonthly || '', 10))
+                ? '4rem'
+                : '5rem'};
               line-height: 0.7;
             `}
           >
@@ -76,15 +78,6 @@ const LargePricingCard = ({
               {plan.currency}
             </sup>
             {plan.priceMonthly || '0'}
-            <sub
-              className="text-sm leading-none absolute"
-              css={css`
-                bottom: -0.25rem;
-                right: -3ch;
-              `}
-            >
-              /mo
-            </sub>
           </span>
         </Box>
         {cta}
