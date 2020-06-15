@@ -1,5 +1,6 @@
 import React from 'react'
 import { css } from '@emotion/core'
+import { Link } from 'gatsby'
 import { PricingPlan } from '../../types/pricing'
 
 type PlanFeaturesListProps = {
@@ -45,8 +46,21 @@ const PlanFeaturesList = ({
           key={feature.key}
           className="flex flex-row justify-between align-baseline text-current font-normal px-1"
         >
-          <span className="mr-4">{feature.key}</span>
-          <span>{feature.value}</span>
+          {feature.link ? (
+            <>
+              <Link to={feature.link} className="mr-4 hover:underline">
+                {feature.key}
+              </Link>
+              <Link to={feature.link} className="hover:underline">
+                {feature.value}
+              </Link>
+            </>
+          ) : (
+            <>
+              <span className="mr-4">{feature.key}</span>
+              <span>{feature.value}</span>
+            </>
+          )}
         </li>
       ))}
     </ul>
