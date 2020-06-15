@@ -2,12 +2,13 @@ import React from 'react'
 import { css } from '@emotion/core'
 import { useStaticQuery, graphql } from 'gatsby'
 
-type Props = {
+type PageBannerProps = {
   title?: string
   style?: React.CSSProperties
+  children?: React.ReactNode | null
 }
 
-const PageBanner: React.FC<Props> = ({ title, children, style }) => {
+const PageBanner = ({ title, children = null, style }: PageBannerProps) => {
   const { bgPattern } = useStaticQuery(graphql`
     query PageBannerQueries {
       bgPattern: file(name: { eq: "background" }) {

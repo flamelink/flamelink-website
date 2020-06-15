@@ -5,6 +5,7 @@ const BRAND_COLOR = '#ff6633'
 const BRAND_COLOR_LIGHT = '#f9c2b1'
 const BRAND_COLOR_DARK = '#b83400' // '#f24e2d'
 const BRAND_COLOR_TEXT_HEADING = '#646464'
+const BRAND_COLOR_LIGHT_TEXT_BODY = '#4a4a4a'
 const BRAND_COLOR_TEXT_BODY = '#323232'
 
 module.exports = {
@@ -22,7 +23,9 @@ module.exports = {
           '100': '#f5f5f5',
           '400': '#c8c8c8',
           '500': 'rgba(50, 50, 50, 0.48)',
+          '550': '#6f6f6f',
           '600': BRAND_COLOR_TEXT_HEADING,
+          '700': BRAND_COLOR_LIGHT_TEXT_BODY,
           '800': BRAND_COLOR_TEXT_BODY
         }
       },
@@ -60,7 +63,8 @@ module.exports = {
       },
       maxWidth: {
         '4xl': '57.25rem',
-        '6xl': '71.375rem' // '69.375rem'
+        '6xl': '71.375rem', // '69.375rem'
+        '7xl': '86.4375rem'
       },
       margin: {
         '9': '2.25rem',
