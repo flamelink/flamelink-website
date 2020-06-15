@@ -48,7 +48,12 @@ const PlanFeaturesList = ({
         >
           {feature.link ? (
             <>
-              <Link to={feature.link} className="mr-4 hover:underline">
+              <Link
+                to={feature.link}
+                className={`mr-4 hover:underline ${
+                  feature.bold ? 'font-bold' : 'font-normal'
+                }`}
+              >
                 {feature.key}
               </Link>
               <Link to={feature.link} className="hover:underline">
@@ -57,7 +62,11 @@ const PlanFeaturesList = ({
             </>
           ) : (
             <>
-              <span className="mr-4">{feature.key}</span>
+              <span
+                className={`mr-4 ${feature.bold ? 'font-bold' : 'font-normal'}`}
+              >
+                {feature.key}
+              </span>
               <span>{feature.value}</span>
             </>
           )}
