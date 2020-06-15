@@ -232,7 +232,7 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
                               right: 1rem;
                             `}
                           >
-                            Preferred plan
+                            {get(plansSection, 'recommendPlanText', '')}
                           </small>
                         </>
                       )}
@@ -323,7 +323,7 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
               </Box>
             </Box>
             {get(plansSection, 'enterprisePlan') && (
-              <Box className="w-full mb-10">
+              <Box className="w-full mb-10 px-2">
                 <LargePricingCard
                   type="primary"
                   plan={get(plansSection, 'enterprisePlan')}
@@ -340,7 +340,7 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
               </Box>
             )}
             {get(plansSection, 'freePlan') && (
-              <Box className="w-full">
+              <Box className="w-full px-2">
                 <LargePricingCard
                   plan={get(plansSection, 'freePlan')}
                   cta={
