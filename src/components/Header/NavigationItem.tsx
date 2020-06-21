@@ -27,6 +27,7 @@ const NavLink = styled.button<{
   partiallyActive?: boolean
 }>`
   ${tw`
+    relative
     block md:inline-block
     m-0
     no-underline
@@ -35,13 +36,37 @@ const NavLink = styled.button<{
     md:text-sm
     lg:text-base
     text-white
-    hover:text-brand-dark
+    hover:text-brand
   `}
 
   line-height: 1;
   transition: all 300ms ease-out;
-
   padding: 0.875rem 0.6rem;
+
+  :after {
+    transition: all 450ms ease-out;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    content: '.';
+    color: transparent;
+    background: #fff;
+    visibility: none;
+    opacity: 0;
+    z-index: -1;
+  }
+
+  :hover:after {
+    opacity: 1;
+    visibility: visible;
+    height: 100%;
+  }
 
   @media (min-width: 840px) {
     padding: 0.875rem 1rem;
