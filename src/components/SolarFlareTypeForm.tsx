@@ -5,7 +5,7 @@ const URL = process.env.GATSBY_TYPEFORM_SOLAR_FLARE_URL
 
 type SolarFlareTypeFormProps = {
   disclosure: JSX.Element
-  popup: boolean
+  popup?: boolean
 }
 
 const SolarFlareTypeForm = ({

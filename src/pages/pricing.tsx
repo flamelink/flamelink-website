@@ -3,7 +3,6 @@ import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import tw from 'tailwind.macro'
-import { useTransition, animated } from 'react-spring'
 import { Box } from 'reakit/Box'
 import get from 'lodash/get'
 import { AiOutlineWarning as WarningIcon } from 'react-icons/ai'
@@ -14,29 +13,19 @@ import PageBanner from '../components/PageBanner'
 import { PageContent } from '../components/PageContent'
 import { Section, SectionContainer, SectionTitle } from '../components/Section'
 import ExternalLink from '../components/ExternalLink'
-import ToggleButtons from '../components/ToggleButtons'
 import Button from '../components/Button'
 import SolarFlareTypeForm from '../components/SolarFlareTypeForm'
+import LargePricingCard from '../components/LargePricingCard'
+import PlanFeaturesList from '../components/PlanFeaturesList'
 import CheckMarkIcon from '../icons/CheckMark'
 import { PricingPageQueryQuery } from '../../types/graphql-types'
-
-type PricingPlan = {
-  name: string
-  tagline: string
-  currency?: string
-  priceMonthly?: string
-  priceAnnually?: string
-  ctaText?: string
-  smallPrint?: string
-  features: string[]
-}
+import { PricingPlan } from '../../types/pricing'
 
 const PricingPlanCard = styled.li`
-  ${tw`shadow py-10 px-8 md:mx-4 text-center border-2 flex-shrink-1`}
+  ${tw`relative shadow pt-8 md:pt-10 pb-10 md:pb-15 px-5 md:mx-2 text-center flex flex-col`}
 
-  width: 21.875rem;
-  max-width: 100%;
   border-radius: 1px;
+  border-width: 3px;
 
   &:not(:last-child) {
     margin-bottom: 1.5rem;
@@ -49,6 +38,27 @@ const PricingPlanCard = styled.li`
   }
 `
 
+const Ribbon = styled.span`
+  ${tw`bg-brand text-brand`}
+
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: 1.625rem;
+  height: 2.25rem;
+
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    bottom: -0.5rem;
+    border-left: 0.8125rem solid currentColor;
+    border-right: 0.8125rem solid currentColor;
+    border-bottom: 0.5rem solid transparent;
+  }
+`
+
 function PricingPage({ data }: { data: PricingPageQueryQuery }) {
   const {
     pageTitle,
@@ -58,28 +68,25 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
     termsSection
   } = get(data, 'flamelinkPricingPageContent', {})
 
-  const [selectedOption, setSelectedOption] = React.useState('Business')
-
-  const transitions = useTransition(selectedOption, item => item, {
-    from: {
-      opacity: 0,
-      position: 'absolute'
-    },
-    enter: {
-      opacity: 1,
-      position: 'static'
-    },
-    leave: {
-      opacity: 0,
-      position: 'absolute'
-    }
-  })
-
   const allPlans: PricingPlan[] = React.useMemo(() => {
-    return get(plansSection, 'individualPlans', []).concat(
-      get(plansSection, 'businessPlans', [])
-    )
+    return get(plansSection, 'plans', []).concat([
+      get(plansSection, 'enterprisePlan'),
+      get(plansSection, 'freePlan')
+    ])
   }, [plansSection])
+
+  const scrollToStandardFeatures = React.useCallback(e => {
+    e.preventDefault()
+
+    const standardFeaturesSection = document.getElementById('standard-features')
+
+    if (standardFeaturesSection) {
+      standardFeaturesSection.scrollIntoView({
+        block: 'start',
+        behavior: 'smooth'
+      })
+    }
+  }, [])
 
   return (
     <>
@@ -162,126 +169,197 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
         </Section>
         <Section className="bg-gray-100">
           <SectionContainer>
-            <SectionTitle>{get(plansSection, 'title', '')}</SectionTitle>
-            <ToggleButtons
-              selected={selectedOption}
-              options={['Individuals', 'Business']}
-              onChange={setSelectedOption}
-              className="mb-15"
+            <SectionTitle
+              css={css`
+                margin-bottom: 1.25rem;
+              `}
+            >
+              {get(plansSection, 'title', '')}
+            </SectionTitle>
+            <Box
+              className="max-w-2xl text-gray-700 text-center mb-4 md:mb-10"
+              css={css`
+                p {
+                  ${tw`mb-5`}
+                }
+                p em {
+                  ${tw`text-brand not-italic`}
+                }
+              `}
+              dangerouslySetInnerHTML={{
+                __html: get(
+                  plansSection,
+                  'excerpt.childMarkdownRemark.html',
+                  ''
+                )
+              }}
             />
-            <Box className="relative w-full">
-              {transitions.map(({ item, props, key }) => (
-                <Box
-                  as={animated.ul}
-                  key={key}
-                  style={props}
-                  className="flex flex-col md:flex-row flex-no-wrap md:justify-center items-center md:items-stretch w-auto md:w-full"
-                >
-                  {(item === 'Individuals'
-                    ? get(plansSection, 'individualPlans', [])
-                    : get(plansSection, 'businessPlans', [])
-                  ).map((plan: PricingPlan) => (
-                    <PricingPlanCard
-                      key={plan.name}
-                      css={
-                        !plan.priceMonthly
-                          ? css`
-                              ${tw`border-brand`}
-                            `
-                          : css`
-                              ${tw`border-transparent`}
-                            `
-                      }
+          </SectionContainer>
+          <SectionContainer
+            css={css`
+              ${tw`max-w-7xl`}
+            `}
+          >
+            <Box className="relative w-full mb-10">
+              <Box as="ul" className="grid grid-cols-1 md:grid-cols-4">
+                {get(plansSection, 'plans', []).map((plan: PricingPlan) => (
+                  <PricingPlanCard
+                    key={plan.name}
+                    css={
+                      plan.name === get(plansSection, 'recommendedPlan.name')
+                        ? css`
+                            ${tw`border-brand`}
+                          `
+                        : css`
+                            ${tw`border-transparent`}
+                          `
+                    }
+                  >
+                    <header
+                      className="flex-grow-0"
+                      css={css`
+                        min-height: 6.25rem;
+                      `}
                     >
-                      <header
-                        css={css`
-                          min-height: 6.25rem;
+                      {plan.name ===
+                        get(plansSection, 'recommendedPlan.name') && (
+                        <>
+                          <Ribbon />
+                          <small
+                            className="text-brand absolute text-xs md:text-sm italic"
+                            css={css`
+                              top: 0.5rem;
+                              right: 1rem;
+                            `}
+                          >
+                            {get(plansSection, 'recommendPlanText', '')}
+                          </small>
+                        </>
+                      )}
+
+                      <h2 className="text-brand text-5xl leading-snug font-normal mb-2">
+                        {plan.name}
+                      </h2>
+                      <h3
+                        className="text-gray-700 text-base font-light leading-snug"
+                        css={props => css`
+                          @media screen and (min-width: ${props.screens.md}) {
+                            min-height: calc(
+                              1em * 1.375 * 4
+                            ); /* at least 4 rows */
+                          }
                         `}
                       >
-                        <h2 className="text-brand text-5xl leading-snug font-light">
-                          {plan.name}
-                        </h2>
-                        <h3 className="text-base leading-snug">
-                          {plan.tagline}
-                        </h3>
-                      </header>
-                      <Box
-                        className={`flex flex-row justify-center items-baseline text-heading font-light py-10 ${
-                          !plan.priceMonthly ? 'opacity-0' : 'opacity-100'
-                        }`}
+                        {plan.tagline}
+                      </h3>
+                    </header>
+                    <Box
+                      className={`flex flex-row justify-center items-baseline font-light py-5 flex-grow-0 ${
+                        !plan.priceMonthly ? 'opacity-0' : 'opacity-100'
+                      } ${
+                        plan.name === get(plansSection, 'recommendedPlan.name')
+                          ? 'text-brand'
+                          : 'text-heading'
+                      }`}
+                    >
+                      <span
+                        css={css`
+                          position: relative;
+                          font-size: 5rem;
+                          line-height: 0.7;
+                        `}
                       >
-                        <span
+                        <sup
                           css={css`
-                            font-size: 2.3125rem;
+                            font-size: 1.8125rem;
                             line-height: 1;
+                            position: absolute;
+                            top: 0;
+                            left: -1ch;
                           `}
                         >
                           {plan.currency}
-                        </span>
-                        <span
+                        </sup>
+                        {plan.priceMonthly || '0'}
+                        <sub
+                          className="text-sm leading-none absolute"
                           css={css`
-                            font-size: 5rem;
-                            line-height: 1;
+                            bottom: -0.25rem;
+                            right: -3ch;
                           `}
                         >
-                          {plan.priceMonthly || '0'}
-                        </span>
-                      </Box>
-                      <Box>
-                        {!plan.priceMonthly ? (
-                          <SolarFlareTypeForm
-                            disclosure={
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                className={plan.smallPrint ? 'mb-3' : 'mb-12'}
-                              >
-                                {plan.ctaText}
-                              </Button>
-                            }
-                          />
-                        ) : (
-                          <Button
-                            variant="outlined"
-                            color="primary"
-                            className={plan.smallPrint ? 'mb-3' : 'mb-12'}
-                            as={ExternalLink}
-                            href={`https://app.flamelink.io/?utm_source=website&utm_medium=pricecard&utm_campaign=${plan.name}`}
-                          >
-                            {plan.ctaText}
-                          </Button>
-                        )}
-                      </Box>
-                      {plan.smallPrint && (
-                        <small className="leading-snug italic mb-4 inline-block">
-                          {plan.smallPrint}
-                        </small>
-                      )}
-                      <hr className="mb-9" />
-                      <ul>
-                        {(get(
-                          plan,
-                          'features',
-                          []
-                        ) as PricingPlan['features']).map(feature => (
-                          <li
-                            key={feature}
-                            css={css`
-                              line-height: 1.88;
-                            `}
-                          >
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </PricingPlanCard>
-                  ))}
-                </Box>
-              ))}
+                          /mo
+                        </sub>
+                      </span>
+                    </Box>
+                    {plan.smallPrint && (
+                      <small className="leading-snug mb-5 inline-block flex-grow-0 font-normal text-gray-550">
+                        {plan.smallPrint}
+                      </small>
+                    )}
+                    <PlanFeaturesList
+                      features={get(plan, 'features', [])}
+                      className="mb-3 flex-grow-0 text-heading"
+                      caged
+                    />
+                    <Box className="w-full flex flex-col justify-between items-center flex-grow">
+                      <button
+                        className="text-brand hover:underline mb-5 text-sm leading-snug"
+                        onClick={scrollToStandardFeatures}
+                      >
+                        Standard features included
+                      </button>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        as={ExternalLink}
+                        href={`https://app.flamelink.io/?utm_source=website&utm_medium=pricecard&utm_campaign=${plan.name}`}
+                      >
+                        {plan.ctaText}
+                      </Button>
+                    </Box>
+                  </PricingPlanCard>
+                ))}
+              </Box>
             </Box>
+            {get(plansSection, 'enterprisePlan') && (
+              <Box className="w-full mb-10 px-2">
+                <LargePricingCard
+                  type="primary"
+                  plan={get(plansSection, 'enterprisePlan')}
+                  cta={
+                    <SolarFlareTypeForm
+                      disclosure={
+                        <Button variant="contained" color="secondary">
+                          {plansSection.enterprisePlan.ctaText}
+                        </Button>
+                      }
+                    />
+                  }
+                />
+              </Box>
+            )}
+            {get(plansSection, 'freePlan') && (
+              <Box className="w-full px-2">
+                <LargePricingCard
+                  plan={get(plansSection, 'freePlan')}
+                  cta={
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      as={ExternalLink}
+                      href={`https://app.flamelink.io/?utm_source=website&utm_medium=pricecard&utm_campaign=${plansSection.freePlan.name}`}
+                    >
+                      {plansSection.freePlan.ctaText}
+                    </Button>
+                  }
+                />
+              </Box>
+            )}
+            <Box className="w-full"></Box>
           </SectionContainer>
         </Section>
-        <Section className="bg-white">
+        <Section className="bg-white" id="standard-features">
           <SectionContainer>
             <SectionTitle>
               {get(standardFeaturesSection, 'title', '')}
@@ -341,17 +419,12 @@ export const query = graphql`
       excerpt
       plansSection {
         title
-        individualPlans {
-          name
-          tagline
-          currency
-          priceMonthly
-          priceAnnually
-          ctaText
-          smallPrint
-          features
+        excerpt {
+          childMarkdownRemark {
+            html
+          }
         }
-        businessPlans {
+        plans {
           name
           tagline
           currency
@@ -359,7 +432,46 @@ export const query = graphql`
           priceAnnually
           ctaText
           smallPrint
-          features
+          features {
+            key
+            value
+            link
+            bold
+          }
+        }
+        recommendedPlan {
+          name
+        }
+        recommendPlanText
+        enterprisePlan {
+          name
+          tagline
+          currency
+          priceMonthly
+          priceAnnually
+          ctaText
+          smallPrint
+          features {
+            key
+            value
+            link
+            bold
+          }
+        }
+        freePlan {
+          name
+          tagline
+          currency
+          priceMonthly
+          priceAnnually
+          ctaText
+          smallPrint
+          features {
+            key
+            value
+            link
+            bold
+          }
         }
       }
       standardFeaturesSection {
