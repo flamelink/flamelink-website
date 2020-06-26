@@ -213,6 +213,11 @@ exports.createPages = async function({ actions, graphql }) {
                 }
               }
             }
+            cta {
+              text
+              link
+              show
+            }
             seo {
               title
               keywords
@@ -233,6 +238,7 @@ exports.createPages = async function({ actions, graphql }) {
       content: {
         childMarkdownRemark: { html }
       },
+      cta,
       seo
     } = landingPage.node
 
@@ -246,6 +252,7 @@ exports.createPages = async function({ actions, graphql }) {
         slug: fullSlug,
         html,
         backgroundImage,
+        cta,
         seo,
         locale
       }

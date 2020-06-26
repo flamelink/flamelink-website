@@ -1,7 +1,10 @@
 import React from 'react'
+import { Link } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
 import get from 'lodash/get'
 import SEO from '../components/SEO'
+import Button from '../components/Button'
+import ExternalLink from '../components/ExternalLink'
 import PageBanner from '../components/PageBanner'
 import { PageContent } from '../components/PageContent'
 import { Section, SectionContainer } from '../components/Section'
@@ -23,7 +26,9 @@ type PageProps = {
 const LandingPage: React.FC<PageProps> = ({ pageContext }) => (
   <>
     <SEO
-      keywords={get(pageContext, 'seo.keywords') || ['flamelink', pageContext.title]}
+      keywords={
+        get(pageContext, 'seo.keywords') || ['flamelink', pageContext.title]
+      }
       title={get(pageContext, 'seo.title') || get(pageContext, 'title', '')}
       description={get(pageContext, 'seo.description', '')}
       url={get(pageContext, 'slug', '')}
@@ -56,6 +61,18 @@ const LandingPage: React.FC<PageProps> = ({ pageContext }) => (
           }}
         />
       </SectionContainer>
+
+      {get(pageContext, 'cta.show', false) && (
+        <Button
+          variant="contained"
+          color="primary"
+          as={pageContext?.cta?.link?.startsWith('http') ? ExternalLink : Link}
+          href={get(pageContext, 'cta.link', '#')}
+          className="mt-4"
+        >
+          {get(pageContext, 'cta.text', 'Get Started')}
+        </Button>
+      )}
     </Section>
   </>
 )
