@@ -50,7 +50,7 @@ const PlanFeaturesList = ({
             <>
               <Link
                 to={feature.link}
-                className={`mr-4 hover:underline ${
+                className={`mr-4 text-brand hover:underline ${
                   feature.bold ? 'font-bold' : 'font-normal'
                 }`}
               >
