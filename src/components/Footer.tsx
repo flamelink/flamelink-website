@@ -275,8 +275,8 @@ function Footer() {
           <NavLink as={ExternalLink} href={DOCUMENTATION_LINK}>
             Documentation
           </NavLink>
-          <NavLink as={Link} to="/slack">
-            Slack Community
+          <NavLink as={Link} to="/support">
+            Support
           </NavLink>
           <NavLink as={ExternalLink} href={APP_CHANGELOG_LINK}>
             Changelog
