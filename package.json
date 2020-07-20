@@ -80,7 +80,7 @@
     "gatsby-transformer-sharp": "2.3.12",
     "graphql": "14.5.8",
     "intersection-observer": "0.7.0",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "postcss-import": "12.0.1",
     "prop-types": "15.7.2",
     "react": "16.11.0",
