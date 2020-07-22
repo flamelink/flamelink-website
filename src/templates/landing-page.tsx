@@ -66,7 +66,7 @@ const LandingPage: React.FC<PageProps> = ({ pageContext }) => (
         <Button
           variant="contained"
           color="primary"
-          as={pageContext?.cta?.link?.startsWith('http') ? ExternalLink : Link}
+          as={pageContext?.cta?.link?.startsWith('/') ? Link : ExternalLink}
           href={get(pageContext, 'cta.link', '#')}
           className="mt-4"
         >
