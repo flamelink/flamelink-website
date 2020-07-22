@@ -278,6 +278,9 @@ function Footer() {
           <NavLink as={Link} to="/support">
             Support
           </NavLink>
+          <NavLink as={Link} to="/flamelink-specialist-services">
+            Specialist Services
+          </NavLink>
           <NavLink as={ExternalLink} href={APP_CHANGELOG_LINK}>
             Changelog
           </NavLink>
