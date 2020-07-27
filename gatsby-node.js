@@ -213,6 +213,17 @@ exports.createPages = async function({ actions, graphql }) {
                 }
               }
             }
+            featuresSection {
+              title
+              keyFeatures {
+                title
+                excerpt
+                icon {
+                  url
+                }
+              }
+              show
+            }
             cta {
               text
               link
@@ -238,6 +249,7 @@ exports.createPages = async function({ actions, graphql }) {
       content: {
         childMarkdownRemark: { html }
       },
+      featuresSection,
       cta,
       seo
     } = landingPage.node
@@ -252,6 +264,7 @@ exports.createPages = async function({ actions, graphql }) {
         slug: fullSlug,
         html,
         backgroundImage,
+        featuresSection,
         cta,
         seo,
         locale
