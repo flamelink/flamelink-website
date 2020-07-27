@@ -83,7 +83,11 @@ export type InterfaceSlide = {
   image: FluidObject
 }
 
-const InterfacesSlider: React.FC = () => {
+const InterfacesSlider = ({
+  withoutCTA = false
+}: {
+  withoutCTA?: boolean
+}): JSX.Element | null => {
   const { flamelinkInterfacesSliderContent } = useStaticQuery(graphql`
     query InterfacesSliderQuery {
       flamelinkInterfacesSliderContent {
@@ -148,14 +152,16 @@ const InterfacesSlider: React.FC = () => {
           </Slide>
         ))}
       </Slider>
-      <Button
-        variant="contained"
-        color="primary"
-        as={ExternalLink}
-        href={get(flamelinkInterfacesSliderContent, 'cta.url', '#')}
-      >
-        {get(flamelinkInterfacesSliderContent, 'cta.text', 'Get Started')}
-      </Button>
+      {!withoutCTA && (
+        <Button
+          variant="contained"
+          color="primary"
+          as={ExternalLink}
+          href={get(flamelinkInterfacesSliderContent, 'cta.url', '#')}
+        >
+          {get(flamelinkInterfacesSliderContent, 'cta.text', 'Get Started')}
+        </Button>
+      )}
     </Section>
   )
 }
