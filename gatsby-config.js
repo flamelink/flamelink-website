@@ -90,7 +90,7 @@ module.exports = {
               routeChangeEventName: 'e_routeChange',
               defaultDataLayer: {
                 environmentName: process.env.FLAMELINK_ENV,
-                pageType: 'help',
+                pageType: 'page',
                 siteName: 'www'
               }
             }
