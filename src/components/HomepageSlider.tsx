@@ -266,6 +266,9 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                                     className="mb-4 md:mr-4"
                                     icon={<PlayIcon />}
                                     tabIndex={active === index - 1 ? 0 : -1}
+                                    data-click-type="cta"
+                                    data-click-location="homepage slider"
+                                    data-click-text={cta.text}
                                   >
                                     {cta.text}
                                   </Button>
@@ -290,6 +293,9 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                                     `}
                                 `}
                                 tabIndex={active === index - 1 ? 0 : -1}
+                                data-click-type="cta"
+                                data-click-location="homepage slider"
+                                data-click-text={cta.text}
                               >
                                 {cta.text}
                               </Button>

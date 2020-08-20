@@ -4,10 +4,12 @@ type Props = {
   href: string
   className?: string
   children?: React.ReactNode
+  dataClickLocation?: string
+  dataClickText?: string
 }
 
 const ExternalLink = React.forwardRef<HTMLAnchorElement, Props>(
-  ({ href, children, className }, ref) => {
+  ({ href, children, className, dataClickLocation, dataClickText }, ref) => {
     return (
       <a
         ref={ref}
@@ -15,6 +17,9 @@ const ExternalLink = React.forwardRef<HTMLAnchorElement, Props>(
         target="_blank"
         href={href}
         className={className}
+        data-click-type="cta"
+        data-click-location={dataClickLocation}
+        data-click-text={dataClickText}
       >
         {children}
       </a>
