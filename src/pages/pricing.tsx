@@ -314,6 +314,8 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
                         color="primary"
                         as={ExternalLink}
                         href={`https://app.flamelink.io/?utm_source=website&utm_medium=pricecard&utm_campaign=${plan.name}`}
+                        dataClickLocation={`pricing page ${plan.name}`}
+                        dataClickText={plan.ctaText}
                       >
                         {plan.ctaText}
                       </Button>
@@ -330,7 +332,13 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
                   cta={
                     <SolarFlareTypeForm
                       disclosure={
-                        <Button variant="contained" color="secondary">
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          data-click-type="cta"
+                          data-click-location="solarflare"
+                          data-click-text={plansSection.enterprisePlan.ctaText}
+                        >
                           {plansSection.enterprisePlan.ctaText}
                         </Button>
                       }
@@ -349,6 +357,8 @@ function PricingPage({ data }: { data: PricingPageQueryQuery }) {
                       color="primary"
                       as={ExternalLink}
                       href={`https://app.flamelink.io/?utm_source=website&utm_medium=pricecard&utm_campaign=${plansSection.freePlan.name}`}
+                      dataClickLocation={`pricing page ${plansSection.freePlan.name}`}
+                      dataClickText={plansSection.freePlan.ctaText}
                     >
                       {plansSection.freePlan.ctaText}
                     </Button>

@@ -184,6 +184,9 @@ const CaseStudyRevealItem: React.FC<Props> = ({
                     transform: scale(1.1);
                   }
                 `}
+                data-click-type="cta"
+                data-click-location={`case studies ${title}`}
+                data-click-text="learn more"
               >
                 <span>Learn More</span>
                 <ArrowRight

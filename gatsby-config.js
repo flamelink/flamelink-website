@@ -80,6 +80,23 @@ module.exports = {
       : []),
     'gatsby-plugin-typescript',
     'gatsby-plugin-emotion',
+    ...(process.env.GTM_TRACKING_ID
+      ? [
+          {
+            resolve: 'gatsby-plugin-google-tagmanager',
+            options: {
+              id: process.env.GTM_TRACKING_ID,
+              includeInDevelopment: false,
+              routeChangeEventName: 'e_routeChange',
+              defaultDataLayer: {
+                environmentName: process.env.FLAMELINK_ENV,
+                pageType: 'page',
+                siteName: 'www'
+              }
+            }
+          }
+        ]
+      : []),
     ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID
       ? [
           {
@@ -101,7 +118,7 @@ module.exports = {
           {
             resolve: 'gatsby-plugin-linkedin-insight',
             options: {
-              partnerId: process.env.LINKEDIN_PARTNER_ID,
+              partnerId: process.env.LINKEDIN_PARTNER_ID
             }
           }
         ]
