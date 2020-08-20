@@ -59,6 +59,7 @@ jobs:
           GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_MESSAGING_SENDER_ID }}
           GATSBY_FIREBASE_CONFIG_APP_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_APP_ID }}
           GOOGLE_ANALYTICS_TRACKING_ID: ${{ secrets.GOOGLE_ANALYTICS_TRACKING_ID }}
+          GTM_TRACKING_ID: ${{ secrets.GTM_TRACKING_ID }}
           GATSBY_SENTRY_DSN: ${{ secrets.GATSBY_SENTRY_DSN }}
           GATSBY_TYPEFORM_SOLAR_FLARE_URL: ${{ secrets.GATSBY_TYPEFORM_SOLAR_FLARE_URL }}
           LINKEDIN_PARTNER_ID: ${{ secrets.LINKEDIN_PARTNER_ID }}
@@ -79,6 +80,7 @@ jobs:
           GATSBY_FIREBASE_CONFIG_APP_ID: ${{ secrets.GATSBY_FIREBASE_CONFIG_APP_ID }}
           GATSBY_SENTRY_DSN: ${{ secrets.GATSBY_SENTRY_DSN }}
           GATSBY_TYPEFORM_SOLAR_FLARE_URL: ${{ secrets.GATSBY_TYPEFORM_SOLAR_FLARE_URL }}
+          GTM_TRACKING_ID: ${{ secrets.GTM_TRACKING_ID }}
 
       - name: Archive Build Artifact
         uses: actions/upload-artifact@v2
