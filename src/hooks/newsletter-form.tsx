@@ -40,6 +40,8 @@ export const useNewsletterForm = () => {
             created: Date.now()
           })
 
+        window.dataLayer.push({'event':'e_newsletterSignup'});
+
         console.log(
           '[FLAMELINK]: Successfully subscribed to newsletter',
           payload
