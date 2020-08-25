@@ -67,80 +67,82 @@ function CaseStudiesPage({ data }: { data: CaseStudiesPageQueryQuery }) {
 export default CaseStudiesPage
 
 export const query = graphql`
-  query CaseStudiesPageQuery {
-    flamelinkCaseStudiesPageContent {
-      pageTitle
-      excerpt
-      useCasesSection {
-        title
-        useCases {
-          title
-          icon {
-            url
-          }
-        }
-      }
-    }
-    caseStudies: allFlamelinkCaseStudiesContent(
-      filter: { _fl_meta_: { status: { eq: "publish" } } }
-    ) {
-      edges {
-        node {
-          title
-          slug
-          excerpt
-          brandColour
-          pageSections {
-            imageYOverlap
-            imagePosition
-            heading
-            content {
-              childMarkdownRemark {
-                html
-              }
-            }
-            icon {
-              url
-            }
-            image {
-              localFile {
-                childImageSharp {
-                  fluid {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
-                }
-              }
-            }
-          }
-          logo {
-            localFile {
-              childImageSharp {
-                fluid {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
-              }
-            }
-          }
-          backgroundImage {
-            localFile {
-              childImageSharp {
-                fluid {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
-              }
-            }
-          }
-          mainImage {
-            localFile {
-              childImageSharp {
-                fluid {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
+         query CaseStudiesPageQuery {
+           flamelinkCaseStudiesPageContent {
+             pageTitle
+             excerpt
+             useCasesSection {
+               title
+               useCases {
+                 title
+                 icon {
+                   url
+                 }
+               }
+             }
+           }
+           caseStudies: allFlamelinkCaseStudiesContent(
+             filter: { _fl_meta_: { status: { eq: "publish" } } }
+             sort: { fields: [order], order: ASC }
+           ) {
+             edges {
+               node {
+                 title
+                 slug
+                 excerpt
+                 brandColour
+                 order
+                 pageSections {
+                   imageYOverlap
+                   imagePosition
+                   heading
+                   content {
+                     childMarkdownRemark {
+                       html
+                     }
+                   }
+                   icon {
+                     url
+                   }
+                   image {
+                     localFile {
+                       childImageSharp {
+                         fluid {
+                           ...GatsbyImageSharpFluid_withWebp
+                         }
+                       }
+                     }
+                   }
+                 }
+                 logo {
+                   localFile {
+                     childImageSharp {
+                       fluid {
+                         ...GatsbyImageSharpFluid_withWebp
+                       }
+                     }
+                   }
+                 }
+                 backgroundImage {
+                   localFile {
+                     childImageSharp {
+                       fluid {
+                         ...GatsbyImageSharpFluid_withWebp
+                       }
+                     }
+                   }
+                 }
+                 mainImage {
+                   localFile {
+                     childImageSharp {
+                       fluid {
+                         ...GatsbyImageSharpFluid_withWebp
+                       }
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       `
