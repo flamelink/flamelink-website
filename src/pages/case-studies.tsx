@@ -83,6 +83,7 @@ export const query = graphql`
     }
     caseStudies: allFlamelinkCaseStudiesContent(
       filter: { _fl_meta_: { status: { eq: "publish" } } }
+      sort: { fields: [order], order: ASC }
     ) {
       edges {
         node {
@@ -90,6 +91,8 @@ export const query = graphql`
           slug
           excerpt
           brandColour
+          order
+          seoKeywords
           pageSections {
             imageYOverlap
             imagePosition

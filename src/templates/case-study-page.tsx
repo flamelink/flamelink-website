@@ -16,6 +16,7 @@ type PageContext = {
   logo: any[]
   backgroundImage: any[]
   pageSections: PageSection[]
+  seoKeywords: string
 }
 
 type PageProps = {
@@ -26,13 +27,9 @@ const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
   return (
     <>
       <SEO
-        keywords={['flamelink', 'case study', pageContext.title]}
+        keywords={[pageContext.seoKeywords]}
         title={pageContext.title}
-        description={`Flamelink case study for ${pageContext.title}. ${get(
-          pageContext,
-          'pageSections[0].content',
-          ''
-        )}`}
+        description={`Flamelink case study for ${pageContext.title}. ${pageContext.excerpt}`}
         url={pageContext.slug}
         image={get(
           pageContext,

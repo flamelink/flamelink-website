@@ -25,7 +25,7 @@ type Props = {
   heading: string
   content: string | HtmlContent
   bg: 'white' | 'gray'
-  imagePosition?: 'left' | 'right'
+  imagePosition?: 'left' | 'right' | 'fullWidth'
   imageYOverlap?: string
   fluidImage?: any // TODO: fix
 }
@@ -160,7 +160,12 @@ const ImageRevealSection: React.FC<Props> = ({
           `}
           className="relative flex-grow-0 flex-shrink-0 mx-8"
         >
-          <Box className="w-full md:w-1/2 relative">
+          <Box
+            css={css`
+              ${imagePosition === 'fullWidth' ? '' : tw`md:w-1/2`}
+            `}
+            className="w-full relative"
+          >
             <header className="flex justify-start items-center w-full mb-5">
               {iconUrl && (
                 <span className="w-8 h-8 mr-2">
