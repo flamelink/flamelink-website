@@ -24,8 +24,6 @@ type PageProps = {
 }
 
 const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
-  console.log(pageContext.seoKeywords || 'oops');
-  
   return (
     <>
       <SEO
