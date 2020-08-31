@@ -11,7 +11,7 @@ class NotFoundPage extends Component {
     const isSSR = typeof window === 'undefined'
 
     if (!isSSR) {
-      window.dataLayer.push({ event: 'e_httpError' })
+      window.dataLayer.push({ event: 'e_httpError', httpErrorCode: '404' })
     }
   }
 

@@ -22,7 +22,3 @@ export const onClientEntry = () => {
 export const shouldUpdateScroll = () => {
   return false
 }
-
-export const onRouteUpdate = () => {
-  window.dataLayer.push({ event: 'e_menuNav' })
-}

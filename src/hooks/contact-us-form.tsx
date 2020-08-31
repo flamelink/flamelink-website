@@ -42,7 +42,10 @@ export const useContactUsForm = () => {
             created: Date.now()
           })
 
-        window.dataLayer.push({ event: 'e_formSubmit' })
+        window.dataLayer.push({
+          event: 'e_formSubmit',
+          formName: 'Contact Us Form'
+        })
 
         console.log(
           '[FLAMELINK]: Successfully submitted contact us form',
