@@ -92,6 +92,14 @@ const NavMenuItem = styled.a<{ as?: unknown }>`
   ${tw`block py-2 md:py-1 px-4 no-underline hover:underline font-normal text-white text-base`}
 `
 
+const handleGTMClick = (menuName: string) => {
+  window.dataLayer.push({
+    event: 'e_menuNav',
+    menuType: 'header',
+    menuName
+  })
+}
+
 const NavigationItem: React.FC<CmsNavItem> = item => {
   const key = item.flamelink_id
   if (!isEmpty(item.flamelink_children)) {
@@ -137,6 +145,7 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
       {...(item.newWindow ? { href: item.url } : { to: item.url })}
       activeClassName="active"
       partiallyActive
+      onClick={() => handleGTMClick(item.title)}
     >
       {item.title}
     </NavLink>
