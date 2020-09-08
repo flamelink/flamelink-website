@@ -28,6 +28,7 @@ type Props = {
   imagePosition?: 'left' | 'right' | 'fullWidth'
   imageYOverlap?: string
   fluidImage?: any // TODO: fix
+  brandColour?: string
 }
 
 const ImageContainer = styled(Box)<{
@@ -78,7 +79,8 @@ const ImageRevealSection: React.FC<Props> = ({
   bg,
   fluidImage,
   imagePosition,
-  imageYOverlap
+  imageYOverlap,
+  brandColour
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null!)
   const {
@@ -189,6 +191,10 @@ const ImageRevealSection: React.FC<Props> = ({
             <PageContent
               css={css`
                 ${tw`mx-0 sm:mx-0`}
+
+                a:hover {
+                  color: ${brandColour}
+                }
               `}
               dangerouslySetInnerHTML={{
                 __html: get(content, 'childMarkdownRemark.html', content)
