@@ -15,7 +15,7 @@ const DemoVideo = ({ visible }: { visible: boolean }) => {
       src="https://www.youtube.com/embed/8Cw5ktNADBQ?autoplay=1"
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       title="Player for Flamelink.io a Firebase CMS"
-    ></iframe>
+    />
   )
 }
 
