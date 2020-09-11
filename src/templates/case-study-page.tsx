@@ -56,6 +56,7 @@ const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
             key={index}
             bg={index % 2 === 0 ? 'white' : 'gray'}
             iconUrl={get(pageSection, 'icon[0].url')}
+            showIcon={pageSection.showIcon}
             heading={pageSection.heading}
             content={pageSection.content}
             imagePosition={get(pageSection, 'imagePosition') || 'right'}
