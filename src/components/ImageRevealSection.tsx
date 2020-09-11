@@ -22,6 +22,7 @@ type HtmlContent = {
 
 type Props = {
   iconUrl?: string
+  showIcon: boolean
   heading: string
   content: string | HtmlContent
   bg: 'white' | 'gray'
@@ -74,6 +75,7 @@ const StyledBackgroundImage = styled(BackgroundImage)`
 
 const ImageRevealSection: React.FC<Props> = ({
   iconUrl,
+  showIcon,
   heading,
   content,
   bg,
@@ -169,7 +171,7 @@ const ImageRevealSection: React.FC<Props> = ({
             className="w-full relative"
           >
             <header className="flex justify-start items-center w-full mb-5">
-              {iconUrl && (
+              {showIcon === false ? null : iconUrl && (
                 <span className="w-8 h-8 mr-2">
                   <img
                     src={iconUrl}
@@ -194,6 +196,10 @@ const ImageRevealSection: React.FC<Props> = ({
 
                 a:hover {
                   color: ${brandColour}
+                }
+
+                ul {
+                  ${tw`list-outside ml-4`}
                 }
               `}
               dangerouslySetInnerHTML={{

@@ -56,6 +56,7 @@ exports.createPages = async function({ actions, graphql }) {
               icon {
                 url
               }
+              showIcon
               image {
                 localFile {
                   childImageSharp {
