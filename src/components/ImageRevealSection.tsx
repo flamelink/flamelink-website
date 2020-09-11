@@ -22,12 +22,14 @@ type HtmlContent = {
 
 type Props = {
   iconUrl?: string
+  showIcon: boolean
   heading: string
   content: string | HtmlContent
   bg: 'white' | 'gray'
-  imagePosition?: 'left' | 'right'
+  imagePosition?: 'left' | 'right' | 'fullWidth'
   imageYOverlap?: string
   fluidImage?: any // TODO: fix
+  brandColour?: string
 }
 
 const ImageContainer = styled(Box)<{
@@ -73,12 +75,14 @@ const StyledBackgroundImage = styled(BackgroundImage)`
 
 const ImageRevealSection: React.FC<Props> = ({
   iconUrl,
+  showIcon,
   heading,
   content,
   bg,
   fluidImage,
   imagePosition,
-  imageYOverlap
+  imageYOverlap,
+  brandColour
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null!)
   const {
@@ -160,9 +164,14 @@ const ImageRevealSection: React.FC<Props> = ({
           `}
           className="relative flex-grow-0 flex-shrink-0 mx-8"
         >
-          <Box className="w-full md:w-1/2 relative">
+          <Box
+            css={css`
+              ${imagePosition === 'fullWidth' ? '' : tw`md:w-1/2`}
+            `}
+            className="w-full relative"
+          >
             <header className="flex justify-start items-center w-full mb-5">
-              {iconUrl && (
+              {showIcon === false ? null : iconUrl && (
                 <span className="w-8 h-8 mr-2">
                   <img
                     src={iconUrl}
@@ -184,6 +193,14 @@ const ImageRevealSection: React.FC<Props> = ({
             <PageContent
               css={css`
                 ${tw`mx-0 sm:mx-0`}
+
+                a:hover {
+                  color: ${brandColour}
+                }
+
+                ul {
+                  ${tw`list-outside ml-4`}
+                }
               `}
               dangerouslySetInnerHTML={{
                 __html: get(content, 'childMarkdownRemark.html', content)

@@ -36,6 +36,13 @@ type Props = {
   banners: Banner[]
 }
 
+const handleGTMClick = (slideTitle: string) => {
+  window.dataLayer.push({
+    event: 'e_carouselView',
+    carouselName: slideTitle.toLowerCase()
+  })
+}
+
 const Dots: React.FC<{
   slides: unknown[]
   active: number
@@ -200,7 +207,10 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                       `}
                     >
                       <SliderArrow
-                        onClick={prev}
+                        onClick={() => {
+                          handleGTMClick(`${slide.title1} ${slide.title2}`);
+                          prev();
+                        }}
                         ariaLabel="previous slide"
                         onActiveSlide={active === index - 1}
                         icon={<ArrowLeftIcon />}
@@ -266,6 +276,9 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                                     className="mb-4 md:mr-4"
                                     icon={<PlayIcon />}
                                     tabIndex={active === index - 1 ? 0 : -1}
+                                    data-click-type="cta"
+                                    data-click-location="homepage slider"
+                                    data-click-text={cta.text}
                                   >
                                     {cta.text}
                                   </Button>
@@ -290,6 +303,9 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                                     `}
                                 `}
                                 tabIndex={active === index - 1 ? 0 : -1}
+                                data-click-type="cta"
+                                data-click-location="homepage slider"
+                                data-click-text={cta.text}
                               >
                                 {cta.text}
                               </Button>
@@ -298,7 +314,10 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                         </Group>
                       </Box>
                       <SliderArrow
-                        onClick={next}
+                        onClick={() => {
+                          handleGTMClick(`${slide.title1} ${slide.title2}`);
+                          next();
+                        }}
                         ariaLabel="next slide"
                         onActiveSlide={active === index - 1}
                         icon={<ArrowRightIcon />}

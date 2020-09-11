@@ -274,6 +274,9 @@ const CaseStudiesSlider: React.FC<Props> = ({ data }) => {
                                           transform: scale(1.1);
                                         }
                                       `}
+                                      data-click-type="cta"
+                                      data-click-location={`case studies slider ${slide.title}`}
+                                      data-click-text="learn more"
                                     >
                                       <span>Learn More</span>
                                       <ArrowRight

@@ -43,6 +43,7 @@ exports.createPages = async function({ actions, graphql }) {
             slug
             excerpt
             brandColour
+            seoKeywords
             pageSections {
               imagePosition
               imageYOverlap
@@ -55,6 +56,7 @@ exports.createPages = async function({ actions, graphql }) {
               icon {
                 url
               }
+              showIcon
               image {
                 localFile {
                   childImageSharp {
@@ -151,6 +153,7 @@ exports.createPages = async function({ actions, graphql }) {
       slug,
       excerpt,
       brandColour,
+      seoKeywords,
       logo,
       backgroundImage,
       mainImage,
@@ -166,6 +169,7 @@ exports.createPages = async function({ actions, graphql }) {
         title,
         slug: fullSlug,
         excerpt,
+        seoKeywords,
         brandColour,
         logo,
         backgroundImage,

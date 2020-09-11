@@ -148,6 +148,9 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
                     color="primary"
                     as={Link}
                     to={get(persona, 'cta.link', '')}
+                    data-click-type="cta"
+                    data-click-location="firebase gcp section"
+                    data-click-text="learn more"
                   >
                     {get(persona, 'cta.text', '')}
                   </Button>
@@ -189,6 +192,9 @@ function HomePage({ data }: { data: HomePageQueryQuery }) {
               as={Link}
               to={get(pageData, 'featuresSection.cta.link', '')}
               className="mt-5"
+              data-click-type="cta"
+              data-click-location="key features section"
+              data-click-text="learn more"
             >
               {get(pageData, 'featuresSection.cta.text', '')}
             </Button>

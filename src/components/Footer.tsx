@@ -116,6 +116,14 @@ function Footer() {
     transitionState.hasEntered &&
     (!href || href === get(transitionState, 'currentLocation.href', ''))
 
+  const handleGTMClick = (menuName: string) => {
+    window.dataLayer.push({
+      event: 'e_menuNav',
+      menuType: 'footer',
+      menuName
+    })
+  }
+
   return (
     <footer
       className="bg-gray-800 relative"
@@ -140,13 +148,25 @@ function Footer() {
           <div className="mb-4 md:mb-6">
             <Logo className="inline-block" />
           </div>
-          <NavLink as={ExternalLink} href={TERMS_AND_CONDITIONS_LINK}>
+          <NavLink
+            as={ExternalLink}
+            href={TERMS_AND_CONDITIONS_LINK}
+            onClick={() => handleGTMClick('Terms & Conditions')}
+          >
             Terms &amp; Conditions
           </NavLink>
-          <NavLink as={ExternalLink} href={PRIVACY_POLICY_LINK}>
+          <NavLink
+            as={ExternalLink}
+            href={PRIVACY_POLICY_LINK}
+            onClick={() => handleGTMClick('Privacy Policy')}
+          >
             Privacy Policy
           </NavLink>
-          <NavLink as={Link} to="/security">
+          <NavLink
+            as={Link}
+            to="/security"
+            onClick={() => handleGTMClick('Security')}
+          >
             Security
           </NavLink>
           <small className="text-base mt-5">
@@ -157,6 +177,7 @@ function Footer() {
               <ExternalLink
                 className="outline-none focus:text-brand-dark"
                 href={GITHUB_LINK}
+                onClick={() => handleGTMClick('Link to GitHub account')}
               >
                 <GitHubIcon aria-label="Link to GitHub account" />
               </ExternalLink>
@@ -165,6 +186,7 @@ function Footer() {
               <ExternalLink
                 className="outline-none focus:text-brand-dark"
                 href={YOUTUBE_LINK}
+                onClick={() => handleGTMClick('Link ot YouTube channel')}
               >
                 <YouTubeIcon aria-label="Link to YouTube channel" />
               </ExternalLink>
@@ -173,6 +195,7 @@ function Footer() {
               <ExternalLink
                 className="outline-none focus:text-brand-dark"
                 href={TWITTER_LINK}
+                onClick={() => handleGTMClick('Link to Twitter account')}
               >
                 <TwitterIcon aria-label="Link to Twitter account" />
               </ExternalLink>
@@ -181,6 +204,7 @@ function Footer() {
               <ExternalLink
                 className="outline-none focus:text-brand-dark"
                 href={LINKEDIN_LINK}
+                onClick={() => handleGTMClick('Link to LinkedIn account')}
               >
                 <LinkedInIcon aria-label="Link to LinkedIn account" />
               </ExternalLink>
@@ -189,6 +213,7 @@ function Footer() {
               <ExternalLink
                 className="outline-none focus:text-brand-dark"
                 href={FACEBOOK_LINK}
+                onClick={() => handleGTMClick('Link to Facebook page')}
               >
                 <FacebookIcon aria-label="Link to Facebook page" />
               </ExternalLink>
@@ -197,6 +222,7 @@ function Footer() {
               <ExternalLink
                 className="outline-none focus:text-brand-dark"
                 href={INSTAGRAM_LINK}
+                onClick={() => handleGTMClick('Link to Instagram account')}
               >
                 <InstagramIcon aria-label="Link to Instagram account" />
               </ExternalLink>
@@ -258,7 +284,11 @@ function Footer() {
 
         <Column>
           <h3 className="font-medium mb-2 md:mb-5 uppercase">Flamelinks</h3>
-          <NavLink as={ExternalLink} href={FLAMELINK_REGISTRATION_LINK}>
+          <NavLink
+            as={ExternalLink}
+            href={FLAMELINK_REGISTRATION_LINK}
+            onClick={() => handleGTMClick('Register Today')}
+          >
             Register Today
           </NavLink>
           <SolarFlareTypeForm
@@ -272,19 +302,39 @@ function Footer() {
           `}
         >
           <h3 className="font-medium mb-2 md:mb-5 uppercase">Support</h3>
-          <NavLink as={ExternalLink} href={DOCUMENTATION_LINK}>
+          <NavLink
+            as={ExternalLink}
+            href={DOCUMENTATION_LINK}
+            onClick={() => handleGTMClick('Documentation')}
+          >
             Documentation
           </NavLink>
-          <NavLink as={Link} to="/support">
+          <NavLink
+            as={Link}
+            to="/support"
+            onClick={() => handleGTMClick('Support')}
+          >
             Support
           </NavLink>
-          <NavLink as={Link} to="/flamelink-specialist-services">
+          <NavLink
+            as={Link}
+            to="/flamelink-specialist-services"
+            onClick={() => handleGTMClick('Specialist Services')}
+          >
             Specialist Services
           </NavLink>
-          <NavLink as={ExternalLink} href={APP_CHANGELOG_LINK}>
+          <NavLink
+            as={ExternalLink}
+            href={APP_CHANGELOG_LINK}
+            onClick={() => handleGTMClick('Changelog')}
+          >
             Changelog
           </NavLink>
-          <NavLink as={ExternalLink} href={GITHUB_LINK}>
+          <NavLink
+            as={ExternalLink}
+            href={GITHUB_LINK}
+            onClick={() => handleGTMClick('SDKs')}
+          >
             SDK's
           </NavLink>
         </Column>

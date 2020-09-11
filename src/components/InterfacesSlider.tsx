@@ -154,6 +154,8 @@ const InterfacesSlider = ({
       </Slider>
       {!withoutCTA && (
         <Button
+          dataClickLocation="interfaces slider"
+          dataClickText="get started"
           variant="contained"
           color="primary"
           as={ExternalLink}
