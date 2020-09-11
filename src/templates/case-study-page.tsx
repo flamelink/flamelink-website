@@ -51,10 +51,8 @@ const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
         </h1>
       </BackgroundImage>
       {get(pageContext, 'pageSections', []).map(
-        (pageSection, index: number) => {
-          console.log(pageSection);
-          
-          return <ImageRevealSection
+        (pageSection, index: number) => (
+          <ImageRevealSection
             key={index}
             bg={index % 2 === 0 ? 'white' : 'gray'}
             iconUrl={get(pageSection, 'icon[0].url')}
@@ -66,7 +64,7 @@ const CaseStudyPage: React.FC<PageProps> = ({ pageContext }) => {
             fluidImage={get(pageSection, 'image[0].localFile')}
             brandColour={pageContext.brandColour}
           />
-        }
+        )
       )}
     </>
   )
