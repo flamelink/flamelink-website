@@ -127,7 +127,7 @@ const NavigationItem: React.FC<CmsNavItem> = item => {
     return (
       <Button
         dataClickLocation="header"
-        dataClickText="get started"
+        dataClickText={item.title}
         key={key}
         variant="contained"
         color="secondary"
