@@ -1,21 +1,7 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import get from 'lodash/get'
-import styled from '@emotion/styled'
 import { css } from '@emotion/core'
-import tw from 'tailwind.macro'
-import { IoIosCheckmarkCircleOutline as SuccessIcon } from 'react-icons/io'
-import { Box } from 'reakit/Box'
-import {
-  unstable_Form as Form,
-  unstable_FormLabel,
-  unstable_FormInput,
-  unstable_FormMessage,
-  unstable_FormSubmitButton as FormSubmitButton
-} from 'reakit/Form'
-import { Section, SectionContainer, SectionTitle } from './Section'
-import Button from './Button'
-import { useContactUsForm } from '../hooks/contact-us-form'
 
 const NotificationsBanner: React.FC = () => {
   const { flamelinkNotificationBannerContent } = useStaticQuery(graphql`
