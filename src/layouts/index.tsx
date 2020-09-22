@@ -7,6 +7,7 @@ import AppProviders from '../components/AppProviders'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ErrorBoundary from '../components/ErrorBoundary'
+import NotificationsBanner from '../components/NotificationsBanner'
 
 type LayoutProps = {
   location: unknown
@@ -48,6 +49,7 @@ const Layout: React.FC<LayoutProps> = ({ location, children }) => {
                 config: TRANSITION_SPRING_CONFIG
               }}
             >
+              <NotificationsBanner />
               <Header />
               {typeof window === 'undefined' ? (
                 children
