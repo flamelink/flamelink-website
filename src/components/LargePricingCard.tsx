@@ -86,6 +86,7 @@ const LargePricingCard = ({
         <PlanFeaturesList
           features={get(plan, 'features', [])}
           className={` ${isPrimary ? 'text-white' : 'text-heading'}`}
+          isPrimary={isPrimary}
         />
       </Box>
     </article>
