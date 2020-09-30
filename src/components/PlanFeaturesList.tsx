@@ -7,12 +7,14 @@ type PlanFeaturesListProps = {
   features: PricingPlan['features']
   caged?: boolean
   className?: string
+  isPrimary?: boolean
 }
 
 const PlanFeaturesList = ({
   features,
   caged = false,
-  className = ''
+  className = '',
+  isPrimary = false
 }: PlanFeaturesListProps) => {
   return (
     <ul
@@ -50,7 +52,9 @@ const PlanFeaturesList = ({
             <>
               <Link
                 to={feature.link}
-                className={`mr-4 text-brand hover:underline ${
+                className={`mr-4 ${
+                  isPrimary ? 'text-white font-bold' : 'text-brand'
+                } hover:underline ${
                   feature.bold ? 'font-bold' : 'font-normal'
                 }`}
               >
