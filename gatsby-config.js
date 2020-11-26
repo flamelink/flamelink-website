@@ -21,7 +21,7 @@ module.exports = {
     title: 'Flamelink',
     tagline: 'A Firebase CMS',
     description:
-      'Flamelink.io is an easy to use, content centric CMS that integrates with Google\'s Firebase to build Mobile and Web Apps, Digital Campaigns, and Websites.',
+      'Flamelink.io is a headless Firebase CMS that integrates with Cloud Firestore and the Realtime Database. Build iOS and Android apps, PWAs, VR and AR experiences, IoT platforms, websites, blogs, e-commerce/retail platforms, AI and Machine Learning applications.',
     socialLinks: {
       facebook: 'https://www.facebook.com/FlamelinkCMS/',
       twitter: 'https://twitter.com/flamelinkcms',
