@@ -64,7 +64,7 @@ const SEO: React.FC<Props> = ({
   // Take first 300 characters
   const metaDescription = take(
     (description || site.siteMetadata.description || '').split(''),
-    300
+    360
   ).join('')
 
   const metaKeywords = isString(keywords) ? keywords.split(',').map(trim) : keywords;
