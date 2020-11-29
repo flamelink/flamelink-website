@@ -144,6 +144,9 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
           css={css`
             margin-top: -7rem;
             scroll-snap-type: x mandatory;
+            @media (max-width: 767px) {
+              margin-top: -4rem;
+            }
           `}
         >
           <Carousel slides={banners} interval={8000} isPaused={isHovering}>
@@ -208,8 +211,8 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                     >
                       <SliderArrow
                         onClick={() => {
-                          handleGTMClick(`${slide.title1} ${slide.title2}`);
-                          prev();
+                          handleGTMClick(`${slide.title1} ${slide.title2}`)
+                          prev()
                         }}
                         ariaLabel="previous slide"
                         onActiveSlide={active === index - 1}
@@ -315,8 +318,8 @@ const HomepageSlider: React.FC<Props> = ({ banners }) => {
                       </Box>
                       <SliderArrow
                         onClick={() => {
-                          handleGTMClick(`${slide.title1} ${slide.title2}`);
-                          next();
+                          handleGTMClick(`${slide.title1} ${slide.title2}`)
+                          next()
                         }}
                         ariaLabel="next slide"
                         onActiveSlide={active === index - 1}
