@@ -77,7 +77,7 @@
     "gatsby-plugin-transitions": "jperasmus/gatsby-plugin-transitions#master",
     "gatsby-plugin-typescript": "2.1.26",
     "gatsby-source-filesystem": "2.1.46",
-    "gatsby-source-flamelink": "3.0.0-alpha.2",
+    "gatsby-source-flamelink": "^3.0.4",
     "gatsby-transformer-sharp": "2.3.12",
     "graphql": "14.5.8",
     "intersection-observer": "0.7.0",
