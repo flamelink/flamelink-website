@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/browser'
 import './src/styles/globals.css'
-import 'typeface-roboto'
+import 'typeface-montserrat'
 
 export const onClientEntry = () => {
   // IntersectionObserver polyfill for gatsby-background-image (Safari, IE)

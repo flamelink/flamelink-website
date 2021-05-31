@@ -31,7 +31,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          'Roboto',
+          'Montserrat',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',

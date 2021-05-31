@@ -95,7 +95,7 @@
     "react-typeform-embed": "0.2.1",
     "reakit": "1.0.0-beta.11",
     "schema-dts": "0.4.5",
-    "typeface-roboto": "0.0.75",
+    "typeface-montserrat": "^1.1.13",
     "yup": "0.28.0"
   },
   "devDependencies": {
