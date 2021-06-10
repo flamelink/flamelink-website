@@ -339,7 +339,6 @@ function Footer() {
           </NavLink>
         </Column>
       </FooterNav>
-      <StripedToe style={{ display: isVisible ? 'block' : 'none' }} />
     </footer>
   )
 }
