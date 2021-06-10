@@ -8,6 +8,8 @@ const BRAND_COLOR_TEXT_HEADING = '#646464'
 const BRAND_COLOR_LIGHT_TEXT_BODY = '#4a4a4a'
 const BRAND_COLOR_TEXT_BODY = '#323232'
 
+const NEW_ORANGE_COLOR = '#ff5722';
+
 module.exports = {
   theme: {
     extend: {
@@ -15,6 +17,7 @@ module.exports = {
         default: '0 0 25px 0 rgba(0, 0, 0, 0.15)'
       },
       colors: {
+        'new-brand': NEW_ORANGE_COLOR,
         brand: BRAND_COLOR,
         'brand-light': BRAND_COLOR_LIGHT,
         'brand-dark': BRAND_COLOR_DARK,
@@ -48,7 +51,8 @@ module.exports = {
       fontSize: {
         '4xl': '2rem',
         '5xl': '2.5rem',
-        '6xl': '3.125rem'
+        '6xl': '3.125rem',
+        '7xl': '3.75rem'
       },
       spacing: {
         '30': '7.5rem',
@@ -73,7 +77,8 @@ module.exports = {
       padding: {
         '15': '3.75rem',
         '23': '5.75rem',
-        '25': '6.25rem'
+        '25': '6.25rem',
+        '44': '11rem'
       }
     }
   },
