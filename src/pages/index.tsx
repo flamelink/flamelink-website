@@ -108,20 +108,12 @@ function HomePage({ data }: { data: HomepageRedesignQuery }) {
 
             <Group className="flex flex-col md:flex-row flex-no-wrap justify-start items-start">
               <Button
-                key={0}
+                dataClickLocation="hero section"
+                dataClickText={ctaGetStarted.label}
+                variant="contained"
                 color="secondary"
-                as={Link}
-                to={ctaGetStarted.link}
-                className="mb-4 md:mr-4"
-                css={props => css`
-                  ${!props.device.sizes.mdUp &&
-                    css`
-                      min-width: 10.75rem;
-                    `}
-                `}
-                data-click-type="cta"
-                data-click-location="homepage slider"
-                data-click-text={ctaGetStarted.label}
+                href="https://app.flamelink.io"
+                as={ExternalLink}
               >
                 {ctaGetStarted.label}
               </Button>
