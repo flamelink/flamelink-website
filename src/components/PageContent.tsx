@@ -53,3 +53,8 @@ export const PageContent = styled.div`
     ${tw`underline hover:text-brand`}
   }
 `
+
+export const HomePageContent = styled.div`
+  ${tw`text-base leading-normal
+  `}
+`

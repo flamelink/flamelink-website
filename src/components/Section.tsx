@@ -70,3 +70,39 @@ export const SectionTitle = styled.h2`
 
   margin-bottom: 3.125rem;
 `
+
+export const HomepageSection = styled(UnstyledSection)`
+  ${tw`
+    w-full max-w-full
+    h-auto
+    flex
+    flex-row
+    px-44
+  `}
+
+  scroll-snap-align: start;
+`
+
+export const HomepageSectionContainer = tw.div`
+  flex
+  flex-col
+  w-full
+`
+
+export const HomepageSectionTitle = styled.h1`
+  ${tw`
+    font-semibold
+    text-white
+    text-7xl
+    leading-none
+  `}
+`
+
+export const HomepageSectionSubTitle = styled.h2`
+  ${tw`
+    font-semibold
+    text-white
+    text-3xl
+    leading-snug
+  `}
+`

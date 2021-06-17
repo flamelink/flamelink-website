@@ -15,13 +15,13 @@ import Modal from '../Modal'
 import { usePrevious } from '../../hooks/use-previous'
 
 const MainHeader = styled.header<{ sticky: boolean }>`
-  ${tw`top-0 w-screen z-30`}
+  ${tw`top-0 w-screen z-30 bg-new-brand`}
 
   ${props =>
     props.sticky
-      ? tw`sticky bg-brand`
+      ? tw`sticky`
       : tw`relative`}
-
+  
   transition: background 350ms linear;
 `
 

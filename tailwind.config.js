@@ -8,7 +8,7 @@ const BRAND_COLOR_TEXT_HEADING = '#646464'
 const BRAND_COLOR_LIGHT_TEXT_BODY = '#4a4a4a'
 const BRAND_COLOR_TEXT_BODY = '#323232'
 
-const NEW_ORANGE_COLOR = '#ff5722';
+const NEW_ORANGE_COLOR = '#ff5722'
 
 module.exports = {
   theme: {
@@ -49,6 +49,7 @@ module.exports = {
         ]
       },
       fontSize: {
+        '22': '1.375rem',
         '4xl': '2rem',
         '5xl': '2.5rem',
         '6xl': '3.125rem',
@@ -71,6 +72,7 @@ module.exports = {
         '7xl': '86.4375rem'
       },
       margin: {
+        '7': '1.75rem',
         '9': '2.25rem',
         '15': '3.75rem'
       },
