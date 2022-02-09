@@ -128,7 +128,7 @@ jobs:
 
       - name: Deploy to Firebase Hosting (Production)
         if: github.event.deployment.ref == 'master'
-        uses: w9jds/firebase-action@v1.3.1
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:production
         env:
@@ -137,7 +137,7 @@ jobs:
 
       - name: Deploy to Firebase Hosting (Staging)
         if: github.event.deployment.ref == 'develop'
-        uses: w9jds/firebase-action@v1.3.1
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:staging
         env:
