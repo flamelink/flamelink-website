@@ -114,7 +114,7 @@ const SliderArrow: React.FC<SliderArrowProps> = ({
   <Button
     onClick={onClick}
     aria-label={ariaLabel}
-    className="mt-16 text-gray-400 hover:text-gray-600 focus:shadow-outline hidden lg:block"
+    className="mt-16 -ml-6 text-gray-400 hover:text-gray-600 focus:shadow-outline hidden lg:block"
     css={css`
       :focus {
         outline: 0;
