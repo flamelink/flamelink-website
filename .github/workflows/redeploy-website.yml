@@ -83,7 +83,7 @@ jobs:
           GTM_TRACKING_ID: ${{ secrets.GTM_TRACKING_ID }}
 
       - name: Archive Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: public
           path: public
@@ -121,7 +121,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Download Build Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: public
           path: public
